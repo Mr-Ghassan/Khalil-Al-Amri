@@ -10,7 +10,7 @@ COPY . .
 ARG MEDIA_BUNDLE_URLS
 ARG MEDIA_BUNDLE_SHA256
 RUN MEDIA_BUNDLE_URLS="$MEDIA_BUNDLE_URLS" MEDIA_BUNDLE_SHA256="$MEDIA_BUNDLE_SHA256" node scripts/fetch-media.mjs && \
-    tar -xzf /tmp/media.tgz -C public && rm /tmp/media.tgz && \
+    mkdir -p public && tar -xzf /tmp/media.tgz -C public && rm /tmp/media.tgz && \
     test -f public/media/og-default.jpg && test -f public/brand/KHA_Signature_Primary_AR_PrimaryColor.min.svg
 ARG PUBLIC_SITE_MODE=preview
 ARG SITE_URL=https://www.khalilprop.com
