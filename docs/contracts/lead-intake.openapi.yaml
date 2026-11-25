@@ -1,0 +1,73 @@
+openapi: 3.1.0
+info:
+  title: Khalil Al Amri — Lead Intake API (contract, NOT implemented)
+  version: 0.1.0-draft
+  description: |
+    Secure intake endpoint the website will call once OPEN-05/06/07/09 are decided.
+    The browser form already applies the same validation (src/lib/leads/schema.ts); the server MUST re-apply it.
+    The website remains fully functional without this API and without AqarCRM.
+    Pipeline: Website → Intake API → validation & consent audit → dedupe (E.164 phone, per organisation)
+    → lead store → notification queue → assignment → follow-up. AqarCRM (optional) receives events
+    through its own documented API — never by direct database access.
+servers:
+  - url: https://www.khalilprop.com/api
+paths:
+  /leads:
+    post:
+      summary: Register interest
+      parameters:
+        - in: header
+          name: Idempotency-Key
+          required: true
+          schema: { type: string, format: uuid }
+          description: Generated once per form session; a retry with the same key returns the original result.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LeadRequest' }
+      responses:
+        '201':
+          description: Stored. The reference is non-identifying and safe to show to the user.
+          content: { application/json: { schema: { $ref: '#/components/schemas/LeadAccepted' } } }
+        '200':
+          description: Idempotent replay of an earlier request (same Idempotency-Key).
+          content: { application/json: { schema: { $ref: '#/components/schemas/LeadAccepted' } } }
+        '422':
+          description: Validation failed — field codes match src/lib/leads/schema.ts ErrorCode.
+          content: { application/json: { schema: { $ref: '#/components/schemas/ValidationError' } } }
+        '429': { description: Rate limited (per IP and per normalised phone). }
+        '503': { description: Not stored. The client must show "not sent" — never a success. }
+components:
+  schemas:
+    LeadRequest:
+      type: object
+      required: [name, phone, intent, consentContact, locale, page]
+      additionalProperties: false
+      properties:
+        name: { type: string, minLength: 2, maxLength: 80 }
+        phone: { type: string, description: 'Any common format; normalised server-side to E.164 (+968 default).' }
+        intent: { type: string, enum: [home, investment, compare, general] }
+        consentContact: { type: boolean, const: true }
+        consentMarketing: { type: boolean, default: false, description: Separate and never pre-ticked. }
+        consentVersion: { type: string, example: draft-2026-11-25 }
+        channel: { type: string, enum: [call, email], description: WhatsApp added only after OPEN-04. }
+        email: { type: string, format: email, maxLength: 120 }
+        budget: { type: string, enum: [lt40, 40-80, 80-150, gt150, discuss], description: Thousands of Omani rials. }
+        timeframe: { type: string, enum: [3m, 3-12m, gt12m, exploring] }
+        details: { type: string, maxLength: 1200 }
+        locale: { type: string, enum: [ar, en] }
+        page: { type: string, description: Path of the page that hosted the form. }
+        website: { type: string, maxLength: 0, description: Honeypot — must be empty. }
+    LeadAccepted:
+      type: object
+      required: [reference, status]
+      properties:
+        reference: { type: string, example: KHA-7Q4M-2X }
+        status: { type: string, enum: [stored] }
+    ValidationError:
+      type: object
+      properties:
+        errors:
+          type: object
+          additionalProperties: { type: string, example: phone.invalid }

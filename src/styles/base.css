@@ -242,6 +242,7 @@ h1, h2, h3, h4 { text-wrap: balance; font-weight: 600; }
 .btn:hover { --btn-bg: var(--kha-color-ink); }
 .btn .arrow { inline-size: 18px; block-size: 18px; flex: none; }
 :dir(rtl) .btn .arrow, [dir='rtl'] .btn .arrow { transform: scaleX(-1); }
+[dir='rtl'] [dir='ltr'] .btn .arrow { transform: none; }
 .btn--ghost { --btn-bg: transparent; --btn-fg: var(--tone-head); --btn-bd: color-mix(in srgb, currentColor 35%, transparent); }
 .btn--ghost:hover { --btn-bg: color-mix(in srgb, var(--tone-head) 8%, transparent); --btn-bd: currentColor; }
 [data-tone='deep'] .btn:not(.btn--ghost), [data-tone='night'] .btn:not(.btn--ghost) { --btn-bg: var(--kha-color-sarooj); --btn-fg: var(--kha-color-bahr); }

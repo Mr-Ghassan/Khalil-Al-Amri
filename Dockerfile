@@ -5,11 +5,12 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --no-audit --no-fund
 COPY . .
-# Portrait derivatives + brand vectors are not in Git. They arrive as a tar.gz bundle whose URL is a
-# private build variable on the platform (Drive delivery folder). A build without it fails on purpose.
-ARG MEDIA_BUNDLE_URL
-RUN test -n "$MEDIA_BUNDLE_URL" || (echo "MEDIA_BUNDLE_URL is required" && exit 1); \
-    wget -qO /tmp/media.tgz "$MEDIA_BUNDLE_URL" && tar -xzf /tmp/media.tgz -C public && rm /tmp/media.tgz && \
+# Portrait derivatives + brand vectors are not in Git (public repo). They arrive as a checksummed
+# bundle whose part URLs are build variables on the platform. A build without them fails on purpose.
+ARG MEDIA_BUNDLE_URLS
+ARG MEDIA_BUNDLE_SHA256
+RUN MEDIA_BUNDLE_URLS="$MEDIA_BUNDLE_URLS" MEDIA_BUNDLE_SHA256="$MEDIA_BUNDLE_SHA256" node scripts/fetch-media.mjs && \
+    tar -xzf /tmp/media.tgz -C public && rm /tmp/media.tgz && \
     test -f public/media/og-default.jpg && test -f public/brand/KHA_Signature_Primary_AR_PrimaryColor.min.svg
 ARG PUBLIC_SITE_MODE=preview
 ARG SITE_URL=https://www.khalilprop.com
