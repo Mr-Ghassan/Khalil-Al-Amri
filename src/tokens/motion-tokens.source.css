@@ -1,0 +1,54 @@
+/* KHA Motion System v1.0 — generated from motion-tokens.json. Do not edit by hand. */
+:root {
+  --kha-motion-fps-canonical: 30;
+  --kha-motion-fps-supported: cubic-bezier(25, 30, 50, 60);
+  --kha-motion-duration-micro: 160ms;
+  --kha-motion-duration-fast: 280ms;
+  --kha-motion-duration-standard: 560ms;
+  --kha-motion-duration-slow: 900ms;
+  --kha-motion-duration-hero: 1600ms;
+  --kha-motion-delay-micro: 60ms;
+  --kha-motion-delay-sequence: 120ms;
+  --kha-motion-delay-beat: 280ms;
+  --kha-motion-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --kha-motion-ease-enter: cubic-bezier(0.22, 1, 0.36, 1);
+  --kha-motion-ease-exit: cubic-bezier(0.5, 0, 0.75, 0);
+  --kha-motion-ease-precision: cubic-bezier(0.2, 0, 0, 1);
+  --kha-motion-ease-ocean: cubic-bezier(0.37, 0, 0.18, 1);
+  --kha-motion-ease-human: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --kha-motion-ease-impact: cubic-bezier(0.12, 0.8, 0.22, 1);
+  --kha-motion-ease-data: cubic-bezier(0.33, 0, 0.1, 1);
+  --kha-motion-ease-signature: cubic-bezier(0.55, 0.05, 0.35, 1);
+  --kha-motion-distance-xs: 8;
+  --kha-motion-distance-s: 16;
+  --kha-motion-distance-m: 32;
+  --kha-motion-distance-l: 64;
+  --kha-motion-read-base: 900ms;
+  --kha-motion-read-perWord: 300ms;
+  --kha-motion-read-min: 1600ms;
+  --kha-motion-read-number: 1400ms;
+  --kha-motion-ambient-cycle: 24000ms;
+  --kha-motion-ambient-drift: 0.025;
+  --kha-motion-ambient-breathing: 0.04;
+  --kha-motion-mawj-flow: 14;
+  --kha-motion-mawj-phase: 0.18;
+  --kha-motion-mawj-parallax: 0.35;
+  --kha-motion-ripple-period: 2600ms;
+  --kha-motion-ripple-rings: 3;
+  --kha-motion-ripple-decay: 0.6;
+  --kha-motion-transition-duration: 560ms;
+  --kha-motion-intro-micro: 900ms;
+  --kha-motion-intro-standard: 2400ms;
+  --kha-motion-intro-editorial: 3200ms;
+  --kha-motion-intro-data: 3000ms;
+  --kha-motion-outro-micro: 1600ms;
+  --kha-motion-outro-standard: 3600ms;
+  --kha-motion-outro-extended: 5200ms;
+  --kha-motion-caption-maxLines: 2;
+  --kha-motion-caption-maxCharsLine: 30;
+  --kha-motion-caption-minOnScreen: 1200;
+  --kha-motion-caption-emphasisPerCaption: 1;
+  --kha-motion-reduced-fade: 200;
+  --kha-motion-reduced-displacement: 0;
+}
+@media (prefers-reduced-motion: reduce) { :root { --kha-motion-reduced: 1; } }

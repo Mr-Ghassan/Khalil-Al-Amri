@@ -1,0 +1,66 @@
+---
+/**
+ * Bilingual 404 — served for any unknown path (Arabic and English side by side, since the
+ * requested path may belong to either locale). Offers the useful routes instead of a dead end.
+ */
+import '@/styles/fonts.css';
+import '@/styles/tokens.generated.css';
+import '@/styles/base.css';
+import Signature from '@/components/brand/Signature.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { href } from '@/i18n/routes';
+---
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>الصفحة غير موجودة · Page not found — خليل العامري</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <main class="nf ambient-day grain" data-tone="day">
+      <a class="nf__home" href="/" aria-label="الرئيسية — Home"><Signature variant="compact" surface="light" lang="ar" width="150px" loading="eager" /></a>
+      <span class="horizon nf__horizon" aria-hidden="true"></span>
+      <div class="nf__cols">
+        <section class="nf__col" lang="ar" dir="rtl" aria-labelledby="nf-ar">
+          <p class="eyebrow"><span class="t-meta">404</span></p>
+          <h1 class="t-h1" id="nf-ar">هذي الصفحة مو موجودة.</h1>
+          <p class="t-lead t-muted">ممكن الرابط تغيّر أو انكتب بشكل مختلف. هذي أقرب الطرق:</p>
+          <ul class="nf__links">
+            <li><a href={href('ar', 'home')}>الرئيسية</a></li>
+            <li><a href={href('ar', 'insights')}>المعرفة العقارية</a></li>
+            <li><a href={href('ar', 'advisory')}>كيف أساعدك</a></li>
+            <li><a href={href('ar', 'contact')}>تواصل</a></li>
+          </ul>
+          <a class="btn" href={href('ar', 'interest')}>اسأل خليل<Icon name="arrow" class="arrow" /></a>
+        </section>
+        <section class="nf__col" lang="en" dir="ltr" aria-labelledby="nf-en">
+          <p class="eyebrow"><span class="t-meta">404</span></p>
+          <h2 class="t-h1" id="nf-en">This page doesn’t exist.</h2>
+          <p class="t-lead t-muted">The link may have changed or been mistyped. Here are the nearest routes:</p>
+          <ul class="nf__links">
+            <li><a href={href('en', 'home')}>Home</a></li>
+            <li><a href={href('en', 'insights')}>Insights</a></li>
+            <li><a href={href('en', 'advisory')}>How I help</a></li>
+            <li><a href={href('en', 'contact')}>Contact</a></li>
+          </ul>
+          <a class="btn" href={href('en', 'interest')}>Ask Khalil<Icon name="arrow" class="arrow" /></a>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
+<style>
+  .nf { min-block-size: 100svh; position: relative; padding: clamp(24px, 5vw, 64px) var(--web-gutter); display: grid; align-content: start; gap: clamp(48px, 10vh, 120px); }
+  .nf__home { justify-self: start; }
+  .nf__horizon { inset-block-start: clamp(120px, 20vh, 200px); }
+  .nf__cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(32px, 6vw, 96px); max-inline-size: var(--web-page-max); }
+  .nf__col { display: grid; gap: 18px; align-content: start; }
+  .nf__col[lang='en'] { font-family: var(--web-font-lat); }
+  .nf__links { list-style: none; padding: 0; display: grid; gap: 4px; }
+  .nf__links a { display: inline-block; padding-block: 8px; color: var(--kha-color-bahr); font-weight: 500; }
+  .nf .btn { justify-self: start; }
+  @media (max-width: 800px) { .nf__cols { grid-template-columns: 1fr; } }
+</style>

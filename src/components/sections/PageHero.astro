@@ -1,0 +1,89 @@
+---
+/**
+ * Inner-page hero. Same "eye level" rule as the home hero: when a portrait is given, the horizon
+ * line crosses behind Khalil at the height of his eyes (`eye` = measured fraction of the cut-out).
+ */
+import Portrait from '@/components/brand/Portrait.astro';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  portrait?: { id: string; alt: string; eye: number; aspect: number };
+  crumbs?: { label: string; href?: string }[];
+  crumbLabel?: string;
+}
+const { eyebrow, title, lead, portrait, crumbs, crumbLabel } = Astro.props;
+---
+<section class:list={['phero ambient-day grain', portrait ? 'phero--figure' : 'phero--text']} data-tone="day" aria-labelledby="page-title"
+  style={portrait ? `--eye:${portrait.eye};--aspect:${portrait.aspect}` : undefined}>
+  <div class="wrap phero__grid">
+    <div class="phero__text">
+      {crumbs && (
+        <nav class="phero__crumbs t-small" aria-label={crumbLabel}>
+          <ol>
+            {crumbs.map((c) => <li>{c.href ? <a href={c.href}>{c.label}</a> : <span aria-current="page">{c.label}</span>}</li>)}
+          </ol>
+        </nav>
+      )}
+      <p class="eyebrow"><span class="t-meta">{eyebrow}</span></p>
+      <h1 class="t-h1" id="page-title">{title}</h1>
+      {lead && <p class="t-lead t-muted phero__lead">{lead}</p>}
+      <slot />
+    </div>
+    {portrait && (
+      <div class="phero__figure">
+        <span class="phero__glow" aria-hidden="true"></span>
+        <span class="phero__horizon horizon" aria-hidden="true"></span>
+        <Portrait id={portrait.id} alt={portrait.alt} sizes="(max-width: 900px) 70vw, 420px" priority class="phero__portrait" />
+      </div>
+    )}
+  </div>
+  {!portrait && <span class="phero__rule horizon" aria-hidden="true"></span>}
+</section>
+
+<style>
+  .phero { position: relative; overflow: clip; --grain: 0.05; --glow-x: 74%; --glow-y: 40%; }
+  :global([dir='rtl']) .phero { --glow-x: 26%; }
+  .phero__grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); gap: clamp(24px, 5vw, 80px); align-items: end; }
+  .phero--text .phero__grid { grid-template-columns: minmax(0, 1fr); }
+  .phero__text { display: grid; gap: 18px; padding-block: clamp(48px, 8vw, 112px); max-inline-size: 48rem; }
+  .phero__lead { max-inline-size: 40rem; }
+  .phero__crumbs ol { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; color: var(--kha-color-slate); }
+  .phero__crumbs li + li::before { content: '/'; margin-inline-end: 8px; opacity: 0.6; }
+  .phero__crumbs a { color: var(--kha-color-bahr); }
+
+  /* Figure box: shows the head and upper body; the eye line sits at 18% of the box. */
+  .phero__figure {
+    --box: clamp(380px, 52svh, 560px);
+    --fig-h: calc(var(--box) * 1.45);
+    --fig-top: calc(var(--box) * 0.18 - var(--eye) * var(--fig-h));
+    position: relative; block-size: var(--box); align-self: end;
+  }
+  .phero :global(.phero__portrait) {
+    position: absolute; inset-block-start: var(--fig-top); inset-inline-start: 50%; translate: -50% 0;
+    block-size: var(--fig-h); inline-size: auto; aspect-ratio: var(--aspect); z-index: 2;
+    -webkit-mask-image: linear-gradient(180deg, #000 0, #000 56%, transparent 68%);
+            mask-image: linear-gradient(180deg, #000 0, #000 56%, transparent 68%);
+  }
+  :global([dir='rtl']) .phero :global(.phero__portrait) { translate: 50% 0; }
+  .phero :global(.phero__portrait img) { block-size: 100%; inline-size: auto; }
+  .phero__glow {
+    position: absolute; z-index: 0; inset-inline: -25%; inset-block-start: -4%; block-size: 70%;
+    background: radial-gradient(closest-side, #fff, color-mix(in srgb, var(--kha-ambient-light-glow) 70%, transparent) 50%, transparent);
+  }
+  /* The line runs from the outer page edge, behind Khalil, and fades out before the text column. */
+  .phero__horizon {
+    inset-block-start: calc(var(--box) * 0.18); inset-inline-start: -18%; inset-inline-end: -60vw; inline-size: auto; z-index: 1;
+    background: linear-gradient(var(--fade-dir, 90deg), transparent 0, var(--tone-horizon) 22%, var(--tone-horizon) 100%);
+  }
+  :global([dir='rtl']) .phero__horizon { --fade-dir: 270deg; }
+  .phero__rule { inset-block-end: 0; }
+  .phero--text { --glow-x: 88%; --glow-y: -20%; }
+  :global([dir='rtl']) .phero--text { --glow-x: 12%; }
+  @media (max-width: 900px) {
+    .phero__grid { grid-template-columns: 1fr; }
+    .phero__text { padding-block: 40px 8px; }
+    .phero__figure { --box: clamp(300px, 44svh, 420px); }
+  }
+</style>

@@ -1,0 +1,132 @@
+---
+import { render } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import InsightCard from '@/components/ui/InsightCard.astro';
+import DraftNote from '@/components/ui/DraftNote.astro';
+import Icon from '@/components/ui/Icon.astro';
+import AnchorCTA from '@/components/sections/AnchorCTA.astro';
+import { getInsights, categoryLabel, formatLabel, formatDate, type Insight } from '@/lib/content';
+import { t } from '@/i18n/ui';
+import { href, type Locale } from '@/i18n/routes';
+import { IS_PREVIEW, person } from '@/config/site';
+
+interface Props { lang: Locale; entry: Insight }
+const { lang, entry } = Astro.props;
+const d = entry.data;
+const u = t(lang);
+const ar = lang === 'ar';
+const { Content } = await render(entry);
+const related = (await getInsights(lang)).filter((e) => e.id !== entry.id).sort((a, b) => Number(b.data.category === d.category) - Number(a.data.category === d.category)).slice(0, 3);
+const L = {
+  updated: ar ? 'آخر تحديث' : 'Updated',
+  verified: ar ? 'تاريخ التحقق من المصدر' : 'Source verified',
+  review: ar ? 'المراجعة القادمة' : 'Next review',
+  ref: ar ? 'مراجع المحتوى' : 'Content references',
+  assumptions: ar ? 'الافتراضات' : 'Assumptions',
+  disclaimer: ar
+    ? 'محتوى تعليمي عام، مو نصيحة مالية أو قانونية لحالتك. الأرقام توضيحية حتى نحسب على وضعك بأرقامه.'
+    : 'General educational content, not financial or legal advice for your situation. Numbers are illustrative until we calculate yours.',
+  related: ar ? 'اقرأ أيضًا' : 'Read next',
+  ctaTitle: ar ? 'نحسبها على وضعك؟' : 'Shall we run it on your situation?',
+  draftTitle: ar ? 'مادة غير منشورة' : 'Unpublished piece',
+  draftBody: ar
+    ? 'مقتبسة من محتوى حملة معتمد (المراجع أدناه)، والصياغة الموسّعة للويب تنتظر المراجعة التحريرية وموافقة خليل.'
+    : 'Adapted from approved campaign content (references below); the expanded web wording awaits editorial review and Khalil’s approval.',
+};
+const ctaHref = d.cta === 'compare' ? `${href(lang, 'interest')}?intent=compare` : href(lang, 'interest');
+const articleLd = {
+  '@context': 'https://schema.org', '@type': 'Article', headline: d.title, description: d.excerpt, inLanguage: lang,
+  dateModified: d.updated.toISOString().slice(0, 10), author: { '@type': 'Person', name: person.nameEn },
+};
+---
+<Base lang={lang} title={d.title} description={d.excerpt} page="insights" ogType="article" jsonLd={articleLd}>
+  <article>
+    <header class="ahead ambient-day" data-tone="day">
+      <div class="wrap ahead__inner">
+        <nav class="ahead__crumbs t-small" aria-label={u.breadcrumb}>
+          <ol>
+            <li><a href={href(lang, 'home')}>{u.nav.home}</a></li>
+            <li><a href={href(lang, 'insights')}>{u.nav.insights}</a></li>
+            <li><span aria-current="page">{d.title}</span></li>
+          </ol>
+        </nav>
+        <p class="eyebrow"><span class="t-meta">{categoryLabel[lang][d.category]} · {formatLabel[lang][d.format]}</span></p>
+        <h1 class="t-h1">{d.title}</h1>
+        <p class="t-lead t-muted ahead__excerpt">{d.excerpt}</p>
+        <p class="ahead__meta t-small t-muted">
+          <Icon name="clock" />{L.updated}: <time datetime={d.updated.toISOString().slice(0, 10)}>{formatDate(d.updated, lang)}</time>
+        </p>
+      </div>
+      <span class="horizon ahead__rule" aria-hidden="true"></span>
+    </header>
+
+    <div class="abody section" data-tone="paper">
+      <div class="wrap abody__grid">
+        <div class="abody__main">
+          {IS_PREVIEW && d.publishState !== 'published' && <DraftNote lang={lang} title={L.draftTitle}>{L.draftBody}</DraftNote>}
+          <div class="prose">
+            <Content />
+          </div>
+          {d.assumptions && (
+            <aside class="abody__box" aria-labelledby="assume-title">
+              <h2 class="t-meta" id="assume-title">{L.assumptions}</h2>
+              <ul>{d.assumptions.map((a) => <li>{a}</li>)}</ul>
+            </aside>
+          )}
+          <p class="abody__disclaimer t-small t-muted"><Icon name="info" />{L.disclaimer}</p>
+          <div class="abody__cta">
+            <p class="t-h3">{L.ctaTitle}</p>
+            <a class="btn" href={ctaHref}>{d.cta === 'compare' ? (ar ? 'قارن معي' : 'Compare with me') : u.cta.ask}<Icon name="arrow" class="arrow" /></a>
+          </div>
+        </div>
+        <aside class="abody__side" aria-label={L.ref}>
+          <dl>
+            <div><dt class="t-meta">{L.verified}</dt><dd><time datetime={d.sourceVerified.toISOString().slice(0, 10)}>{formatDate(d.sourceVerified, lang)}</time></dd></div>
+            <div><dt class="t-meta">{L.review}</dt><dd>{d.reviewDue}</dd></div>
+            <div><dt class="t-meta">{L.ref}</dt><dd><ul class="abody__refs">{d.sourceIds.map((s) => <li class="ltr num">{s}</li>)}</ul></dd></div>
+          </dl>
+        </aside>
+      </div>
+    </div>
+  </article>
+
+  {related.length > 0 && (
+    <section class="rel section section--tight" data-tone="sarooj" aria-labelledby="rel-title">
+      <div class="wrap">
+        <h2 class="t-h2" id="rel-title">{L.related}</h2>
+        <ul class="rel__grid">{related.map((e, i) => <li><InsightCard entry={e} lang={lang} variant={i + 1} /></li>)}</ul>
+      </div>
+    </section>
+  )}
+
+  <AnchorCTA lang={lang} />
+</Base>
+
+<style>
+  .ahead { position: relative; }
+  .ahead__inner { display: grid; gap: 16px; padding-block: clamp(40px, 7vw, 96px); max-inline-size: 60rem; }
+  .ahead__crumbs ol { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; color: var(--kha-color-slate); }
+  .ahead__crumbs li + li::before { content: '/'; margin-inline-end: 8px; opacity: 0.6; }
+  .ahead__crumbs a { color: var(--kha-color-bahr); }
+  .ahead__excerpt { max-inline-size: 44rem; }
+  .ahead__meta { display: inline-flex; gap: 8px; align-items: center; }
+  .ahead__meta :global(.icon) { inline-size: 18px; block-size: 18px; }
+  .ahead__rule { inset-block-end: 0; }
+  .abody__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, 300px); gap: clamp(32px, 6vw, 96px); align-items: start; }
+  .abody__main { display: grid; gap: 28px; }
+  .abody__box { padding: 20px 24px; border-radius: var(--kha-radius-subtle); background: var(--kha-color-zabad); max-inline-size: 68ch; }
+  .abody__box ul { margin-block-start: 10px; padding-inline-start: 1.2em; display: grid; gap: 6px; }
+  .abody__disclaimer { display: flex; gap: 10px; align-items: flex-start; max-inline-size: 68ch; }
+  .abody__disclaimer :global(.icon) { inline-size: 18px; block-size: 18px; flex: none; margin-block-start: 0.3em; }
+  .abody__cta { display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: center; justify-content: space-between; padding-block-start: 24px; border-block-start: 1px solid var(--tone-rule); max-inline-size: 68ch; }
+  .abody__side { position: sticky; inset-block-start: calc(var(--web-header-h) + 24px); padding: 22px; border-radius: var(--kha-radius-subtle); border: 1px solid var(--tone-rule); }
+  .abody__side dl { display: grid; gap: 16px; }
+  .abody__side dd { margin: 6px 0 0; font-size: var(--web-fs-small); }
+  .abody__refs { list-style: none; padding: 0; display: grid; gap: 4px; font-size: 0.8rem; }
+  .rel__grid { list-style: none; padding: 0; margin-block-start: 32px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+  @media (max-width: 900px) {
+    .abody__grid { grid-template-columns: 1fr; }
+    .abody__side { position: static; }
+    .rel__grid { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,4125 @@
+{
+ "$schema": "KHA Design System v1.1 — DTCG-style tokens",
+ "$version": "1.1.0",
+ "$source": "Brand Package v1.2 (v1.1 FINAL + production chapter)",
+ "color": {
+  "palette": {
+   "ink": {
+    "$value": "#17222B",
+    "$type": "color",
+    "$description": "Qalam Ink · حبر القلم — Primary Deep"
+   },
+   "sarooj": {
+    "$value": "#F3EFE7",
+    "$type": "color",
+    "$description": "Sarooj · صاروج — Primary Light / Warm Neutral"
+   },
+   "bahr": {
+    "$value": "#0F3B5F",
+    "$type": "color",
+    "$description": "Bahr · بحر — Primary Sea — deep blue surfaces, headlines, links"
+   },
+   "mawj": {
+    "$value": "#2A73A8",
+    "$type": "color",
+    "$description": "Mawj · موج — Accent — waves, avatar ring, CTA, key numbers"
+   },
+   "ufuq": {
+    "$value": "#7FB3D9",
+    "$type": "color",
+    "$description": "Ufuq · أفق — Accent on dark — waves and highlights on Bahr/Ink"
+   },
+   "zabad": {
+    "$value": "#E3EEF5",
+    "$type": "color",
+    "$description": "Zabad · زبد — Light sea tint — calm backgrounds, cards"
+   },
+   "luban": {
+    "$value": "#B5A485",
+    "$type": "color",
+    "$description": "Luban · لُبان — Secondary — tashkeel & signature ornament only"
+   },
+   "basalt": {
+    "$value": "#2E3A44",
+    "$type": "color",
+    "$description": "Basalt · بازلت — Neutral 800 — dark surfaces"
+   },
+   "slate": {
+    "$value": "#5B656E",
+    "$type": "color",
+    "$description": "Slate · أردواز — Neutral 600 — secondary text"
+   },
+   "stone": {
+    "$value": "#9C988E",
+    "$type": "color",
+    "$description": "Wadi Stone · حجر الوادي — Neutral 400 — metadata on dark, rules"
+   },
+   "limestone": {
+    "$value": "#DAD4C8",
+    "$type": "color",
+    "$description": "Limestone · حجر الجير — Neutral 200 — dividers, fields"
+   },
+   "paper": {
+    "$value": "#FAF8F4",
+    "$type": "color",
+    "$description": "Paper · ورق — Neutral 050 — long-read background"
+   }
+  },
+  "ambient": {
+   "deep-0": {
+    "$value": "#081C2E",
+    "$type": "color",
+    "$description": "Deep ambient — top-left base stop"
+   },
+   "deep-2": {
+    "$value": "#0A2740",
+    "$type": "color",
+    "$description": "Deep ambient — bottom base stop"
+   },
+   "deep-glow": {
+    "$value": "#1E5884",
+    "$type": "color",
+    "$description": "Deep ambient — far light field"
+   },
+   "deep-shadow": {
+    "$value": "#06182A",
+    "$type": "color",
+    "$description": "Deep ambient — shadow field (behind, never over Khalil)"
+   },
+   "night-0": {
+    "$value": "#0C1621",
+    "$type": "color",
+    "$description": "Night ambient — base stop"
+   },
+   "night-2": {
+    "$value": "#0D2236",
+    "$type": "color",
+    "$description": "Night ambient — base stop"
+   },
+   "night-glow": {
+    "$value": "#16324D",
+    "$type": "color",
+    "$description": "Night ambient — far light field"
+   },
+   "light-0": {
+    "$value": "#F4F8FB",
+    "$type": "color",
+    "$description": "Light ambient — base stop"
+   },
+   "light-2": {
+    "$value": "#D3E3EE",
+    "$type": "color",
+    "$description": "Light ambient — base stop"
+   },
+   "light-glow": {
+    "$value": "#BCD6E8",
+    "$type": "color",
+    "$description": "Light ambient — light gathered behind Khalil"
+   },
+   "light-warm": {
+    "$value": "#EFE6D6",
+    "$type": "color",
+    "$description": "Light ambient — faint warm (Sarooj/Luban) field"
+   },
+   "halo": {
+    "$value": "#C9DDEA",
+    "$type": "color",
+    "$description": "Light halo behind a cut-out on light/horizon grounds"
+   },
+   "on-bahr-rule": {
+    "$value": "#2A5478",
+    "$type": "color",
+    "$description": "Rules and hairlines on Bahr surfaces (book v1.1 .sea)"
+   },
+   "rule-on-zabad": {
+    "$value": "#C7D9E6",
+    "$type": "color",
+    "$description": "Derived: hairline on Zabad / light / horizon surfaces (Zabad toward Ufuq)"
+   },
+   "rule-on-basalt": {
+    "$value": "#46525C",
+    "$type": "color",
+    "$description": "Derived: hairline on Basalt (Basalt toward Slate)"
+   },
+   "photo-ground": {
+    "$value": "#DCE6EE",
+    "$type": "color",
+    "$description": "Derived: the studio backdrop tone of the official photographs (photo surface)"
+   },
+   "horizon-mid": {
+    "$value": "#C4DAEA",
+    "$type": "color",
+    "$description": "Derived: Horizon ambient mid stop (Zabad → Ufuq)"
+   },
+   "horizon-deep": {
+    "$value": "#5E97C4",
+    "$type": "color",
+    "$description": "Derived: Horizon ambient low stop (Ufuq → Mawj)"
+   }
+  },
+  "bg": {
+   "primary": {
+    "$value": "{color.palette.sarooj}",
+    "$type": "color",
+    "$description": "Default warm light surface"
+   },
+   "paper": {
+    "$value": "{color.palette.paper}",
+    "$type": "color",
+    "$description": "Long-read surface: documents, dense data"
+   },
+   "light": {
+    "$value": "{color.palette.zabad}",
+    "$type": "color",
+    "$description": "Calm sea-tint surface: cards, light social"
+   },
+   "deep": {
+    "$value": "{color.palette.bahr}",
+    "$type": "color",
+    "$description": "Primary sea surface (Deep Ocean mode)"
+   },
+   "night": {
+    "$value": "{color.palette.ink}",
+    "$type": "color",
+    "$description": "Ink surface (Night mode)"
+   },
+   "basalt": {
+    "$value": "{color.palette.basalt}",
+    "$type": "color",
+    "$description": "Secondary dark surface: dense data panels on dark"
+   },
+   "card": {
+    "$value": "#FFFFFF",
+    "$type": "color",
+    "$description": "White card on Paper/Zabad only (documents, tables)"
+   }
+  },
+  "text": {
+   "primary": {
+    "$value": "{color.palette.ink}",
+    "$type": "color",
+    "$description": "Body and headlines on light"
+   },
+   "secondary": {
+    "$value": "{color.palette.slate}",
+    "$type": "color",
+    "$description": "Supporting text, labels, sources on light"
+   },
+   "headline-sea": {
+    "$value": "{color.palette.bahr}",
+    "$type": "color",
+    "$description": "Headlines on light sea surfaces"
+   },
+   "accent": {
+    "$value": "{color.palette.mawj}",
+    "$type": "color",
+    "$description": "Accent words, key numbers on light (AA)"
+   },
+   "on-dark": {
+    "$value": "{color.palette.sarooj}",
+    "$type": "color",
+    "$description": "Body and headlines on Bahr / Ink / ambient"
+   },
+   "on-dark-secondary": {
+    "$value": "{color.palette.ufuq}",
+    "$type": "color",
+    "$description": "Supporting text and accent on Bahr / Ink"
+   },
+   "on-dark-muted": {
+    "$value": "{color.palette.stone}",
+    "$type": "color",
+    "$description": "Metadata on Ink (≥ 22 px on 1080 canvases)"
+   }
+  },
+  "brand": {
+   "ink": {
+    "$value": "{color.palette.ink}",
+    "$type": "color"
+   },
+   "sarooj": {
+    "$value": "{color.palette.sarooj}",
+    "$type": "color"
+   },
+   "bahr": {
+    "$value": "{color.palette.bahr}",
+    "$type": "color"
+   },
+   "mawj": {
+    "$value": "{color.palette.mawj}",
+    "$type": "color"
+   },
+   "ufuq": {
+    "$value": "{color.palette.ufuq}",
+    "$type": "color"
+   },
+   "zabad": {
+    "$value": "{color.palette.zabad}",
+    "$type": "color"
+   },
+   "luban": {
+    "$value": "{color.palette.luban}",
+    "$type": "color"
+   }
+  },
+  "border": {
+   "default": {
+    "$value": "{color.palette.limestone}",
+    "$type": "color",
+    "$description": "Hairlines, table rules, dividers on light"
+   },
+   "strong": {
+    "$value": "{color.palette.ink}",
+    "$type": "color",
+    "$description": "Table header rule, architectural lines"
+   },
+   "on-dark": {
+    "$value": "{color.palette.basalt}",
+    "$type": "color",
+    "$description": "Hairlines on Ink"
+   },
+   "on-bahr": {
+    "$value": "{color.ambient.on-bahr-rule}",
+    "$type": "color",
+    "$description": "Hairlines on Bahr"
+   },
+   "accent": {
+    "$value": "{color.palette.mawj}",
+    "$type": "color",
+    "$description": "Contact-bar top rule on light/Bahr bars"
+   },
+   "accent-on-dark": {
+    "$value": "{color.palette.ufuq}",
+    "$type": "color",
+    "$description": "Contact-bar top rule on Ink bars"
+   }
+  },
+  "data": {
+   "positive": {
+    "$value": "{color.palette.mawj}",
+    "$type": "color",
+    "$description": "Gain / favourable — always paired with + or ▲"
+   },
+   "positive-on-dark": {
+    "$value": "{color.palette.ufuq}",
+    "$type": "color"
+   },
+   "negative": {
+    "$value": "{color.palette.basalt}",
+    "$type": "color",
+    "$description": "Loss / cost — always paired with − or ▼ and a hatch in charts (no red in the brand)"
+   },
+   "negative-on-dark": {
+    "$value": "{color.palette.stone}",
+    "$type": "color"
+   },
+   "neutral": {
+    "$value": "{color.palette.stone}",
+    "$type": "color",
+    "$description": "Context / other / previous period"
+   },
+   "neutral-light": {
+    "$value": "{color.palette.limestone}",
+    "$type": "color",
+    "$description": "Track, background bars"
+   },
+   "highlight": {
+    "$value": "{color.palette.bahr}",
+    "$type": "color",
+    "$description": "The one series the chart is about"
+   },
+   "highlight-on-dark": {
+    "$value": "{color.palette.sarooj}",
+    "$type": "color"
+   },
+   "benchmark": {
+    "$value": "{color.palette.ink}",
+    "$type": "color",
+    "$description": "Benchmark / target line (dashed)"
+   },
+   "grid": {
+    "$value": "{color.palette.limestone}",
+    "$type": "color",
+    "$description": "Chart grid on light"
+   },
+   "grid-on-dark": {
+    "$value": "rgba(243,239,231,0.16)",
+    "$type": "color",
+    "$description": "Chart grid on dark (Sarooj @16%)"
+   },
+   "seq": {
+    "1": {
+     "$value": "{color.palette.zabad}",
+     "$type": "color"
+    },
+    "2": {
+     "$value": "{color.palette.ufuq}",
+     "$type": "color"
+    },
+    "3": {
+     "$value": "{color.palette.mawj}",
+     "$type": "color"
+    },
+    "4": {
+     "$value": "{color.palette.bahr}",
+     "$type": "color"
+    },
+    "5": {
+     "$value": "{color.palette.ink}",
+     "$type": "color"
+    }
+   },
+   "cat": {
+    "1": {
+     "$value": "{color.palette.bahr}",
+     "$type": "color"
+    },
+    "2": {
+     "$value": "{color.palette.mawj}",
+     "$type": "color"
+    },
+    "3": {
+     "$value": "{color.palette.ufuq}",
+     "$type": "color"
+    },
+    "4": {
+     "$value": "{color.palette.stone}",
+     "$type": "color"
+    },
+    "5": {
+     "$value": "{color.palette.basalt}",
+     "$type": "color"
+    }
+   }
+  },
+  "signature": {
+   "letters": {
+    "$value": "{color.palette.ink}",
+    "$type": "color",
+    "$description": "S4 — letters in Qalam Ink"
+   },
+   "letters-on-dark": {
+    "$value": "{color.palette.sarooj}",
+    "$type": "color"
+   },
+   "marks": {
+    "$value": "{color.palette.luban}",
+    "$type": "color",
+    "$description": "S4 — tashkeel, signs and ornament in Luban (Luban is reserved for the signature and its gestures)"
+   }
+  },
+  "doc": {
+   "incorrect": {
+    "$value": "#C2412D",
+    "$type": "color",
+    "$description": "DOCUMENTATION ONLY — the ✕ on incorrect-usage examples. Never in published designs."
+   }
+  },
+  "support": {
+   "blue": {
+    "accent": {
+     "$value": "#2A73A8",
+     "$type": "color",
+     "$description": "v1.1 (DS-32) production support family — reels and reel covers only; never in the signature, contact line or documents"
+    },
+    "accent2": {
+     "$value": "#7FB3D9",
+     "$type": "color"
+    }
+   },
+   "emerald": {
+    "accent": {
+     "$value": "#10B981",
+     "$type": "color",
+     "$description": "v1.1 (DS-32) production support family — reels and reel covers only; never in the signature, contact line or documents"
+    },
+    "accent2": {
+     "$value": "#A7F3D0",
+     "$type": "color"
+    }
+   },
+   "teal": {
+    "accent": {
+     "$value": "#14B8A6",
+     "$type": "color",
+     "$description": "v1.1 (DS-32) production support family — reels and reel covers only; never in the signature, contact line or documents"
+    },
+    "accent2": {
+     "$value": "#99F6E4",
+     "$type": "color"
+    }
+   },
+   "lime": {
+    "accent": {
+     "$value": "#84CC16",
+     "$type": "color",
+     "$description": "v1.1 (DS-32) production support family — reels and reel covers only; never in the signature, contact line or documents"
+    },
+    "accent2": {
+     "$value": "#D9F99D",
+     "$type": "color"
+    }
+   },
+   "amber": {
+    "accent": {
+     "$value": "#E8A44A",
+     "$type": "color",
+     "$description": "v1.1 (DS-32) production support family — reels and reel covers only; never in the signature, contact line or documents"
+    },
+    "accent2": {
+     "$value": "#F2C27A",
+     "$type": "color"
+    }
+   },
+   "red": {
+    "accent": {
+     "$value": "#E5484D",
+     "$type": "color",
+     "$description": "v1.1 (DS-32) production support family — reels and reel covers only; never in the signature, contact line or documents"
+    },
+    "accent2": {
+     "$value": "#FCA5A5",
+     "$type": "color"
+    }
+   },
+   "violet": {
+    "accent": {
+     "$value": "#8B7CF6",
+     "$type": "color",
+     "$description": "v1.1 (DS-32) production support family — reels and reel covers only; never in the signature, contact line or documents"
+    },
+    "accent2": {
+     "$value": "#C4B5FD",
+     "$type": "color"
+    }
+   }
+  }
+ },
+ "typography": {
+  "font": {
+   "ar": {
+    "$value": "'KHA Jazeera', 'Al Jazeera', serif",
+    "$type": "fontFamily",
+    "$description": "Al Jazeera — the only Arabic typeface. ONE weight (400). Hierarchy by size, colour and space — never faux bold, italic, stretch or letter-spacing."
+   },
+   "lat": {
+    "$value": "'Schibsted Grotesk', 'KHA SG', sans-serif",
+    "$type": "fontFamily",
+    "$description": "Schibsted Grotesk — Latin, numbers, URLs, phone. 400 text · 500 labels · 600 prominent numbers only."
+   },
+   "display": {
+    "$value": "'Thmanyah Serif Display', 'KHA Thmanyah', serif",
+    "$type": "fontFamily",
+    "$description": "v1.1 (DS-27) — Thmanyah Serif Display for every large headline: cover titles, giant words, reel hooks, card titles, closing line. 500 sub · 700 titles · 900 giant words/hero numbers. Line-height >= 1.25. No glow/shadow/emboss. Al Jazeera stays the text face."
+   }
+  },
+  "display-weight": {
+   "sub": {
+    "$value": 500,
+    "$type": "fontWeight"
+   },
+   "title": {
+    "$value": 700,
+    "$type": "fontWeight"
+   },
+   "giant": {
+    "$value": 900,
+    "$type": "fontWeight"
+   }
+  },
+  "display-line-height-min": {
+   "$value": 1.25,
+   "$type": "number",
+   "$description": "v1.1 (DS-27)"
+  },
+  "ratio": {
+   "$value": 1.25,
+   "$type": "number",
+   "$description": "Modular scale (major third). size = base(format) × 1.25^step"
+  },
+  "role": {
+   "display-xl": {
+    "step": {
+     "$value": 7,
+     "$type": "number"
+    },
+    "font": {
+     "$value": "{typography.font.ar}",
+     "$type": "fontFamily"
+    },
+    "weight": {
+     "$value": 400,
+     "$type": "fontWeight"
+    },
+    "line-height": {
+     "$value": 1.08,
+     "$type": "number"
+    },
+    "max-chars": {
+     "$value": 10,
+     "$type": "number",
+     "$description": "Recommended max characters per line"
+    },
+    "max-lines": {
+     "$value": 2,
+     "$type": "number",
+     "$description": "Max lines before autofit steps down a role"
+    },
+    "color": {
+     "$value": "headline",
+     "$type": "string",
+     "$description": "Default colour role (resolved by mode)"
+    },
+    "align": {
+     "$value": "start",
+     "$type": "string",
+     "$description": "start = right in RTL"
+    }
+   },
+   "display": {
+    "step": {
+     "$value": 6,
+     "$type": "number"
+    },
+    "font": {
+     "$value": "{typography.font.ar}",
+     "$type": "fontFamily"
+    },
+    "weight": {
+     "$value": 400,
+     "$type": "fontWeight"
+    },
+    "line-height": {
+     "$value": 1.12,
+     "$type": "number"
+    },
+    "max-chars": {
+     "$value": 14,
+     "$type": "number",
+     "$description": "Recommended max characters per line"
+    },
+    "max-lines": {
+     "$value": 3,
+     "$type": "number",
+     "$description": "Max lines before autofit steps down a role"
+    },
+    "color": {
+     "$value": "headline",
+     "$type": "string",
+     "$description": "Default colour role (resolved by mode)"
+    },
+    "align": {
+     "$value": "start",
+     "$type": "string",
+     "$description": "start = right in RTL"
+    }
+   },
+   "h1": {
+    "step": {
+     "$value": 5,
+     "$type": "number"
+    },
+    "font": {
+     "$value": "{typography.font.ar}",
+     "$type": "fontFamily"
+    },
+    "weight": {
+     "$value": 400,
+     "$type": "fontWeight"
+    },
+    "line-height": {
+     "$value": 1.18,
+     "$type": "number"
+    },
+    "max-chars": {
+     "$value": 18,
+     "$type": "number",
+     "$description": "Recommended max characters per line"
+    },
+    "max-lines": {
+     "$value": 3,
+     "$type": "number",
+     "$description": "Max lines before autofit steps down a role"
+    },
+    "color": {
+     "$value": "headline",
+     "$type": "string",
+     "$description": "Default colour role (resolved by mode)"
+    },
+    "align": {
+     "$value": "start",
+     "$type": "string",
+     "$description": "start = right in RTL"
+    }
+   },
+   "h2": {
+    "step": {
+     "$value": 4,
+     "$type": "number"
+    },
+    "font": {
+     "$value": "{typography.font.ar}",
+     "$type": "fontFamily"
+    },
+    "weight": {
+     "$value": 400,
+     "$type": "fontWeight"
+    },
+    "line-height": {
+     "$value": 1.24,
+     "$type": "number"
+    },
+    "max-chars": {
+     "$value": 24,
+     "$type": "number",
+     "$description": "Recommended max characters per line"
+    },
+    "max-lines": {
+     "$value": 4,
+     "$type": "number",
+     "$description": "Max lines before autofit steps down a role"
+    },
+    "color": {
+     "$value": "headline",
+     "$type": "string",
+     "$description": "Default colour role (resolved by mode)"
+    },
+    "align": {
+     "$value": "start",
+     "$type": "string",
+     "$description": "start = right in RTL"
+    }
+   },
+   "h3": {
+    "step": {
+     "$value": 3,
+     "$type": "number"
+    },
+    "font": {
+     "$value": "{typography.font.ar}",
+     "$type": "fontFamily"
+    },
+    "weight": {
+     "$value": 400,
+     "$type": "fontWeight"
+    },
+    "line-height": {
+     "$value": 1.3,
+     "$type": "number"
+    },
+    "max-chars": {
+     "$value": 30,
+     "$type": "number",
+     "$description": "Recommended max characters per line"
+    },
+    "max-lines": {
+     "$value": 4,
+     "$type": "number",
+     "$description": "Max lines before autofit steps down a role"
+    },
+    "color": {
+     "$value": "primary",
+     "$type": "string",
+     "$description": "Default colour role (resolved by mode)"
+    },
+    "align": {
+     "$value": "start",
+     "$type": "string",
+     "$description": "start = right in RTL"
+    }
+   },
+   "h4": {
+    "step": {
+     "$value": 2,
+     "$type": "number"
+    },
+    "font": {
+     "$value": "{typography.font.ar}",
+     "$type": "fontFamily"
+    },
+    "weight": {
+     "$value": 400,
+     "$type": "fontWeight"
+    },
+    "line-height": {
+     "$value": 1.35,
+     "$type": "number"
+    },
+    "max-chars": {
+     "$value": 36,
+     "$type": "number",
+     "$description": "Recommended max characters per line"
+    },
+    "max-lines": {
+     "$value": 4,
+     "$type": "number",
+     "$description": "Max lines before autofit steps down a role"
+    },
+    "color": {
+     "$value": "primary",
+     "$type": "string",
+     "$description": "Default colour role (resolved by mode)"
+    },
+    "align": {
+     "$value": "start",
+     "$type": "string",
+     "$description": "start = right in RTL"
+    }
+   },
+   "lead": {
+    "step": {
+     "$value": 1,
+     "$type": "number"
+    },
+    "font": {
+     "$value": "{typography.font.ar}",
+     "$type": "fontFamily"
+    },
+    "weight": {
+     "$value": 400,
+     "$type": "fontWeight"
+    },
+    "line-height": {
+     "$value": 1.55,
+     "$type": "number"
+    },
+    "max-chars": {
+     "$value": 42,
+     "$type": "number",
+     "$description": "Recommended max characters per line"
+    },
+    "max-lines": {
+     "$value": 4,
+     "$type": "number",
+     "$description": "Max lines before autofit steps down a role"
+    },
+    "color": {
+     "$value": "secondary",
+     "$type": "string",
+     "$description": "Default colour role (resolved by mode)"
+    },
+    "align": {
+     "$value": "start",
+     "$type": "string",
+     "$description": "start = right in RTL"
+    }
+   },
+   "body-lg": {
+    "step": {
+     "$value": 0.5,
+     "$type": "number"
+    },
+    "font": {
+     "$value": "{typography.font.ar}",
+     "$type": "fontFamily"
+    },
+    "weight": {
+     "$value": 400,
+     "$type": "fontWeight"
+    },
+    "line-height": {
+     "$value": 1.65,
+     "$type": "number"
+    },
+    "max-chars": {
+     "$value": 48,
+     "$type": "number",
+     "$description": "Recommended max characters per line"
+    },
+    "max-lines": {
+     "$value": 6,
+     "$type": "number",
+     "$description": "Max lines before autofit steps down a role"
+    },
+    "color": {
+     "$value": "secondary",
+     "$type": "string",
+     "$description": "Default colour role (resolved by mode)"
+    },
+    "align": {
+     "$value": "start",
+     "$type": "string",
+     "$description": "start = right in RTL"
+    }
+   },
+   "body": {
+    "step": {
+     "$value": 0,
+     "$type": "number"
+    },
+    "font": {
+     "$value": "{typography.font.ar}",
+     "$type": "fontFamily"
+    },
+    "weight": {
+     "$value": 400,
+     "$type": "fontWeight"
+    },
+    "line-height": {
+     "$value": 1.7,
+     "$type": "number"
+    },
+    "max-chars": {
+     "$value": 55,
+     "$type": "number",
+     "$description": "Recommended max characters per line"
+    },
+    "max-lines": {
+     "$value": 8,
+     "$type": "number",
+     "$description": "Max lines before autofit steps down a role"
+    },
+    "color": {
+     "$value": "secondary",
+     "$type": "string",
+     "$description": "Default colour role (resolved by mode)"
+    },
+    "align": {
+     "$value": "start",
+     "$type": "string",
+     "$description": "start = right in RTL"
+    }
+   },
+   "body-sm": {
+    "step": {
+     "$value": -0.5,
+     "$type": "number"
+    },
+    "font": {
+     "$value": "{typography.font.ar}",
+     "$type": "fontFamily"
+    },
+    "weight": {
+     "$value": 400,
+     "$type": "fontWeight"
+    },
+    "line-height": {
+     "$value": 1.65,
+     "$type": "number"
+    },
+    "max-chars": {
+     "$value": 60,
+     "$type": "number",
+     "$description": "Recommended max characters per line"
+    },
+    "max-lines": {
+     "$value": 10,
+     "$type": "number",
+     "$description": "Max lines before autofit steps down a role"
+    },
+    "color": {
+     "$value": "secondary",
+     "$type": "string",
+     "$description": "Default colour role (resolved by mode)"
+    },
+    "align": {
+     "$value": "start",
+     "$type": "string",
+     "$description": "start = right in RTL"
+    }
+   },
+   "caption": {
+    "step": {
+     "$value": -1,
+     "$type": "number"
+    },
+    "font": {
+     "$value": "{typography.font.ar}",
+     "$type": "fontFamily"
+    },
+    "weight": {
+     "$value": 400,
+     "$type": "fontWeight"
+    },
+    "line-height": {
+     "$value": 1.5,
+     "$type": "number"
+    },
+    "max-chars": {
+     "$value": 60,
+     "$type": "number",
+     "$description": "Recommended max characters per line"
+    },
+    "max-lines": {
+     "$value": 3,
+     "$type": "number",
+     "$description": "Max lines before autofit steps down a role"
+    },
+    "color": {
+     "$value": "secondary",
+     "$type": "string",
+     "$description": "Default colour role (resolved by mode)"
+    },
+    "align": {
+     "$value": "start",
+     "$type": "string",
+     "$description": "start = right in RTL"
+    }
+   },
+   "metadata": {
+    "step": {
+     "$value": -1,
+     "$type": "number"
+    },
+    "font": {
+     "$value": "{typography.font.lat}",
+     "$type": "fontFamily"
+    },
+    "weight": {
+     "$value": 500,
+     "$type": "fontWeight"
+    },
+    "line-height": {
+     "$value": 1.4,
+     "$type": "number"
+    },
+    "max-chars": {
+     "$value": 60,
+     "$type": "number",
+     "$description": "Recommended max characters per line"
+    },
+    "max-lines": {
+     "$value": 2,
+     "$type": "number",
+     "$description": "Max lines before autofit steps down a role"
+    },
+    "color": {
+     "$value": "secondary",
+     "$type": "string",
+     "$description": "Default colour role (resolved by mode)"
+    },
+    "align": {
+     "$value": "start",
+     "$type": "string",
+     "$description": "start = right in RTL"
+    }
+   },
+   "footnote": {
+    "step": {
+     "$value": -1.5,
+     "$type": "number"
+    },
+    "font": {
+     "$value": "{typography.font.ar}",
+     "$type": "fontFamily"
+    },
+    "weight": {
+     "$value": 400,
+     "$type": "fontWeight"
+    },
+    "line-height": {
+     "$value": 1.5,
+     "$type": "number"
+    },
+    "max-chars": {
+     "$value": 80,
+     "$type": "number",
+     "$description": "Recommended max characters per line"
+    },
+    "max-lines": {
+     "$value": 3,
+     "$type": "number",
+     "$description": "Max lines before autofit steps down a role"
+    },
+    "color": {
+     "$value": "secondary",
+     "$type": "string",
+     "$description": "Default colour role (resolved by mode)"
+    },
+    "align": {
+     "$value": "start",
+     "$type": "string",
+     "$description": "start = right in RTL"
+    }
+   },
+   "source": {
+    "step": {
+     "$value": -1.5,
+     "$type": "number"
+    },
+    "font": {
+     "$value": "{typography.font.ar}",
+     "$type": "fontFamily"
+    },
+    "weight": {
+     "$value": 400,
+     "$type": "fontWeight"
+    },
+    "line-height": {
+     "$value": 1.45,
+     "$type": "number"
+    },
+    "max-chars": {
+     "$value": 90,
+     "$type": "number",
+     "$description": "Recommended max characters per line"
+    },
+    "max-lines": {
+     "$value": 2,
+     "$type": "number",
+     "$description": "Max lines before autofit steps down a role"
+    },
+    "color": {
+     "$value": "secondary",
+     "$type": "string",
+     "$description": "Default colour role (resolved by mode)"
+    },
+    "align": {
+     "$value": "start",
+     "$type": "string",
+     "$description": "start = right in RTL"
+    }
+   },
+   "cta": {
+    "step": {
+     "$value": 0.5,
+     "$type": "number"
+    },
+    "font": {
+     "$value": "{typography.font.ar}",
+     "$type": "fontFamily"
+    },
+    "weight": {
+     "$value": 400,
+     "$type": "fontWeight"
+    },
+    "line-height": {
+     "$value": 1.0,
+     "$type": "number"
+    },
+    "max-chars": {
+     "$value": 28,
+     "$type": "number",
+     "$description": "Recommended max characters per line"
+    },
+    "max-lines": {
+     "$value": 1,
+     "$type": "number",
+     "$description": "Max lines before autofit steps down a role"
+    },
+    "color": {
+     "$value": "accent",
+     "$type": "string",
+     "$description": "Default colour role (resolved by mode)"
+    },
+    "align": {
+     "$value": "start",
+     "$type": "string",
+     "$description": "start = right in RTL"
+    }
+   },
+   "data-xl": {
+    "step": {
+     "$value": 9,
+     "$type": "number"
+    },
+    "font": {
+     "$value": "{typography.font.lat}",
+     "$type": "fontFamily"
+    },
+    "weight": {
+     "$value": 600,
+     "$type": "fontWeight"
+    },
+    "line-height": {
+     "$value": 1.0,
+     "$type": "number"
+    },
+    "max-chars": {
+     "$value": 6,
+     "$type": "number",
+     "$description": "Recommended max characters per line"
+    },
+    "max-lines": {
+     "$value": 1,
+     "$type": "number",
+     "$description": "Max lines before autofit steps down a role"
+    },
+    "color": {
+     "$value": "accent",
+     "$type": "string",
+     "$description": "Default colour role (resolved by mode)"
+    },
+    "align": {
+     "$value": "start",
+     "$type": "string",
+     "$description": "start = right in RTL"
+    }
+   },
+   "data-lg": {
+    "step": {
+     "$value": 7,
+     "$type": "number"
+    },
+    "font": {
+     "$value": "{typography.font.lat}",
+     "$type": "fontFamily"
+    },
+    "weight": {
+     "$value": 600,
+     "$type": "fontWeight"
+    },
+    "line-height": {
+     "$value": 1.0,
+     "$type": "number"
+    },
+    "max-chars": {
+     "$value": 8,
+     "$type": "number",
+     "$description": "Recommended max characters per line"
+    },
+    "max-lines": {
+     "$value": 1,
+     "$type": "number",
+     "$description": "Max lines before autofit steps down a role"
+    },
+    "color": {
+     "$value": "primary",
+     "$type": "string",
+     "$description": "Default colour role (resolved by mode)"
+    },
+    "align": {
+     "$value": "start",
+     "$type": "string",
+     "$description": "start = right in RTL"
+    }
+   },
+   "data-md": {
+    "step": {
+     "$value": 5,
+     "$type": "number"
+    },
+    "font": {
+     "$value": "{typography.font.lat}",
+     "$type": "fontFamily"
+    },
+    "weight": {
+     "$value": 600,
+     "$type": "fontWeight"
+    },
+    "line-height": {
+     "$value": 1.0,
+     "$type": "number"
+    },
+    "max-chars": {
+     "$value": 10,
+     "$type": "number",
+     "$description": "Recommended max characters per line"
+    },
+    "max-lines": {
+     "$value": 1,
+     "$type": "number",
+     "$description": "Max lines before autofit steps down a role"
+    },
+    "color": {
+     "$value": "primary",
+     "$type": "string",
+     "$description": "Default colour role (resolved by mode)"
+    },
+    "align": {
+     "$value": "start",
+     "$type": "string",
+     "$description": "start = right in RTL"
+    }
+   },
+   "data": {
+    "step": {
+     "$value": 3,
+     "$type": "number"
+    },
+    "font": {
+     "$value": "{typography.font.lat}",
+     "$type": "fontFamily"
+    },
+    "weight": {
+     "$value": 500,
+     "$type": "fontWeight"
+    },
+    "line-height": {
+     "$value": 1.0,
+     "$type": "number"
+    },
+    "max-chars": {
+     "$value": 12,
+     "$type": "number",
+     "$description": "Recommended max characters per line"
+    },
+    "max-lines": {
+     "$value": 1,
+     "$type": "number",
+     "$description": "Max lines before autofit steps down a role"
+    },
+    "color": {
+     "$value": "primary",
+     "$type": "string",
+     "$description": "Default colour role (resolved by mode)"
+    },
+    "align": {
+     "$value": "start",
+     "$type": "string",
+     "$description": "start = right in RTL"
+    }
+   }
+  },
+  "size": {
+   "IG45": {
+    "display-xl": {
+     "$value": 143.0,
+     "$type": "dimension"
+    },
+    "display": {
+     "$value": 114.0,
+     "$type": "dimension"
+    },
+    "h1": {
+     "$value": 92.0,
+     "$type": "dimension"
+    },
+    "h2": {
+     "$value": 73.0,
+     "$type": "dimension"
+    },
+    "h3": {
+     "$value": 59.0,
+     "$type": "dimension"
+    },
+    "h4": {
+     "$value": 47.0,
+     "$type": "dimension"
+    },
+    "lead": {
+     "$value": 38.0,
+     "$type": "dimension"
+    },
+    "body-lg": {
+     "$value": 34.0,
+     "$type": "dimension"
+    },
+    "body": {
+     "$value": 30.0,
+     "$type": "dimension"
+    },
+    "body-sm": {
+     "$value": 27.0,
+     "$type": "dimension"
+    },
+    "caption": {
+     "$value": 24.0,
+     "$type": "dimension"
+    },
+    "metadata": {
+     "$value": 24.0,
+     "$type": "dimension"
+    },
+    "footnote": {
+     "$value": 22,
+     "$type": "dimension"
+    },
+    "source": {
+     "$value": 22,
+     "$type": "dimension"
+    },
+    "cta": {
+     "$value": 34.0,
+     "$type": "dimension"
+    },
+    "data-xl": {
+     "$value": 224.0,
+     "$type": "dimension"
+    },
+    "data-lg": {
+     "$value": 143.0,
+     "$type": "dimension"
+    },
+    "data-md": {
+     "$value": 92.0,
+     "$type": "dimension"
+    },
+    "data": {
+     "$value": 59.0,
+     "$type": "dimension"
+    }
+   },
+   "IG11": {
+    "display-xl": {
+     "$value": 134.0,
+     "$type": "dimension"
+    },
+    "display": {
+     "$value": 107.0,
+     "$type": "dimension"
+    },
+    "h1": {
+     "$value": 85.0,
+     "$type": "dimension"
+    },
+    "h2": {
+     "$value": 68.0,
+     "$type": "dimension"
+    },
+    "h3": {
+     "$value": 55.0,
+     "$type": "dimension"
+    },
+    "h4": {
+     "$value": 44.0,
+     "$type": "dimension"
+    },
+    "lead": {
+     "$value": 35.0,
+     "$type": "dimension"
+    },
+    "body-lg": {
+     "$value": 31.0,
+     "$type": "dimension"
+    },
+    "body": {
+     "$value": 28.0,
+     "$type": "dimension"
+    },
+    "body-sm": {
+     "$value": 25.0,
+     "$type": "dimension"
+    },
+    "caption": {
+     "$value": 22,
+     "$type": "dimension"
+    },
+    "metadata": {
+     "$value": 22,
+     "$type": "dimension"
+    },
+    "footnote": {
+     "$value": 22,
+     "$type": "dimension"
+    },
+    "source": {
+     "$value": 22,
+     "$type": "dimension"
+    },
+    "cta": {
+     "$value": 31.0,
+     "$type": "dimension"
+    },
+    "data-xl": {
+     "$value": 209.0,
+     "$type": "dimension"
+    },
+    "data-lg": {
+     "$value": 134.0,
+     "$type": "dimension"
+    },
+    "data-md": {
+     "$value": 85.0,
+     "$type": "dimension"
+    },
+    "data": {
+     "$value": 55.0,
+     "$type": "dimension"
+    }
+   },
+   "CAR": {
+    "display-xl": {
+     "$value": 143.0,
+     "$type": "dimension"
+    },
+    "display": {
+     "$value": 114.0,
+     "$type": "dimension"
+    },
+    "h1": {
+     "$value": 92.0,
+     "$type": "dimension"
+    },
+    "h2": {
+     "$value": 73.0,
+     "$type": "dimension"
+    },
+    "h3": {
+     "$value": 59.0,
+     "$type": "dimension"
+    },
+    "h4": {
+     "$value": 47.0,
+     "$type": "dimension"
+    },
+    "lead": {
+     "$value": 38.0,
+     "$type": "dimension"
+    },
+    "body-lg": {
+     "$value": 34.0,
+     "$type": "dimension"
+    },
+    "body": {
+     "$value": 30.0,
+     "$type": "dimension"
+    },
+    "body-sm": {
+     "$value": 27.0,
+     "$type": "dimension"
+    },
+    "caption": {
+     "$value": 24.0,
+     "$type": "dimension"
+    },
+    "metadata": {
+     "$value": 24.0,
+     "$type": "dimension"
+    },
+    "footnote": {
+     "$value": 22,
+     "$type": "dimension"
+    },
+    "source": {
+     "$value": 22,
+     "$type": "dimension"
+    },
+    "cta": {
+     "$value": 34.0,
+     "$type": "dimension"
+    },
+    "data-xl": {
+     "$value": 224.0,
+     "$type": "dimension"
+    },
+    "data-lg": {
+     "$value": 143.0,
+     "$type": "dimension"
+    },
+    "data-md": {
+     "$value": 92.0,
+     "$type": "dimension"
+    },
+    "data": {
+     "$value": 59.0,
+     "$type": "dimension"
+    }
+   },
+   "STORY": {
+    "display-xl": {
+     "$value": 153.0,
+     "$type": "dimension"
+    },
+    "display": {
+     "$value": 122.0,
+     "$type": "dimension"
+    },
+    "h1": {
+     "$value": 98.0,
+     "$type": "dimension"
+    },
+    "h2": {
+     "$value": 78.0,
+     "$type": "dimension"
+    },
+    "h3": {
+     "$value": 62.0,
+     "$type": "dimension"
+    },
+    "h4": {
+     "$value": 50.0,
+     "$type": "dimension"
+    },
+    "lead": {
+     "$value": 40.0,
+     "$type": "dimension"
+    },
+    "body-lg": {
+     "$value": 36.0,
+     "$type": "dimension"
+    },
+    "body": {
+     "$value": 32.0,
+     "$type": "dimension"
+    },
+    "body-sm": {
+     "$value": 29.0,
+     "$type": "dimension"
+    },
+    "caption": {
+     "$value": 26.0,
+     "$type": "dimension"
+    },
+    "metadata": {
+     "$value": 26.0,
+     "$type": "dimension"
+    },
+    "footnote": {
+     "$value": 24,
+     "$type": "dimension"
+    },
+    "source": {
+     "$value": 24,
+     "$type": "dimension"
+    },
+    "cta": {
+     "$value": 36.0,
+     "$type": "dimension"
+    },
+    "data-xl": {
+     "$value": 238.0,
+     "$type": "dimension"
+    },
+    "data-lg": {
+     "$value": 153.0,
+     "$type": "dimension"
+    },
+    "data-md": {
+     "$value": 98.0,
+     "$type": "dimension"
+    },
+    "data": {
+     "$value": 62.0,
+     "$type": "dimension"
+    }
+   },
+   "REEL": {
+    "display-xl": {
+     "$value": 153.0,
+     "$type": "dimension"
+    },
+    "display": {
+     "$value": 122.0,
+     "$type": "dimension"
+    },
+    "h1": {
+     "$value": 98.0,
+     "$type": "dimension"
+    },
+    "h2": {
+     "$value": 78.0,
+     "$type": "dimension"
+    },
+    "h3": {
+     "$value": 62.0,
+     "$type": "dimension"
+    },
+    "h4": {
+     "$value": 50.0,
+     "$type": "dimension"
+    },
+    "lead": {
+     "$value": 40.0,
+     "$type": "dimension"
+    },
+    "body-lg": {
+     "$value": 36.0,
+     "$type": "dimension"
+    },
+    "body": {
+     "$value": 32.0,
+     "$type": "dimension"
+    },
+    "body-sm": {
+     "$value": 29.0,
+     "$type": "dimension"
+    },
+    "caption": {
+     "$value": 26.0,
+     "$type": "dimension"
+    },
+    "metadata": {
+     "$value": 26.0,
+     "$type": "dimension"
+    },
+    "footnote": {
+     "$value": 24,
+     "$type": "dimension"
+    },
+    "source": {
+     "$value": 24,
+     "$type": "dimension"
+    },
+    "cta": {
+     "$value": 36.0,
+     "$type": "dimension"
+    },
+    "data-xl": {
+     "$value": 238.0,
+     "$type": "dimension"
+    },
+    "data-lg": {
+     "$value": 153.0,
+     "$type": "dimension"
+    },
+    "data-md": {
+     "$value": 98.0,
+     "$type": "dimension"
+    },
+    "data": {
+     "$value": 62.0,
+     "$type": "dimension"
+    }
+   },
+   "LI": {
+    "display-xl": {
+     "$value": 95.0,
+     "$type": "dimension"
+    },
+    "display": {
+     "$value": 76.0,
+     "$type": "dimension"
+    },
+    "h1": {
+     "$value": 61.0,
+     "$type": "dimension"
+    },
+    "h2": {
+     "$value": 49.0,
+     "$type": "dimension"
+    },
+    "h3": {
+     "$value": 39.0,
+     "$type": "dimension"
+    },
+    "h4": {
+     "$value": 31.0,
+     "$type": "dimension"
+    },
+    "lead": {
+     "$value": 25.0,
+     "$type": "dimension"
+    },
+    "body-lg": {
+     "$value": 22.0,
+     "$type": "dimension"
+    },
+    "body": {
+     "$value": 20.0,
+     "$type": "dimension"
+    },
+    "body-sm": {
+     "$value": 18.0,
+     "$type": "dimension"
+    },
+    "caption": {
+     "$value": 16.0,
+     "$type": "dimension"
+    },
+    "metadata": {
+     "$value": 16.0,
+     "$type": "dimension"
+    },
+    "footnote": {
+     "$value": 14,
+     "$type": "dimension"
+    },
+    "source": {
+     "$value": 14,
+     "$type": "dimension"
+    },
+    "cta": {
+     "$value": 22.0,
+     "$type": "dimension"
+    },
+    "data-xl": {
+     "$value": 149.0,
+     "$type": "dimension"
+    },
+    "data-lg": {
+     "$value": 95.0,
+     "$type": "dimension"
+    },
+    "data-md": {
+     "$value": 61.0,
+     "$type": "dimension"
+    },
+    "data": {
+     "$value": 39.0,
+     "$type": "dimension"
+    }
+   },
+   "X": {
+    "display-xl": {
+     "$value": 124.0,
+     "$type": "dimension"
+    },
+    "display": {
+     "$value": 99.0,
+     "$type": "dimension"
+    },
+    "h1": {
+     "$value": 79.0,
+     "$type": "dimension"
+    },
+    "h2": {
+     "$value": 63.0,
+     "$type": "dimension"
+    },
+    "h3": {
+     "$value": 51.0,
+     "$type": "dimension"
+    },
+    "h4": {
+     "$value": 41.0,
+     "$type": "dimension"
+    },
+    "lead": {
+     "$value": 32.0,
+     "$type": "dimension"
+    },
+    "body-lg": {
+     "$value": 29.0,
+     "$type": "dimension"
+    },
+    "body": {
+     "$value": 26.0,
+     "$type": "dimension"
+    },
+    "body-sm": {
+     "$value": 23.0,
+     "$type": "dimension"
+    },
+    "caption": {
+     "$value": 21.0,
+     "$type": "dimension"
+    },
+    "metadata": {
+     "$value": 21.0,
+     "$type": "dimension"
+    },
+    "footnote": {
+     "$value": 19.0,
+     "$type": "dimension"
+    },
+    "source": {
+     "$value": 19.0,
+     "$type": "dimension"
+    },
+    "cta": {
+     "$value": 29.0,
+     "$type": "dimension"
+    },
+    "data-xl": {
+     "$value": 194.0,
+     "$type": "dimension"
+    },
+    "data-lg": {
+     "$value": 124.0,
+     "$type": "dimension"
+    },
+    "data-md": {
+     "$value": 79.0,
+     "$type": "dimension"
+    },
+    "data": {
+     "$value": 51.0,
+     "$type": "dimension"
+    }
+   },
+   "YT": {
+    "display-xl": {
+     "$value": 114.0,
+     "$type": "dimension"
+    },
+    "display": {
+     "$value": 92.0,
+     "$type": "dimension"
+    },
+    "h1": {
+     "$value": 73.0,
+     "$type": "dimension"
+    },
+    "h2": {
+     "$value": 59.0,
+     "$type": "dimension"
+    },
+    "h3": {
+     "$value": 47.0,
+     "$type": "dimension"
+    },
+    "h4": {
+     "$value": 38.0,
+     "$type": "dimension"
+    },
+    "lead": {
+     "$value": 30.0,
+     "$type": "dimension"
+    },
+    "body-lg": {
+     "$value": 27.0,
+     "$type": "dimension"
+    },
+    "body": {
+     "$value": 24.0,
+     "$type": "dimension"
+    },
+    "body-sm": {
+     "$value": 21.0,
+     "$type": "dimension"
+    },
+    "caption": {
+     "$value": 19.0,
+     "$type": "dimension"
+    },
+    "metadata": {
+     "$value": 19.0,
+     "$type": "dimension"
+    },
+    "footnote": {
+     "$value": 17,
+     "$type": "dimension"
+    },
+    "source": {
+     "$value": 17,
+     "$type": "dimension"
+    },
+    "cta": {
+     "$value": 27.0,
+     "$type": "dimension"
+    },
+    "data-xl": {
+     "$value": 179.0,
+     "$type": "dimension"
+    },
+    "data-lg": {
+     "$value": 114.0,
+     "$type": "dimension"
+    },
+    "data-md": {
+     "$value": 73.0,
+     "$type": "dimension"
+    },
+    "data": {
+     "$value": 47.0,
+     "$type": "dimension"
+    }
+   },
+   "A4P": {
+    "display-xl": {
+     "$value": 63.56,
+     "$type": "dimension"
+    },
+    "display": {
+     "$value": 50.85,
+     "$type": "dimension"
+    },
+    "h1": {
+     "$value": 40.68,
+     "$type": "dimension"
+    },
+    "h2": {
+     "$value": 32.54,
+     "$type": "dimension"
+    },
+    "h3": {
+     "$value": 26.04,
+     "$type": "dimension"
+    },
+    "h4": {
+     "$value": 20.83,
+     "$type": "dimension"
+    },
+    "lead": {
+     "$value": 16.66,
+     "$type": "dimension"
+    },
+    "body-lg": {
+     "$value": 14.9,
+     "$type": "dimension"
+    },
+    "body": {
+     "$value": 13.33,
+     "$type": "dimension"
+    },
+    "body-sm": {
+     "$value": 11.92,
+     "$type": "dimension"
+    },
+    "caption": {
+     "$value": 10.66,
+     "$type": "dimension"
+    },
+    "metadata": {
+     "$value": 10.66,
+     "$type": "dimension"
+    },
+    "footnote": {
+     "$value": 9.54,
+     "$type": "dimension"
+    },
+    "source": {
+     "$value": 9.54,
+     "$type": "dimension"
+    },
+    "cta": {
+     "$value": 14.9,
+     "$type": "dimension"
+    },
+    "data-xl": {
+     "$value": 99.32,
+     "$type": "dimension"
+    },
+    "data-lg": {
+     "$value": 63.56,
+     "$type": "dimension"
+    },
+    "data-md": {
+     "$value": 40.68,
+     "$type": "dimension"
+    },
+    "data": {
+     "$value": 26.04,
+     "$type": "dimension"
+    }
+   },
+   "A4L": {
+    "display-xl": {
+     "$value": 63.56,
+     "$type": "dimension"
+    },
+    "display": {
+     "$value": 50.85,
+     "$type": "dimension"
+    },
+    "h1": {
+     "$value": 40.68,
+     "$type": "dimension"
+    },
+    "h2": {
+     "$value": 32.54,
+     "$type": "dimension"
+    },
+    "h3": {
+     "$value": 26.04,
+     "$type": "dimension"
+    },
+    "h4": {
+     "$value": 20.83,
+     "$type": "dimension"
+    },
+    "lead": {
+     "$value": 16.66,
+     "$type": "dimension"
+    },
+    "body-lg": {
+     "$value": 14.9,
+     "$type": "dimension"
+    },
+    "body": {
+     "$value": 13.33,
+     "$type": "dimension"
+    },
+    "body-sm": {
+     "$value": 11.92,
+     "$type": "dimension"
+    },
+    "caption": {
+     "$value": 10.66,
+     "$type": "dimension"
+    },
+    "metadata": {
+     "$value": 10.66,
+     "$type": "dimension"
+    },
+    "footnote": {
+     "$value": 9.54,
+     "$type": "dimension"
+    },
+    "source": {
+     "$value": 9.54,
+     "$type": "dimension"
+    },
+    "cta": {
+     "$value": 14.9,
+     "$type": "dimension"
+    },
+    "data-xl": {
+     "$value": 99.32,
+     "$type": "dimension"
+    },
+    "data-lg": {
+     "$value": 63.56,
+     "$type": "dimension"
+    },
+    "data-md": {
+     "$value": 40.68,
+     "$type": "dimension"
+    },
+    "data": {
+     "$value": 26.04,
+     "$type": "dimension"
+    }
+   },
+   "PRES": {
+    "display-xl": {
+     "$value": 134.0,
+     "$type": "dimension"
+    },
+    "display": {
+     "$value": 107.0,
+     "$type": "dimension"
+    },
+    "h1": {
+     "$value": 85.0,
+     "$type": "dimension"
+    },
+    "h2": {
+     "$value": 68.0,
+     "$type": "dimension"
+    },
+    "h3": {
+     "$value": 55.0,
+     "$type": "dimension"
+    },
+    "h4": {
+     "$value": 44.0,
+     "$type": "dimension"
+    },
+    "lead": {
+     "$value": 35.0,
+     "$type": "dimension"
+    },
+    "body-lg": {
+     "$value": 31.0,
+     "$type": "dimension"
+    },
+    "body": {
+     "$value": 28.0,
+     "$type": "dimension"
+    },
+    "body-sm": {
+     "$value": 25.0,
+     "$type": "dimension"
+    },
+    "caption": {
+     "$value": 22.0,
+     "$type": "dimension"
+    },
+    "metadata": {
+     "$value": 22.0,
+     "$type": "dimension"
+    },
+    "footnote": {
+     "$value": 20,
+     "$type": "dimension"
+    },
+    "source": {
+     "$value": 20,
+     "$type": "dimension"
+    },
+    "cta": {
+     "$value": 31.0,
+     "$type": "dimension"
+    },
+    "data-xl": {
+     "$value": 209.0,
+     "$type": "dimension"
+    },
+    "data-lg": {
+     "$value": 134.0,
+     "$type": "dimension"
+    },
+    "data-md": {
+     "$value": 85.0,
+     "$type": "dimension"
+    },
+    "data": {
+     "$value": 55.0,
+     "$type": "dimension"
+    }
+   }
+  },
+  "min": {
+   "IG45": {
+    "$value": 22,
+    "$type": "dimension",
+    "$description": "Smallest permitted text on this canvas"
+   },
+   "IG11": {
+    "$value": 22,
+    "$type": "dimension",
+    "$description": "Smallest permitted text on this canvas"
+   },
+   "CAR": {
+    "$value": 22,
+    "$type": "dimension",
+    "$description": "Smallest permitted text on this canvas"
+   },
+   "STORY": {
+    "$value": 24,
+    "$type": "dimension",
+    "$description": "Smallest permitted text on this canvas"
+   },
+   "REEL": {
+    "$value": 24,
+    "$type": "dimension",
+    "$description": "Smallest permitted text on this canvas"
+   },
+   "LI": {
+    "$value": 14,
+    "$type": "dimension",
+    "$description": "Smallest permitted text on this canvas"
+   },
+   "X": {
+    "$value": 18,
+    "$type": "dimension",
+    "$description": "Smallest permitted text on this canvas"
+   },
+   "YT": {
+    "$value": 17,
+    "$type": "dimension",
+    "$description": "Smallest permitted text on this canvas"
+   },
+   "A4P": {
+    "$value": 9.33,
+    "$type": "dimension",
+    "$description": "Smallest permitted text on this canvas"
+   },
+   "A4L": {
+    "$value": 9.33,
+    "$type": "dimension",
+    "$description": "Smallest permitted text on this canvas"
+   },
+   "PRES": {
+    "$value": 20,
+    "$type": "dimension",
+    "$description": "Smallest permitted text on this canvas"
+   }
+  },
+  "latin-scale": {
+   "$value": 0.88,
+   "$type": "number",
+   "$description": "Latin set at ≈88% of the Arabic size in the same role (book §31)"
+  },
+  "caps-tracking": {
+   "$value": "0.14em",
+   "$type": "dimension",
+   "$description": "Latin uppercase labels only (+0.14–0.22em). Never on Arabic."
+  }
+ },
+ "spacing": {
+  "unit": {
+   "$value": 4,
+   "$type": "dimension",
+   "$description": "Base unit. Everything is a multiple of 4; rhythm prefers multiples of 8."
+  },
+  "scale": {
+   "0": {
+    "$value": 0,
+    "$type": "dimension"
+   },
+   "3xs": {
+    "$value": 4,
+    "$type": "dimension"
+   },
+   "2xs": {
+    "$value": 8,
+    "$type": "dimension"
+   },
+   "xs": {
+    "$value": 12,
+    "$type": "dimension"
+   },
+   "s": {
+    "$value": 16,
+    "$type": "dimension"
+   },
+   "m": {
+    "$value": 24,
+    "$type": "dimension"
+   },
+   "l": {
+    "$value": 32,
+    "$type": "dimension"
+   },
+   "xl": {
+    "$value": 48,
+    "$type": "dimension"
+   },
+   "2xl": {
+    "$value": 64,
+    "$type": "dimension"
+   },
+   "3xl": {
+    "$value": 72,
+    "$type": "dimension"
+   },
+   "4xl": {
+    "$value": 96,
+    "$type": "dimension"
+   },
+   "5xl": {
+    "$value": 128,
+    "$type": "dimension"
+   },
+   "6xl": {
+    "$value": 160,
+    "$type": "dimension"
+   }
+  },
+  "format-factor": {
+   "IG45": {
+    "$value": 1.0,
+    "$type": "number",
+    "$description": "Spacing scale multiplier = type base / 30"
+   },
+   "IG11": {
+    "$value": 0.933,
+    "$type": "number",
+    "$description": "Spacing scale multiplier = type base / 30"
+   },
+   "CAR": {
+    "$value": 1.0,
+    "$type": "number",
+    "$description": "Spacing scale multiplier = type base / 30"
+   },
+   "STORY": {
+    "$value": 1.067,
+    "$type": "number",
+    "$description": "Spacing scale multiplier = type base / 30"
+   },
+   "REEL": {
+    "$value": 1.067,
+    "$type": "number",
+    "$description": "Spacing scale multiplier = type base / 30"
+   },
+   "LI": {
+    "$value": 0.667,
+    "$type": "number",
+    "$description": "Spacing scale multiplier = type base / 30"
+   },
+   "X": {
+    "$value": 0.867,
+    "$type": "number",
+    "$description": "Spacing scale multiplier = type base / 30"
+   },
+   "YT": {
+    "$value": 0.8,
+    "$type": "number",
+    "$description": "Spacing scale multiplier = type base / 30"
+   },
+   "A4P": {
+    "$value": 0.444,
+    "$type": "number",
+    "$description": "Spacing scale multiplier = type base / 30"
+   },
+   "A4L": {
+    "$value": 0.444,
+    "$type": "number",
+    "$description": "Spacing scale multiplier = type base / 30"
+   },
+   "PRES": {
+    "$value": 0.933,
+    "$type": "number",
+    "$description": "Spacing scale multiplier = type base / 30"
+   }
+  },
+  "role": {
+   "micro": {
+    "$value": "{spacing.scale.3xs}–{spacing.scale.2xs}",
+    "$type": "string",
+    "$description": "Icon ↔ label, number ↔ unit"
+   },
+   "text-gap": {
+    "$value": "0.5–0.8 × line-height of the smaller role",
+    "$type": "string",
+    "$description": "Eyebrow → headline: s; headline → body: m–l; paragraph: 0.6 em"
+   },
+   "component-gap": {
+    "$value": "{spacing.scale.m}–{spacing.scale.xl}",
+    "$type": "string"
+   },
+   "image-gap": {
+    "$value": "{spacing.scale.l}",
+    "$type": "string",
+    "$description": "Text never closer than l to a cut-out silhouette"
+   },
+   "section": {
+    "$value": "{spacing.scale.2xl}–{spacing.scale.4xl}",
+    "$type": "string"
+   },
+   "page-margin": {
+    "$value": "format.<code>.margin-x",
+    "$type": "string"
+   },
+   "contact-bar": {
+    "$value": "format.<code>.bar-height · padding-x = margin-x · row text = format.<code>.contact",
+    "$type": "string"
+   },
+   "signature-clear": {
+    "$value": "4N around Primary/Compact/Micro, 2N around Mark/Stamp (N = alif stroke width; S2)",
+    "$type": "string"
+   }
+  }
+ },
+ "format": {
+  "IG45": {
+   "name": {
+    "$value": "Instagram 4:5",
+    "$type": "string"
+   },
+   "width": {
+    "$value": 1080,
+    "$type": "dimension"
+   },
+   "height": {
+    "$value": 1350,
+    "$type": "dimension"
+   },
+   "unit": {
+    "$value": "px",
+    "$type": "string"
+   },
+   "type-base": {
+    "$value": 30,
+    "$type": "dimension"
+   },
+   "margin-x": {
+    "$value": 72,
+    "$type": "dimension"
+   },
+   "margin-top": {
+    "$value": 64,
+    "$type": "dimension"
+   },
+   "columns": {
+    "$value": 6,
+    "$type": "number"
+   },
+   "gutter": {
+    "$value": 24,
+    "$type": "dimension"
+   },
+   "column-width": {
+    "$value": 136.0,
+    "$type": "dimension"
+   },
+   "baseline": {
+    "$value": 8,
+    "$type": "dimension"
+   },
+   "bar-height": {
+    "$value": 150,
+    "$type": "dimension"
+   },
+   "contact": {
+    "$value": 28,
+    "$type": "dimension"
+   },
+   "bar-inset": {
+    "$value": 72,
+    "$type": "dimension"
+   },
+   "safe": {
+    "$value": {
+     "top": 0,
+     "bottom": 0,
+     "side": 0
+    },
+    "$type": "object"
+   },
+   "note": {
+    "$value": "Feed post",
+    "$type": "string"
+   },
+   "space": {
+    "0": {
+     "$value": 0,
+     "$type": "dimension"
+    },
+    "3xs": {
+     "$value": 4,
+     "$type": "dimension"
+    },
+    "2xs": {
+     "$value": 8,
+     "$type": "dimension"
+    },
+    "xs": {
+     "$value": 12,
+     "$type": "dimension"
+    },
+    "s": {
+     "$value": 16,
+     "$type": "dimension"
+    },
+    "m": {
+     "$value": 24,
+     "$type": "dimension"
+    },
+    "l": {
+     "$value": 32,
+     "$type": "dimension"
+    },
+    "xl": {
+     "$value": 48,
+     "$type": "dimension"
+    },
+    "2xl": {
+     "$value": 64,
+     "$type": "dimension"
+    },
+    "3xl": {
+     "$value": 72,
+     "$type": "dimension"
+    },
+    "4xl": {
+     "$value": 96,
+     "$type": "dimension"
+    },
+    "5xl": {
+     "$value": 128,
+     "$type": "dimension"
+    },
+    "6xl": {
+     "$value": 160,
+     "$type": "dimension"
+    }
+   },
+   "grid-crop": {
+    "$value": {
+     "x": 0,
+     "y": 0,
+     "w": 1080,
+     "h": 1350
+    },
+    "$type": "object"
+   }
+  },
+  "IG11": {
+   "name": {
+    "$value": "Instagram 1:1",
+    "$type": "string"
+   },
+   "width": {
+    "$value": 1080,
+    "$type": "dimension"
+   },
+   "height": {
+    "$value": 1080,
+    "$type": "dimension"
+   },
+   "unit": {
+    "$value": "px",
+    "$type": "string"
+   },
+   "type-base": {
+    "$value": 28,
+    "$type": "dimension"
+   },
+   "margin-x": {
+    "$value": 72,
+    "$type": "dimension"
+   },
+   "margin-top": {
+    "$value": 60,
+    "$type": "dimension"
+   },
+   "columns": {
+    "$value": 6,
+    "$type": "number"
+   },
+   "gutter": {
+    "$value": 24,
+    "$type": "dimension"
+   },
+   "column-width": {
+    "$value": 136.0,
+    "$type": "dimension"
+   },
+   "baseline": {
+    "$value": 8,
+    "$type": "dimension"
+   },
+   "bar-height": {
+    "$value": 130,
+    "$type": "dimension"
+   },
+   "contact": {
+    "$value": 28,
+    "$type": "dimension"
+   },
+   "bar-inset": {
+    "$value": 72,
+    "$type": "dimension"
+   },
+   "safe": {
+    "$value": {
+     "top": 0,
+     "bottom": 0,
+     "side": 0
+    },
+    "$type": "object"
+   },
+   "note": {
+    "$value": "Feed post",
+    "$type": "string"
+   },
+   "space": {
+    "0": {
+     "$value": 0,
+     "$type": "dimension"
+    },
+    "3xs": {
+     "$value": 4,
+     "$type": "dimension"
+    },
+    "2xs": {
+     "$value": 8,
+     "$type": "dimension"
+    },
+    "xs": {
+     "$value": 12,
+     "$type": "dimension"
+    },
+    "s": {
+     "$value": 14,
+     "$type": "dimension"
+    },
+    "m": {
+     "$value": 22,
+     "$type": "dimension"
+    },
+    "l": {
+     "$value": 30,
+     "$type": "dimension"
+    },
+    "xl": {
+     "$value": 44,
+     "$type": "dimension"
+    },
+    "2xl": {
+     "$value": 60,
+     "$type": "dimension"
+    },
+    "3xl": {
+     "$value": 68,
+     "$type": "dimension"
+    },
+    "4xl": {
+     "$value": 90,
+     "$type": "dimension"
+    },
+    "5xl": {
+     "$value": 120,
+     "$type": "dimension"
+    },
+    "6xl": {
+     "$value": 150,
+     "$type": "dimension"
+    }
+   }
+  },
+  "CAR": {
+   "name": {
+    "$value": "Carousel 4:5",
+    "$type": "string"
+   },
+   "width": {
+    "$value": 1080,
+    "$type": "dimension"
+   },
+   "height": {
+    "$value": 1350,
+    "$type": "dimension"
+   },
+   "unit": {
+    "$value": "px",
+    "$type": "string"
+   },
+   "type-base": {
+    "$value": 30,
+    "$type": "dimension"
+   },
+   "margin-x": {
+    "$value": 72,
+    "$type": "dimension"
+   },
+   "margin-top": {
+    "$value": 64,
+    "$type": "dimension"
+   },
+   "columns": {
+    "$value": 6,
+    "$type": "number"
+   },
+   "gutter": {
+    "$value": 24,
+    "$type": "dimension"
+   },
+   "column-width": {
+    "$value": 136.0,
+    "$type": "dimension"
+   },
+   "baseline": {
+    "$value": 8,
+    "$type": "dimension"
+   },
+   "bar-height": {
+    "$value": 140,
+    "$type": "dimension"
+   },
+   "contact": {
+    "$value": 28,
+    "$type": "dimension"
+   },
+   "bar-inset": {
+    "$value": 72,
+    "$type": "dimension"
+   },
+   "safe": {
+    "$value": {
+     "top": 0,
+     "bottom": 0,
+     "side": 0
+    },
+    "$type": "object"
+   },
+   "note": {
+    "$value": "Carousel slide (cover bar 150, inner 140)",
+    "$type": "string"
+   },
+   "space": {
+    "0": {
+     "$value": 0,
+     "$type": "dimension"
+    },
+    "3xs": {
+     "$value": 4,
+     "$type": "dimension"
+    },
+    "2xs": {
+     "$value": 8,
+     "$type": "dimension"
+    },
+    "xs": {
+     "$value": 12,
+     "$type": "dimension"
+    },
+    "s": {
+     "$value": 16,
+     "$type": "dimension"
+    },
+    "m": {
+     "$value": 24,
+     "$type": "dimension"
+    },
+    "l": {
+     "$value": 32,
+     "$type": "dimension"
+    },
+    "xl": {
+     "$value": 48,
+     "$type": "dimension"
+    },
+    "2xl": {
+     "$value": 64,
+     "$type": "dimension"
+    },
+    "3xl": {
+     "$value": 72,
+     "$type": "dimension"
+    },
+    "4xl": {
+     "$value": 96,
+     "$type": "dimension"
+    },
+    "5xl": {
+     "$value": 128,
+     "$type": "dimension"
+    },
+    "6xl": {
+     "$value": 160,
+     "$type": "dimension"
+    }
+   }
+  },
+  "STORY": {
+   "name": {
+    "$value": "Story 9:16",
+    "$type": "string"
+   },
+   "width": {
+    "$value": 1080,
+    "$type": "dimension"
+   },
+   "height": {
+    "$value": 1920,
+    "$type": "dimension"
+   },
+   "unit": {
+    "$value": "px",
+    "$type": "string"
+   },
+   "type-base": {
+    "$value": 32,
+    "$type": "dimension"
+   },
+   "margin-x": {
+    "$value": 80,
+    "$type": "dimension"
+   },
+   "margin-top": {
+    "$value": 270,
+    "$type": "dimension"
+   },
+   "columns": {
+    "$value": 4,
+    "$type": "number"
+   },
+   "gutter": {
+    "$value": 24,
+    "$type": "dimension"
+   },
+   "column-width": {
+    "$value": 212.0,
+    "$type": "dimension"
+   },
+   "baseline": {
+    "$value": 8,
+    "$type": "dimension"
+   },
+   "bar-height": {
+    "$value": 140,
+    "$type": "dimension"
+   },
+   "contact": {
+    "$value": 30,
+    "$type": "dimension"
+   },
+   "bar-inset": {
+    "$value": 80,
+    "$type": "dimension"
+   },
+   "safe": {
+    "$value": {
+     "top": 270,
+     "bottom": 270,
+     "side": 64
+    },
+    "$type": "object"
+   },
+   "note": {
+    "$value": "IG UI: profile bar top 270 · reply field bottom 270 · contact bar sits above the reply zone (DS-08)",
+    "$type": "string"
+   },
+   "space": {
+    "0": {
+     "$value": 0,
+     "$type": "dimension"
+    },
+    "3xs": {
+     "$value": 4,
+     "$type": "dimension"
+    },
+    "2xs": {
+     "$value": 8,
+     "$type": "dimension"
+    },
+    "xs": {
+     "$value": 12,
+     "$type": "dimension"
+    },
+    "s": {
+     "$value": 18,
+     "$type": "dimension"
+    },
+    "m": {
+     "$value": 26,
+     "$type": "dimension"
+    },
+    "l": {
+     "$value": 34,
+     "$type": "dimension"
+    },
+    "xl": {
+     "$value": 52,
+     "$type": "dimension"
+    },
+    "2xl": {
+     "$value": 68,
+     "$type": "dimension"
+    },
+    "3xl": {
+     "$value": 76,
+     "$type": "dimension"
+    },
+    "4xl": {
+     "$value": 102,
+     "$type": "dimension"
+    },
+    "5xl": {
+     "$value": 136,
+     "$type": "dimension"
+    },
+    "6xl": {
+     "$value": 170,
+     "$type": "dimension"
+    }
+   }
+  },
+  "REEL": {
+   "name": {
+    "$value": "Reel cover 9:16",
+    "$type": "string"
+   },
+   "width": {
+    "$value": 1080,
+    "$type": "dimension"
+   },
+   "height": {
+    "$value": 1920,
+    "$type": "dimension"
+   },
+   "unit": {
+    "$value": "px",
+    "$type": "string"
+   },
+   "type-base": {
+    "$value": 32,
+    "$type": "dimension"
+   },
+   "margin-x": {
+    "$value": 80,
+    "$type": "dimension"
+   },
+   "margin-top": {
+    "$value": 120,
+    "$type": "dimension"
+   },
+   "columns": {
+    "$value": 4,
+    "$type": "number"
+   },
+   "gutter": {
+    "$value": 24,
+    "$type": "dimension"
+   },
+   "column-width": {
+    "$value": 212.0,
+    "$type": "dimension"
+   },
+   "baseline": {
+    "$value": 8,
+    "$type": "dimension"
+   },
+   "bar-height": {
+    "$value": 190,
+    "$type": "dimension"
+   },
+   "contact": {
+    "$value": 30,
+    "$type": "dimension"
+   },
+   "bar-inset": {
+    "$value": 80,
+    "$type": "dimension"
+   },
+   "safe": {
+    "$value": {
+     "top": 240,
+     "bottom": 280,
+     "side": 120
+    },
+    "$type": "object"
+   },
+   "note": {
+    "$value": "Title inside the 3:4 grid crop (y 240–1680) and inside 4:5 (y 285–1635)",
+    "$type": "string"
+   },
+   "space": {
+    "0": {
+     "$value": 0,
+     "$type": "dimension"
+    },
+    "3xs": {
+     "$value": 4,
+     "$type": "dimension"
+    },
+    "2xs": {
+     "$value": 8,
+     "$type": "dimension"
+    },
+    "xs": {
+     "$value": 12,
+     "$type": "dimension"
+    },
+    "s": {
+     "$value": 18,
+     "$type": "dimension"
+    },
+    "m": {
+     "$value": 26,
+     "$type": "dimension"
+    },
+    "l": {
+     "$value": 34,
+     "$type": "dimension"
+    },
+    "xl": {
+     "$value": 52,
+     "$type": "dimension"
+    },
+    "2xl": {
+     "$value": 68,
+     "$type": "dimension"
+    },
+    "3xl": {
+     "$value": 76,
+     "$type": "dimension"
+    },
+    "4xl": {
+     "$value": 102,
+     "$type": "dimension"
+    },
+    "5xl": {
+     "$value": 136,
+     "$type": "dimension"
+    },
+    "6xl": {
+     "$value": 170,
+     "$type": "dimension"
+    }
+   },
+   "grid-crop": {
+    "$value": {
+     "x": 0,
+     "y": 240,
+     "w": 1080,
+     "h": 1440
+    },
+    "$type": "object"
+   }
+  },
+  "LI": {
+   "name": {
+    "$value": "LinkedIn 1200 × 627",
+    "$type": "string"
+   },
+   "width": {
+    "$value": 1200,
+    "$type": "dimension"
+   },
+   "height": {
+    "$value": 627,
+    "$type": "dimension"
+   },
+   "unit": {
+    "$value": "px",
+    "$type": "string"
+   },
+   "type-base": {
+    "$value": 20,
+    "$type": "dimension"
+   },
+   "margin-x": {
+    "$value": 60,
+    "$type": "dimension"
+   },
+   "margin-top": {
+    "$value": 44,
+    "$type": "dimension"
+   },
+   "columns": {
+    "$value": 12,
+    "$type": "number"
+   },
+   "gutter": {
+    "$value": 16,
+    "$type": "dimension"
+   },
+   "column-width": {
+    "$value": 75.33,
+    "$type": "dimension"
+   },
+   "baseline": {
+    "$value": 4,
+    "$type": "dimension"
+   },
+   "bar-height": {
+    "$value": 84,
+    "$type": "dimension"
+   },
+   "contact": {
+    "$value": 21,
+    "$type": "dimension"
+   },
+   "bar-inset": {
+    "$value": 60,
+    "$type": "dimension"
+   },
+   "safe": {
+    "$value": {
+     "top": 0,
+     "bottom": 0,
+     "side": 0
+    },
+    "$type": "object"
+   },
+   "note": {
+    "$value": "Link / post image",
+    "$type": "string"
+   },
+   "space": {
+    "0": {
+     "$value": 0,
+     "$type": "dimension"
+    },
+    "3xs": {
+     "$value": 2,
+     "$type": "dimension"
+    },
+    "2xs": {
+     "$value": 6,
+     "$type": "dimension"
+    },
+    "xs": {
+     "$value": 8,
+     "$type": "dimension"
+    },
+    "s": {
+     "$value": 10,
+     "$type": "dimension"
+    },
+    "m": {
+     "$value": 16,
+     "$type": "dimension"
+    },
+    "l": {
+     "$value": 22,
+     "$type": "dimension"
+    },
+    "xl": {
+     "$value": 32,
+     "$type": "dimension"
+    },
+    "2xl": {
+     "$value": 42,
+     "$type": "dimension"
+    },
+    "3xl": {
+     "$value": 48,
+     "$type": "dimension"
+    },
+    "4xl": {
+     "$value": 64,
+     "$type": "dimension"
+    },
+    "5xl": {
+     "$value": 86,
+     "$type": "dimension"
+    },
+    "6xl": {
+     "$value": 106,
+     "$type": "dimension"
+    }
+   }
+  },
+  "X": {
+   "name": {
+    "$value": "X 1600 × 900",
+    "$type": "string"
+   },
+   "width": {
+    "$value": 1600,
+    "$type": "dimension"
+   },
+   "height": {
+    "$value": 900,
+    "$type": "dimension"
+   },
+   "unit": {
+    "$value": "px",
+    "$type": "string"
+   },
+   "type-base": {
+    "$value": 26,
+    "$type": "dimension"
+   },
+   "margin-x": {
+    "$value": 88,
+    "$type": "dimension"
+   },
+   "margin-top": {
+    "$value": 70,
+    "$type": "dimension"
+   },
+   "columns": {
+    "$value": 12,
+    "$type": "number"
+   },
+   "gutter": {
+    "$value": 24,
+    "$type": "dimension"
+   },
+   "column-width": {
+    "$value": 96.67,
+    "$type": "dimension"
+   },
+   "baseline": {
+    "$value": 8,
+    "$type": "dimension"
+   },
+   "bar-height": {
+    "$value": 110,
+    "$type": "dimension"
+   },
+   "contact": {
+    "$value": 30,
+    "$type": "dimension"
+   },
+   "bar-inset": {
+    "$value": 88,
+    "$type": "dimension"
+   },
+   "safe": {
+    "$value": {
+     "top": 0,
+     "bottom": 0,
+     "side": 0
+    },
+    "$type": "object"
+   },
+   "note": {
+    "$value": "In-stream 16:9",
+    "$type": "string"
+   },
+   "space": {
+    "0": {
+     "$value": 0,
+     "$type": "dimension"
+    },
+    "3xs": {
+     "$value": 4,
+     "$type": "dimension"
+    },
+    "2xs": {
+     "$value": 6,
+     "$type": "dimension"
+    },
+    "xs": {
+     "$value": 10,
+     "$type": "dimension"
+    },
+    "s": {
+     "$value": 14,
+     "$type": "dimension"
+    },
+    "m": {
+     "$value": 20,
+     "$type": "dimension"
+    },
+    "l": {
+     "$value": 28,
+     "$type": "dimension"
+    },
+    "xl": {
+     "$value": 42,
+     "$type": "dimension"
+    },
+    "2xl": {
+     "$value": 56,
+     "$type": "dimension"
+    },
+    "3xl": {
+     "$value": 62,
+     "$type": "dimension"
+    },
+    "4xl": {
+     "$value": 84,
+     "$type": "dimension"
+    },
+    "5xl": {
+     "$value": 110,
+     "$type": "dimension"
+    },
+    "6xl": {
+     "$value": 138,
+     "$type": "dimension"
+    }
+   }
+  },
+  "YT": {
+   "name": {
+    "$value": "YouTube 1280 × 720",
+    "$type": "string"
+   },
+   "width": {
+    "$value": 1280,
+    "$type": "dimension"
+   },
+   "height": {
+    "$value": 720,
+    "$type": "dimension"
+   },
+   "unit": {
+    "$value": "px",
+    "$type": "string"
+   },
+   "type-base": {
+    "$value": 24,
+    "$type": "dimension"
+   },
+   "margin-x": {
+    "$value": 60,
+    "$type": "dimension"
+   },
+   "margin-top": {
+    "$value": 46,
+    "$type": "dimension"
+   },
+   "columns": {
+    "$value": 12,
+    "$type": "number"
+   },
+   "gutter": {
+    "$value": 16,
+    "$type": "dimension"
+   },
+   "column-width": {
+    "$value": 82.0,
+    "$type": "dimension"
+   },
+   "baseline": {
+    "$value": 4,
+    "$type": "dimension"
+   },
+   "bar-height": {
+    "$value": 90,
+    "$type": "dimension"
+   },
+   "contact": {
+    "$value": 23,
+    "$type": "dimension"
+   },
+   "bar-inset": {
+    "$value": 216,
+    "$type": "dimension"
+   },
+   "safe": {
+    "$value": {
+     "top": 0,
+     "bottom": 0,
+     "side": 0,
+     "badge": {
+      "x": 1100,
+      "y": 640,
+      "w": 180,
+      "h": 80
+     }
+    },
+    "$type": "object"
+   },
+   "note": {
+    "$value": "Duration badge bottom-right — contact row inset 216 both sides (DS-09)",
+    "$type": "string"
+   },
+   "space": {
+    "0": {
+     "$value": 0,
+     "$type": "dimension"
+    },
+    "3xs": {
+     "$value": 4,
+     "$type": "dimension"
+    },
+    "2xs": {
+     "$value": 6,
+     "$type": "dimension"
+    },
+    "xs": {
+     "$value": 10,
+     "$type": "dimension"
+    },
+    "s": {
+     "$value": 12,
+     "$type": "dimension"
+    },
+    "m": {
+     "$value": 20,
+     "$type": "dimension"
+    },
+    "l": {
+     "$value": 26,
+     "$type": "dimension"
+    },
+    "xl": {
+     "$value": 38,
+     "$type": "dimension"
+    },
+    "2xl": {
+     "$value": 52,
+     "$type": "dimension"
+    },
+    "3xl": {
+     "$value": 58,
+     "$type": "dimension"
+    },
+    "4xl": {
+     "$value": 76,
+     "$type": "dimension"
+    },
+    "5xl": {
+     "$value": 102,
+     "$type": "dimension"
+    },
+    "6xl": {
+     "$value": 128,
+     "$type": "dimension"
+    }
+   }
+  },
+  "A4P": {
+   "name": {
+    "$value": "A4 portrait",
+    "$type": "string"
+   },
+   "width": {
+    "$value": 794,
+    "$type": "dimension"
+   },
+   "height": {
+    "$value": 1123,
+    "$type": "dimension"
+   },
+   "unit": {
+    "$value": "px@96dpi (210 × 297 mm)",
+    "$type": "string"
+   },
+   "type-base": {
+    "$value": 13.33,
+    "$type": "dimension"
+   },
+   "margin-x": {
+    "$value": 68,
+    "$type": "dimension"
+   },
+   "margin-top": {
+    "$value": 76,
+    "$type": "dimension"
+   },
+   "columns": {
+    "$value": 12,
+    "$type": "number"
+   },
+   "gutter": {
+    "$value": 19,
+    "$type": "dimension"
+   },
+   "column-width": {
+    "$value": 37.42,
+    "$type": "dimension"
+   },
+   "baseline": {
+    "$value": 4,
+    "$type": "dimension"
+   },
+   "bar-height": {
+    "$value": 64,
+    "$type": "dimension"
+   },
+   "contact": {
+    "$value": 12,
+    "$type": "dimension"
+   },
+   "bar-inset": {
+    "$value": 68,
+    "$type": "dimension"
+   },
+   "safe": {
+    "$value": {
+     "top": 0,
+     "bottom": 0,
+     "side": 0,
+     "bleed_mm": 3
+    },
+    "$type": "object"
+   },
+   "note": {
+    "$value": "Reports, lead magnets",
+    "$type": "string"
+   },
+   "space": {
+    "0": {
+     "$value": 0,
+     "$type": "dimension"
+    },
+    "3xs": {
+     "$value": 2,
+     "$type": "dimension"
+    },
+    "2xs": {
+     "$value": 4,
+     "$type": "dimension"
+    },
+    "xs": {
+     "$value": 6,
+     "$type": "dimension"
+    },
+    "s": {
+     "$value": 8,
+     "$type": "dimension"
+    },
+    "m": {
+     "$value": 10,
+     "$type": "dimension"
+    },
+    "l": {
+     "$value": 14,
+     "$type": "dimension"
+    },
+    "xl": {
+     "$value": 22,
+     "$type": "dimension"
+    },
+    "2xl": {
+     "$value": 28,
+     "$type": "dimension"
+    },
+    "3xl": {
+     "$value": 32,
+     "$type": "dimension"
+    },
+    "4xl": {
+     "$value": 42,
+     "$type": "dimension"
+    },
+    "5xl": {
+     "$value": 56,
+     "$type": "dimension"
+    },
+    "6xl": {
+     "$value": 72,
+     "$type": "dimension"
+    }
+   }
+  },
+  "A4L": {
+   "name": {
+    "$value": "A4 landscape",
+    "$type": "string"
+   },
+   "width": {
+    "$value": 1123,
+    "$type": "dimension"
+   },
+   "height": {
+    "$value": 794,
+    "$type": "dimension"
+   },
+   "unit": {
+    "$value": "px@96dpi (297 × 210 mm)",
+    "$type": "string"
+   },
+   "type-base": {
+    "$value": 13.33,
+    "$type": "dimension"
+   },
+   "margin-x": {
+    "$value": 60,
+    "$type": "dimension"
+   },
+   "margin-top": {
+    "$value": 64,
+    "$type": "dimension"
+   },
+   "columns": {
+    "$value": 12,
+    "$type": "number"
+   },
+   "gutter": {
+    "$value": 19,
+    "$type": "dimension"
+   },
+   "column-width": {
+    "$value": 66.17,
+    "$type": "dimension"
+   },
+   "baseline": {
+    "$value": 4,
+    "$type": "dimension"
+   },
+   "bar-height": {
+    "$value": 56,
+    "$type": "dimension"
+   },
+   "contact": {
+    "$value": 12,
+    "$type": "dimension"
+   },
+   "bar-inset": {
+    "$value": 60,
+    "$type": "dimension"
+   },
+   "safe": {
+    "$value": {
+     "top": 0,
+     "bottom": 0,
+     "side": 0,
+     "bleed_mm": 3
+    },
+    "$type": "object"
+   },
+   "note": {
+    "$value": "Comparison sheets, one-pagers",
+    "$type": "string"
+   },
+   "space": {
+    "0": {
+     "$value": 0,
+     "$type": "dimension"
+    },
+    "3xs": {
+     "$value": 2,
+     "$type": "dimension"
+    },
+    "2xs": {
+     "$value": 4,
+     "$type": "dimension"
+    },
+    "xs": {
+     "$value": 6,
+     "$type": "dimension"
+    },
+    "s": {
+     "$value": 8,
+     "$type": "dimension"
+    },
+    "m": {
+     "$value": 10,
+     "$type": "dimension"
+    },
+    "l": {
+     "$value": 14,
+     "$type": "dimension"
+    },
+    "xl": {
+     "$value": 22,
+     "$type": "dimension"
+    },
+    "2xl": {
+     "$value": 28,
+     "$type": "dimension"
+    },
+    "3xl": {
+     "$value": 32,
+     "$type": "dimension"
+    },
+    "4xl": {
+     "$value": 42,
+     "$type": "dimension"
+    },
+    "5xl": {
+     "$value": 56,
+     "$type": "dimension"
+    },
+    "6xl": {
+     "$value": 72,
+     "$type": "dimension"
+    }
+   }
+  },
+  "PRES": {
+   "name": {
+    "$value": "Presentation 16:9",
+    "$type": "string"
+   },
+   "width": {
+    "$value": 1920,
+    "$type": "dimension"
+   },
+   "height": {
+    "$value": 1080,
+    "$type": "dimension"
+   },
+   "unit": {
+    "$value": "px",
+    "$type": "string"
+   },
+   "type-base": {
+    "$value": 28,
+    "$type": "dimension"
+   },
+   "margin-x": {
+    "$value": 96,
+    "$type": "dimension"
+   },
+   "margin-top": {
+    "$value": 80,
+    "$type": "dimension"
+   },
+   "columns": {
+    "$value": 12,
+    "$type": "number"
+   },
+   "gutter": {
+    "$value": 24,
+    "$type": "dimension"
+   },
+   "column-width": {
+    "$value": 122.0,
+    "$type": "dimension"
+   },
+   "baseline": {
+    "$value": 8,
+    "$type": "dimension"
+   },
+   "bar-height": {
+    "$value": 72,
+    "$type": "dimension"
+   },
+   "contact": {
+    "$value": 24,
+    "$type": "dimension"
+   },
+   "bar-inset": {
+    "$value": 96,
+    "$type": "dimension"
+   },
+   "safe": {
+    "$value": {
+     "top": 0,
+     "bottom": 0,
+     "side": 0
+    },
+    "$type": "object"
+   },
+   "note": {
+    "$value": "Screen presentations",
+    "$type": "string"
+   },
+   "space": {
+    "0": {
+     "$value": 0,
+     "$type": "dimension"
+    },
+    "3xs": {
+     "$value": 4,
+     "$type": "dimension"
+    },
+    "2xs": {
+     "$value": 8,
+     "$type": "dimension"
+    },
+    "xs": {
+     "$value": 12,
+     "$type": "dimension"
+    },
+    "s": {
+     "$value": 14,
+     "$type": "dimension"
+    },
+    "m": {
+     "$value": 22,
+     "$type": "dimension"
+    },
+    "l": {
+     "$value": 30,
+     "$type": "dimension"
+    },
+    "xl": {
+     "$value": 44,
+     "$type": "dimension"
+    },
+    "2xl": {
+     "$value": 60,
+     "$type": "dimension"
+    },
+    "3xl": {
+     "$value": 68,
+     "$type": "dimension"
+    },
+    "4xl": {
+     "$value": 90,
+     "$type": "dimension"
+    },
+    "5xl": {
+     "$value": 120,
+     "$type": "dimension"
+    },
+    "6xl": {
+     "$value": 150,
+     "$type": "dimension"
+    }
+   }
+  }
+ },
+ "radius": {
+  "none": {
+   "$value": 0,
+   "$type": "dimension",
+   "$description": "Default: images, frames, cards, tables, bars, charts"
+  },
+  "subtle": {
+   "$value": 8,
+   "$type": "dimension",
+   "$description": "Small interactive-looking chips and story answer cards (×format factor)"
+  },
+  "frame": {
+   "$value": 40,
+   "$type": "dimension",
+   "$description": "Only the framed-portrait cover family (approved cover 04)"
+  },
+  "pill": {
+   "$value": 999,
+   "$type": "dimension",
+   "$description": "CTA pills, tags (approved Phase 01 pill)"
+  },
+  "circle": {
+   "$value": "50%",
+   "$type": "dimension",
+   "$description": "Avatar, ring, ripple, diamond-dot containers"
+  }
+ },
+ "shadow": {
+  "none": {
+   "$value": "none",
+   "$type": "shadow",
+   "$description": "Default — the system is flat"
+  },
+  "lift": {
+   "$value": "0 12px 32px rgba(23,34,43,0.12)",
+   "$type": "shadow",
+   "$description": "A floating photo/card over an ambient ground — max one per surface"
+  },
+  "paper": {
+   "$value": "0 1px 0 rgba(23,34,43,0.06)",
+   "$type": "shadow",
+   "$description": "Document/card edge on Paper"
+  },
+  "rule": {
+   "$value": "Never on the signature, never on text, never on Khalil",
+   "$type": "string"
+  }
+ },
+ "texture": {
+  "grain": {
+   "subtle": {
+    "$value": 0.03,
+    "$type": "number"
+   },
+   "standard-light": {
+    "$value": 0.05,
+    "$type": "number"
+   },
+   "standard-dark": {
+    "$value": 0.07,
+    "$type": "number"
+   },
+   "hero": {
+    "$value": 0.09,
+    "$type": "number"
+   }
+  },
+  "paper-grid": {
+   "$value": {
+    "step": 8,
+    "opacity": 0.035,
+    "color": "{color.palette.ink}"
+   },
+   "$type": "object",
+   "$description": "Architectural paper — documents and architectural mode only"
+  },
+  "atmosphere": {
+   "$value": {
+    "baseFrequency": 0.012,
+    "opacity": 0.06
+   },
+   "$type": "object",
+   "$description": "Low-frequency noise inside ambient grounds (Hero only)"
+  }
+ },
+ "ambient": {
+  "deep": {
+   "$value": {
+    "base": [
+     "{color.ambient.deep-0}",
+     "{color.palette.bahr}",
+     "{color.ambient.deep-2}"
+    ],
+    "light": [
+     "{color.palette.mawj}",
+     "{color.palette.ufuq}"
+    ],
+    "warm": "{color.palette.luban}@10%"
+   },
+   "$type": "object",
+   "$description": "Bahr-led"
+  },
+  "night": {
+   "$value": {
+    "base": [
+     "{color.ambient.night-0}",
+     "{color.palette.ink}",
+     "{color.ambient.night-2}"
+    ],
+    "light": [
+     "{color.palette.bahr}",
+     "{color.palette.mawj}"
+    ]
+   },
+   "$type": "object",
+   "$description": "Ink-led"
+  },
+  "light": {
+   "$value": {
+    "base": [
+     "{color.ambient.light-0}",
+     "{color.palette.zabad}",
+     "{color.ambient.light-2}"
+    ],
+    "light": [
+     "{color.ambient.light-glow}",
+     "#FFFFFF",
+     "{color.palette.ufuq}"
+    ]
+   },
+   "$type": "object",
+   "$description": "Zabad/Sarooj-led"
+  },
+  "horizon": {
+   "$value": {
+    "base": [
+     "{color.palette.zabad}",
+     "{color.palette.ufuq}",
+     "{color.palette.mawj}"
+    ],
+    "band": "#FFFFFF@55%"
+   },
+   "$type": "object",
+   "$description": "Mawj/Ufuq atmospheric light — a soft horizon band"
+  },
+  "intensity": {
+   "$value": {
+    "subtle": 0.55,
+    "standard": 1.0,
+    "hero": 1.25
+   },
+   "$type": "object",
+   "$description": "Multiplier on light-field opacity"
+  }
+ },
+ "motif": {
+  "mawj": {
+   "$value": {
+    "stroke": [
+     1.5,
+     2.5
+    ],
+    "count": [
+     3,
+     14
+    ],
+    "gap": [
+     12,
+     22
+    ],
+    "amplitude": [
+     12,
+     60
+    ],
+    "wavelength": [
+     300,
+     900
+    ],
+    "opacity-dark": [
+     0.3,
+     0.6
+    ],
+    "opacity-light": [
+     0.5,
+     0.9
+    ],
+    "band-max": "1/3 of canvas height",
+    "solid-max": "10% (R10.7)"
+   },
+   "$type": "object",
+   "$description": "Values at 1080 px; scale by format factor"
+  },
+  "ripple": {
+   "$value": {
+    "rings": [
+     3,
+     7
+    ],
+    "flat": [
+     0.34,
+     1.0
+    ],
+    "stroke": [
+     1.3,
+     2.2
+    ],
+    "fade": 0.7
+   },
+   "$type": "object"
+  }
+ },
+ "z": {
+  "background": {
+   "$value": 0,
+   "$type": "number"
+  },
+  "motif": {
+   "$value": 10,
+   "$type": "number"
+  },
+  "portrait-glow": {
+   "$value": 20,
+   "$type": "number"
+  },
+  "portrait": {
+   "$value": 30,
+   "$type": "number"
+  },
+  "content": {
+   "$value": 40,
+   "$type": "number"
+  },
+  "bar": {
+   "$value": 50,
+   "$type": "number"
+  },
+  "rule": {
+   "$value": "Nothing above the portrait layer may overlap Khalil (R9.2)",
+   "$type": "string"
+  }
+ },
+ "contact": {
+  "instagram": {
+   "$value": "Khalil_alamrii",
+   "$type": "string",
+   "$description": "No @"
+  },
+  "website": {
+   "$value": "www.khalilprop.com",
+   "$type": "string",
+   "$description": "Always written in full"
+  },
+  "phone": {
+   "$value": "+968 76788852",
+   "$type": "string"
+  },
+  "email": {
+   "$value": "info@khalilprop.com",
+   "$type": "string",
+   "$description": "Documents only, never in the social row"
+  },
+  "order": {
+   "$value": [
+    "instagram",
+    "website",
+    "phone"
+   ],
+   "$type": "array",
+   "$description": "Left → centre → right (LTR row). LOCKED (R9.1, R10.13)."
+  },
+  "rule": {
+   "$value": "One row · one baseline · same size, weight (400) and colour · icons left of text · no @",
+   "$type": "string"
+  }
+ },
+ "contrast": {
+  "ink-on-paper": {
+   "$value": 15.23,
+   "$type": "number",
+   "$description": "AAA"
+  },
+  "ink-on-sarooj": {
+   "$value": 14.08,
+   "$type": "number",
+   "$description": "AAA"
+  },
+  "ink-on-zabad": {
+   "$value": 13.7,
+   "$type": "number",
+   "$description": "AAA"
+  },
+  "slate-on-paper": {
+   "$value": 5.61,
+   "$type": "number",
+   "$description": "AA"
+  },
+  "slate-on-sarooj": {
+   "$value": 5.19,
+   "$type": "number",
+   "$description": "AA"
+  },
+  "slate-on-zabad": {
+   "$value": 5.04,
+   "$type": "number",
+   "$description": "AA"
+  },
+  "mawj-on-paper": {
+   "$value": 4.81,
+   "$type": "number",
+   "$description": "AA"
+  },
+  "mawj-on-sarooj": {
+   "$value": 4.45,
+   "$type": "number",
+   "$description": "AA-large (≥ 24 px / 19 px bold)"
+  },
+  "mawj-on-zabad": {
+   "$value": 4.33,
+   "$type": "number",
+   "$description": "AA-large (≥ 24 px / 19 px bold)"
+  },
+  "bahr-on-paper": {
+   "$value": 10.93,
+   "$type": "number",
+   "$description": "AAA"
+  },
+  "bahr-on-zabad": {
+   "$value": 9.84,
+   "$type": "number",
+   "$description": "AAA"
+  },
+  "basalt-on-paper": {
+   "$value": 10.97,
+   "$type": "number",
+   "$description": "AAA"
+  },
+  "stone-on-paper": {
+   "$value": 2.71,
+   "$type": "number",
+   "$description": "decorative only"
+  },
+  "sarooj-on-bahr": {
+   "$value": 10.11,
+   "$type": "number",
+   "$description": "AAA"
+  },
+  "sarooj-on-ink": {
+   "$value": 14.08,
+   "$type": "number",
+   "$description": "AAA"
+  },
+  "ufuq-on-bahr": {
+   "$value": 5.16,
+   "$type": "number",
+   "$description": "AA"
+  },
+  "ufuq-on-ink": {
+   "$value": 7.19,
+   "$type": "number",
+   "$description": "AAA"
+  },
+  "stone-on-ink": {
+   "$value": 5.61,
+   "$type": "number",
+   "$description": "AA"
+  },
+  "zabad-on-bahr": {
+   "$value": 9.84,
+   "$type": "number",
+   "$description": "AAA"
+  },
+  "sarooj-on-basalt": {
+   "$value": 10.15,
+   "$type": "number",
+   "$description": "AAA"
+  },
+  "ufuq-on-basalt": {
+   "$value": 5.18,
+   "$type": "number",
+   "$description": "AA"
+  },
+  "mawj-on-ink": {
+   "$value": 3.17,
+   "$type": "number",
+   "$description": "AA-large (≥ 24 px / 19 px bold)"
+  }
+ }
+}

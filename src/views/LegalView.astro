@@ -1,0 +1,41 @@
+---
+/**
+ * Privacy and Terms. The "current state" sections describe what this build actually does and are
+ * factually true for the prototype. Final legal wording (controller, retention, rights channel,
+ * Omani law references) requires review by a qualified adviser — OPEN-05 / OPEN-06.
+ */
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/sections/PageHero.astro';
+import DraftNote from '@/components/ui/DraftNote.astro';
+import { legal } from '@/copy/legal';
+import { t } from '@/i18n/ui';
+import { href, type Locale } from '@/i18n/routes';
+
+interface Props { lang: Locale; doc: 'privacy' | 'terms' }
+const { lang, doc } = Astro.props;
+const c = legal[lang][doc];
+const u = t(lang);
+---
+<Base lang={lang} title={c.title} description={c.description} page={doc}>
+  <PageHero eyebrow={c.eyebrow} title={c.title} lead={c.lead}
+    crumbs={[{ label: u.nav.home, href: href(lang, 'home') }, { label: c.title }]} crumbLabel={u.breadcrumb} />
+  <section class="section" data-tone="paper">
+    <div class="wrap legal">
+      <DraftNote lang={lang} title={c.draftTitle}>{c.draftBody}</DraftNote>
+      <div class="prose">
+        {c.sections.map((s) => (
+          <>
+            <h2>{s.h}</h2>
+            {s.p.map((p) => <p>{p}</p>)}
+            {s.list && <ul>{s.list.map((li) => <li>{li}</li>)}</ul>}
+          </>
+        ))}
+      </div>
+      <p class="t-small t-muted legal__ver">{c.version}</p>
+    </div>
+  </section>
+</Base>
+<style>
+  .legal { display: grid; gap: 32px; }
+  .legal__ver { border-block-start: 1px solid var(--tone-rule); padding-block-start: 16px; max-inline-size: 68ch; }
+</style>

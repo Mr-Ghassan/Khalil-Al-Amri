@@ -1,0 +1,49 @@
+---
+/**
+ * The brand contact line (DS v1.1 `contact.rule`): Instagram · website · phone, one baseline,
+ * same size/weight/colour, icon left of its text, no "@". On narrow screens it stacks
+ * (web adaptation of the social "contact bar", per Brand & Web UI Contract §6).
+ * The row is laid out left-to-right in both locales because the brand rule is physical.
+ */
+import Icon from '@/components/ui/Icon.astro';
+import { contact } from '@/config/site';
+import { t } from '@/i18n/ui';
+import type { Locale } from '@/i18n/routes';
+
+interface Props { lang: Locale; class?: string }
+const { lang, class: cls } = Astro.props;
+const L = t(lang).contactLabels;
+---
+<ul class:list={['contact-row', cls]} dir="ltr" aria-label={t(lang).footer.contactLine}>
+  <li>
+    <a href={contact.instagram.url} rel="me noopener" target="_blank">
+      <Icon name="instagram" /><span class="visually-hidden">{L.instagram}: </span><span>{contact.instagram.handle}</span>
+    </a>
+  </li>
+  <li>
+    <span class="contact-row__site"><Icon name="globe" /><span class="visually-hidden">{L.website}: </span><span>{contact.website.display}</span></span>
+  </li>
+  <li>
+    <a href={`tel:${contact.phone.e164}`}>
+      <Icon name="phone" /><span class="visually-hidden">{L.phone}: </span><span class="num">{contact.phone.display}</span>
+    </a>
+  </li>
+</ul>
+
+<style>
+  .contact-row {
+    list-style: none; padding: 0; display: flex; flex-wrap: wrap; align-items: baseline;
+    justify-content: space-between; gap: 12px 28px;
+    font-family: var(--web-font-lat); font-weight: 400; font-size: 0.95rem; line-height: 1.4;
+    color: var(--tone-fg);
+  }
+  .contact-row a, .contact-row__site {
+    display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: inherit;
+    min-block-size: 44px;
+  }
+  .contact-row a:hover span:last-child { text-decoration: underline; }
+  .contact-row :global(.icon) { inline-size: 18px; block-size: 18px; flex: none; opacity: 0.9; }
+  @media (max-width: 540px) {
+    .contact-row { flex-direction: column; align-items: flex-start; gap: 0; }
+  }
+</style>

@@ -1,0 +1,293 @@
+/*
+  Khalil Al Amri — Web UI layer ("At Eye Level").
+  Brand values come from tokens.generated.css (approved DS v1.1). Everything prefixed
+  --web-* is a DERIVED web role, never a new brand colour.
+*/
+
+:root {
+  /* Type stacks — approved family first, compliant fallback second (ADR-003). */
+  --web-font-ar: 'KHA Jazeera', 'Al Jazeera', 'IBM Plex Sans Arabic', 'Schibsted Grotesk', system-ui, sans-serif;
+  --web-font-ar-display: 'Thmanyah Serif Display', 'KHA Thmanyah', 'Markazi Text', 'IBM Plex Sans Arabic', serif;
+  --web-font-lat: 'Schibsted Grotesk', 'KHA SG', system-ui, sans-serif;
+
+  /* Fluid scale (ratio 1.25 per DS) tuned for screens. */
+  --web-fs-display: clamp(2.6rem, 1.55rem + 4.6vw, 6rem);
+  --web-fs-h1: clamp(2.15rem, 1.45rem + 3vw, 4.25rem);
+  --web-fs-h2: clamp(1.7rem, 1.25rem + 1.9vw, 3rem);
+  --web-fs-h3: clamp(1.25rem, 1.1rem + 0.6vw, 1.6rem);
+  --web-fs-lead: clamp(1.125rem, 1.02rem + 0.42vw, 1.4rem);
+  --web-fs-body: 1.0625rem;
+  --web-fs-small: 0.9rem;
+  --web-fs-meta: 0.8125rem;
+
+  --web-page-max: 1320px;
+  --web-text-max: 62ch;
+  --web-gutter: clamp(16px, 4.4vw, 64px);
+  --web-section-y: clamp(72px, 10vw, 152px);
+  --web-header-h: 72px;
+  --web-hairline: 1px;
+  --web-focus: var(--kha-color-mawj);
+
+  color-scheme: light;
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+:root:lang(ar) { --web-fs-body: 1.125rem; }
+
+/* ───────────── Reset ───────────── */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html { scroll-padding-block-start: calc(var(--web-header-h) + 16px); }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body {
+  min-block-size: 100svh;
+  background: var(--kha-color-paper);
+  color: var(--kha-color-ink);
+  font-family: var(--web-font-lat);
+  font-size: var(--web-fs-body);
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+:lang(ar) body, body:lang(ar) { font-family: var(--web-font-ar); line-height: 1.85; }
+img, picture, svg, video { display: block; max-inline-size: 100%; }
+img { block-size: auto; }
+input, button, textarea, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+a { color: inherit; text-underline-offset: 0.22em; text-decoration-thickness: 1px; }
+p, li { text-wrap: pretty; }
+h1, h2, h3, h4 { text-wrap: balance; font-weight: 600; }
+/* No synthetic italics or letter-spacing on Arabic. */
+:lang(ar) em, :lang(ar) i { font-style: normal; }
+:lang(ar) * { letter-spacing: 0 !important; }
+::selection { background: var(--kha-color-ufuq); color: var(--kha-color-ink); }
+
+:focus-visible {
+  outline: 3px solid var(--web-focus);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.visually-hidden {
+  position: absolute !important; inline-size: 1px; block-size: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+.skip-link {
+  position: fixed; inset-block-start: 12px; inset-inline-start: 12px; z-index: 200;
+  padding: 12px 18px; border-radius: var(--kha-radius-pill);
+  background: var(--kha-color-ink); color: var(--kha-color-sarooj);
+  transform: translateY(-160%);
+}
+.skip-link:focus-visible { transform: none; }
+
+/* Latin runs inside Arabic: phone numbers, handles, URLs. */
+.ltr { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+.num { font-family: var(--web-font-lat); font-variant-numeric: tabular-nums lining-nums; }
+
+/* ───────────── Tones: from the surface to the depth ───────────── */
+[data-tone] { color: var(--tone-fg); background-color: var(--tone-bg); }
+[data-tone='day'] {
+  --tone-bg: var(--kha-ambient-light-0);
+  --tone-fg: var(--kha-color-ink);
+  --tone-head: var(--kha-color-bahr);
+  --tone-muted: var(--kha-color-slate);
+  --tone-accent: var(--kha-color-mawj);
+  --tone-rule: var(--kha-ambient-rule-on-zabad);
+  --tone-horizon: color-mix(in srgb, var(--kha-color-mawj) 55%, transparent);
+  --web-focus: var(--kha-color-mawj);
+}
+[data-tone='paper'] {
+  --tone-bg: var(--kha-color-paper);
+  --tone-fg: var(--kha-color-ink);
+  --tone-head: var(--kha-color-bahr);
+  --tone-muted: var(--kha-color-slate);
+  --tone-accent: var(--kha-color-mawj);
+  --tone-rule: var(--kha-color-limestone);
+  --tone-horizon: color-mix(in srgb, var(--kha-color-mawj) 40%, transparent);
+  --web-focus: var(--kha-color-mawj);
+}
+[data-tone='sarooj'] {
+  --tone-bg: var(--kha-color-sarooj);
+  --tone-fg: var(--kha-color-ink);
+  --tone-head: var(--kha-color-bahr);
+  --tone-muted: var(--kha-color-slate);
+  --tone-accent: var(--kha-color-bahr); /* Mawj on Sarooj is 4.45:1 — below AA for small text */
+  --tone-rule: var(--kha-color-limestone);
+  --tone-horizon: color-mix(in srgb, var(--kha-color-luban) 70%, transparent);
+  --web-focus: var(--kha-color-bahr);
+}
+[data-tone='foam'] {
+  --tone-bg: var(--kha-color-zabad);
+  --tone-fg: var(--kha-color-ink);
+  --tone-head: var(--kha-color-bahr);
+  --tone-muted: var(--kha-color-slate);
+  --tone-accent: var(--kha-color-bahr);
+  --tone-rule: var(--kha-ambient-rule-on-zabad);
+  --tone-horizon: color-mix(in srgb, var(--kha-color-mawj) 50%, transparent);
+  --web-focus: var(--kha-color-bahr);
+}
+[data-tone='deep'] {
+  --tone-bg: var(--kha-color-bahr);
+  --tone-fg: var(--kha-color-sarooj);
+  --tone-head: var(--kha-color-sarooj);
+  --tone-muted: var(--kha-color-ufuq);
+  --tone-accent: var(--kha-color-ufuq);
+  --tone-rule: var(--kha-ambient-on-bahr-rule);
+  --tone-horizon: color-mix(in srgb, var(--kha-color-ufuq) 45%, transparent);
+  --web-focus: var(--kha-color-ufuq);
+  color-scheme: dark;
+}
+[data-tone='night'] {
+  --tone-bg: var(--kha-color-ink);
+  --tone-fg: var(--kha-color-sarooj);
+  --tone-head: var(--kha-color-sarooj);
+  --tone-muted: var(--kha-color-stone);
+  --tone-accent: var(--kha-color-ufuq);
+  --tone-rule: var(--kha-ambient-rule-on-basalt);
+  --tone-horizon: color-mix(in srgb, var(--kha-color-ufuq) 38%, transparent);
+  --web-focus: var(--kha-color-ufuq);
+  color-scheme: dark;
+}
+
+/* Ambient fields (DS ambient.* recipes). Always a background layer — never above Khalil. */
+.ambient-day {
+  background:
+    radial-gradient(60% 55% at var(--glow-x, 72%) var(--glow-y, 30%), #ffffff 0%, color-mix(in srgb, var(--kha-ambient-light-glow) 70%, transparent) 38%, transparent 70%),
+    linear-gradient(180deg, var(--kha-ambient-light-0) 0%, var(--kha-color-zabad) 55%, var(--kha-ambient-light-2) 100%);
+}
+.ambient-deep {
+  background:
+    radial-gradient(48% 52% at var(--glow-x, 70%) var(--glow-y, 34%), color-mix(in srgb, var(--kha-color-ufuq) 42%, transparent) 0%, color-mix(in srgb, var(--kha-color-mawj) 22%, transparent) 42%, transparent 72%),
+    linear-gradient(160deg, var(--kha-ambient-deep-0) 0%, var(--kha-color-bahr) 52%, var(--kha-ambient-deep-2) 100%);
+}
+.ambient-night {
+  background:
+    radial-gradient(46% 56% at var(--glow-x, 28%) var(--glow-y, 40%), color-mix(in srgb, var(--kha-color-mawj) 40%, transparent) 0%, color-mix(in srgb, var(--kha-color-bahr) 55%, transparent) 40%, transparent 74%),
+    linear-gradient(170deg, var(--kha-ambient-night-0) 0%, var(--kha-color-ink) 50%, var(--kha-ambient-night-2) 100%);
+}
+.grain { position: relative; isolation: isolate; }
+.grain::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  opacity: var(--grain, 0.05);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.09 0 0 0 0 0.13 0 0 0 0 0.17 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ───────────── Layout ───────────── */
+.wrap { inline-size: 100%; max-inline-size: var(--web-page-max); margin-inline: auto; padding-inline: var(--web-gutter); }
+.section { padding-block: var(--web-section-y); position: relative; }
+.section--tight { padding-block: clamp(48px, 7vw, 96px); }
+.stack > * + * { margin-block-start: var(--stack, 1rem); }
+.measure { max-inline-size: var(--web-text-max); }
+
+/* ───────────── Type ───────────── */
+.t-display, .t-h1, .t-h2, .t-h3 { color: var(--tone-head, var(--kha-color-bahr)); }
+.t-display { font-size: var(--web-fs-display); line-height: 1.02; font-weight: 600; letter-spacing: -0.02em; }
+.t-h1 { font-size: var(--web-fs-h1); line-height: 1.06; letter-spacing: -0.015em; }
+.t-h2 { font-size: var(--web-fs-h2); line-height: 1.12; letter-spacing: -0.01em; }
+.t-h3 { font-size: var(--web-fs-h3); line-height: 1.3; font-weight: 600; }
+:lang(ar) .t-display, :lang(ar) .t-h1, :lang(ar) .t-h2 {
+  font-family: var(--web-font-ar-display);
+  line-height: var(--kha-display-line-height-min, 1.25);
+  font-weight: 600;
+}
+:lang(ar) .t-display { line-height: 1.32; }
+:lang(ar) .t-h3 { font-weight: 600; line-height: 1.5; }
+.t-lead { font-size: var(--web-fs-lead); line-height: 1.55; color: var(--tone-fg); }
+:lang(ar) .t-lead { line-height: 1.8; }
+.t-muted { color: var(--tone-muted, var(--kha-color-slate)); }
+.t-small { font-size: var(--web-fs-small); }
+.t-meta {
+  font-family: var(--web-font-lat); font-size: var(--web-fs-meta); font-weight: 500;
+  letter-spacing: var(--kha-caps-tracking, 0.14em); text-transform: uppercase; color: var(--tone-muted);
+}
+:lang(ar) .t-meta { font-family: var(--web-font-ar); text-transform: none; font-size: 0.875rem; font-weight: 500; }
+
+/* Eyebrow — the horizon tick: a short line before a section label. */
+.eyebrow { display: inline-flex; align-items: center; gap: 12px; color: var(--tone-accent); }
+.eyebrow::before { content: ''; inline-size: 28px; block-size: var(--web-hairline); background: currentColor; opacity: 0.8; }
+.eyebrow .t-meta { color: inherit; }
+
+/* Prose (insights, legal) */
+.prose { max-inline-size: 68ch; }
+.prose > * + * { margin-block-start: 1.1em; }
+.prose h2 { font-size: var(--web-fs-h3); color: var(--tone-head); margin-block-start: 2em; }
+.prose ul, .prose ol { padding-inline-start: 1.25em; }
+.prose li + li { margin-block-start: 0.45em; }
+.prose blockquote {
+  border-inline-start: 2px solid var(--kha-color-luban); padding-inline-start: 1.1em;
+  font-size: var(--web-fs-lead); color: var(--tone-head);
+}
+.prose a { color: var(--tone-accent); }
+
+/* ───────────── Horizon line ───────────── */
+.horizon {
+  position: absolute; inset-inline: 0; block-size: var(--web-hairline);
+  background: linear-gradient(90deg, transparent, var(--tone-horizon) 12%, var(--tone-horizon) 88%, transparent);
+  pointer-events: none;
+}
+
+/* ───────────── Buttons — command-only pills ───────────── */
+.btn {
+  --btn-bg: var(--kha-color-bahr); --btn-fg: var(--kha-color-sarooj); --btn-bd: transparent;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-block-size: 50px; padding: 12px 26px; border-radius: var(--kha-radius-pill);
+  background: var(--btn-bg); color: var(--btn-fg); border: 1px solid var(--btn-bd);
+  font-weight: 500; font-size: 1rem; line-height: 1.2; text-decoration: none; white-space: nowrap;
+  transition: background-color var(--kha-motion-duration-fast) var(--kha-motion-ease-human),
+              color var(--kha-motion-duration-fast) var(--kha-motion-ease-human),
+              border-color var(--kha-motion-duration-fast) var(--kha-motion-ease-human);
+}
+.btn:hover { --btn-bg: var(--kha-color-ink); }
+.btn .arrow { inline-size: 18px; block-size: 18px; flex: none; }
+:dir(rtl) .btn .arrow, [dir='rtl'] .btn .arrow { transform: scaleX(-1); }
+.btn--ghost { --btn-bg: transparent; --btn-fg: var(--tone-head); --btn-bd: color-mix(in srgb, currentColor 35%, transparent); }
+.btn--ghost:hover { --btn-bg: color-mix(in srgb, var(--tone-head) 8%, transparent); --btn-bd: currentColor; }
+[data-tone='deep'] .btn:not(.btn--ghost), [data-tone='night'] .btn:not(.btn--ghost) { --btn-bg: var(--kha-color-sarooj); --btn-fg: var(--kha-color-bahr); }
+[data-tone='deep'] .btn:not(.btn--ghost):hover, [data-tone='night'] .btn:not(.btn--ghost):hover { --btn-bg: var(--kha-color-zabad); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+/* Text link with arrow */
+.link-arrow {
+  display: inline-flex; align-items: center; gap: 8px; color: var(--tone-accent);
+  font-weight: 500; text-decoration: none; border-block-end: 1px solid color-mix(in srgb, currentColor 40%, transparent);
+  padding-block-end: 2px;
+}
+.link-arrow:hover { border-color: currentColor; }
+.link-arrow svg { inline-size: 16px; block-size: 16px; }
+[dir='rtl'] .link-arrow svg { transform: scaleX(-1); }
+
+/* ───────────── Draft / preview marking ───────────── */
+.draft-note {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 14px 16px; border-radius: var(--kha-radius-subtle);
+  border: 1px dashed color-mix(in srgb, var(--kha-color-luban) 85%, transparent);
+  background: color-mix(in srgb, var(--kha-color-luban) 10%, transparent);
+  color: var(--tone-fg); font-size: var(--web-fs-small); line-height: 1.6;
+}
+.draft-note strong { color: var(--tone-head); font-weight: 600; }
+.draft-tag {
+  display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px; border-radius: var(--kha-radius-pill);
+  border: 1px dashed var(--kha-color-luban); font-size: 0.75rem; font-weight: 500; color: var(--tone-fg);
+  vertical-align: middle; white-space: nowrap;
+}
+.preview-bar {
+  background: var(--kha-color-ink); color: var(--kha-color-sarooj);
+  font-size: 0.8125rem; line-height: 1.5; padding: 8px var(--web-gutter); text-align: center;
+}
+.preview-bar b { color: var(--kha-color-luban); font-weight: 600; }
+
+/* ───────────── Reveal (progressive, reduced-motion safe) ───────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0; transform: translateY(var(--kha-motion-distance-s, 16px));
+    transition: opacity var(--kha-motion-duration-slow) var(--kha-motion-ease-enter),
+                transform var(--kha-motion-duration-slow) var(--kha-motion-ease-enter);
+    transition-delay: calc(var(--i, 0) * var(--kha-motion-delay-sequence));
+  }
+  .js [data-reveal].is-in { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 200ms !important; }
+}

@@ -1,0 +1,96 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/sections/PageHero.astro';
+import Icon from '@/components/ui/Icon.astro';
+import SevenQuestions from '@/components/sections/SevenQuestions.astro';
+import ConsultSteps from '@/components/sections/ConsultSteps.astro';
+import SayNo from '@/components/sections/SayNo.astro';
+import AnchorCTA from '@/components/sections/AnchorCTA.astro';
+import { advisory } from '@/copy/advisory';
+import { t } from '@/i18n/ui';
+import { href, type Locale } from '@/i18n/routes';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const c = advisory[lang];
+const u = t(lang);
+const serviceLd = c.services.map((s) => ({
+  '@context': 'https://schema.org', '@type': 'Service', name: s.title, description: s.doWith,
+  provider: { '@type': 'Person', name: 'Khalil Al Amri' }, areaServed: 'OM', inLanguage: lang,
+}));
+---
+<Base lang={lang} title={c.meta.title} description={c.meta.description} page="advisory" jsonLd={serviceLd}>
+  <PageHero
+    eyebrow={c.hero.eyebrow}
+    title={c.hero.title}
+    lead={c.hero.lead}
+    portrait={{ id: 'khalil-cut-0425', alt: c.hero.portraitAlt, eye: 0.134, aspect: 1294 / 2556 }}
+    crumbs={[{ label: u.nav.home, href: href(lang, 'home') }, { label: u.nav.advisory }]}
+    crumbLabel={u.breadcrumb}
+  >
+    <nav class="svc-jump" aria-label={c.hero.eyebrow}>
+      {c.services.map((s) => <a href={`#${s.id}`}>{s.title}</a>)}
+    </nav>
+  </PageHero>
+
+  <section class="svc section" data-tone="paper" aria-label={c.hero.eyebrow}>
+    <div class="wrap">
+      <ol class="svc__list">
+        {c.services.map((s, i) => (
+          <li id={s.id} class="svc__item" data-reveal>
+            <header class="svc__head">
+              <span class="num svc__n">{String(i + 1).padStart(2, '0')}</span>
+              <h2 class="t-h2 svc__title">{s.title}</h2>
+            </header>
+            <dl class="svc__facts">
+              <div><dt class="t-meta">{c.labels.when}</dt><dd>{s.when}</dd></div>
+              <div><dt class="t-meta">{c.labels.bring}</dt><dd>{s.bring}</dd></div>
+              <div><dt class="t-meta">{c.labels.doWith}</dt><dd>{s.doWith}</dd></div>
+              <div class="svc__not"><dt class="t-meta">{c.labels.notThis}</dt><dd>{s.notThis}</dd></div>
+            </dl>
+            <a class="btn" href={`${href(lang, 'interest')}?intent=${s.intent}`}>{s.cta}<Icon name="arrow" class="arrow" /></a>
+          </li>
+        ))}
+      </ol>
+      <aside class="svc__boundary" aria-labelledby="boundary-title">
+        <h2 class="t-h3" id="boundary-title"><Icon name="shield" />{c.boundary.title}</h2>
+        <ul>{c.boundary.items.map((b) => <li>{b}</li>)}</ul>
+      </aside>
+    </div>
+  </section>
+
+  <SevenQuestions lang={lang} />
+  <ConsultSteps lang={lang} tone="foam" />
+  <SayNo lang={lang} />
+  <AnchorCTA lang={lang} />
+</Base>
+
+<style>
+  .svc-jump { display: flex; flex-wrap: wrap; gap: 8px; margin-block-start: 8px; }
+  .svc-jump a {
+    padding: 8px 16px; border-radius: var(--kha-radius-pill); border: 1px solid var(--kha-ambient-rule-on-zabad);
+    background: color-mix(in srgb, white 60%, transparent); text-decoration: none; font-size: 0.95rem; color: var(--kha-color-bahr);
+    min-block-size: 44px; display: inline-flex; align-items: center;
+  }
+  .svc-jump a:hover { border-color: var(--kha-color-mawj); }
+  .svc__list { list-style: none; padding: 0; display: grid; gap: 0; }
+  .svc__item {
+    display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr) auto; gap: clamp(20px, 4vw, 56px);
+    align-items: start; padding-block: clamp(36px, 5vw, 56px); border-block-end: 1px solid var(--tone-rule);
+    scroll-margin-block-start: calc(var(--web-header-h) + 24px);
+  }
+  .svc__item:first-child { padding-block-start: 0; }
+  .svc__head { display: grid; gap: 10px; }
+  .svc__n { color: var(--kha-color-mawj); font-weight: 600; font-size: 0.85rem; }
+  .svc__facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 32px; }
+  .svc__facts dt { margin-block-end: 6px; }
+  .svc__facts dd { margin: 0; }
+  .svc__not dd { color: var(--kha-color-slate); }
+  .svc__item .btn { align-self: start; }
+  .svc__boundary { margin-block-start: 48px; padding: clamp(22px, 3vw, 32px); border-radius: var(--kha-radius-subtle); background: var(--kha-color-sarooj); }
+  .svc__boundary h2 { display: flex; gap: 10px; align-items: center; }
+  .svc__boundary :global(.icon) { inline-size: 24px; block-size: 24px; color: var(--kha-color-mawj); }
+  .svc__boundary ul { margin-block-start: 14px; padding-inline-start: 1.2em; display: grid; gap: 8px; }
+  @media (max-width: 1100px) { .svc__item { grid-template-columns: 1fr; } }
+  @media (max-width: 640px) { .svc__facts { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,8 @@
+node_modules
+dist
+.astro
+assets-private
+qa-output
+build-meta
+.git
+.env

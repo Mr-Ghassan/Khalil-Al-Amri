@@ -1,0 +1,71 @@
+---
+import Signature from '@/components/brand/Signature.astro';
+import ContactRow from '@/components/brand/ContactRow.astro';
+import DraftNote from '@/components/ui/DraftNote.astro';
+import { t } from '@/i18n/ui';
+import { href, type Locale } from '@/i18n/routes';
+import { person } from '@/config/site';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const u = t(lang);
+const year = new Date().getFullYear();
+---
+<footer class="site-footer" data-tone="night">
+  <div class="wrap">
+    <div class="site-footer__top">
+      <div class="site-footer__brand">
+        <Signature variant="compact" surface="dark" lang={lang} width="220px" />
+        <p class="site-footer__tagline">{u.footer.tagline}</p>
+      </div>
+      <nav class="site-footer__cols" aria-label={u.footer.explore}>
+        <div>
+          <h2 class="t-meta">{u.footer.explore}</h2>
+          <ul>
+            <li><a href={href(lang, 'about')}>{u.nav.about}</a></li>
+            <li><a href={href(lang, 'advisory')}>{u.nav.advisory}</a></li>
+            <li><a href={href(lang, 'insights')}>{u.nav.insights}</a></li>
+            <li><a href={href(lang, 'interest')}>{u.nav.interest}</a></li>
+            <li><a href={href(lang, 'contact')}>{u.nav.contact}</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="t-meta">{u.footer.legal}</h2>
+          <ul>
+            <li><a href={href(lang, 'privacy')}>{u.footer.privacy}</a></li>
+            <li><a href={href(lang, 'terms')}>{u.footer.terms}</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <DraftNote lang={lang} title={lang === 'ar' ? 'صياغة العلاقة مع وصول للاستثمار' : 'WUSOOL for Investment relationship statement'} class="site-footer__draft">
+      {lang === 'ar'
+        ? 'تُضاف هنا صياغة الدعم المهني من وصول للاستثمار بعد اعتمادها قانونيًا وتحريريًا (OPEN-02). لا يظهر أي شعار أو ادعاء شراكة قبل ذلك.'
+        : 'The approved wording for WUSOOL for Investment’s professional support goes here once legally and editorially approved (OPEN-02). No logo or partnership claim is shown before then.'}
+    </DraftNote>
+
+    <div class="site-footer__contact">
+      <ContactRow lang={lang} />
+    </div>
+    <p class="site-footer__legal t-small">
+      © <span class="num">{year}</span> {lang === 'ar' ? person.nameAr : person.nameEn} · {u.footer.rights}
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer { background: var(--kha-color-ink); padding-block: clamp(56px, 8vw, 96px) 32px; }
+  .site-footer__top { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: start; }
+  .site-footer__tagline { margin-block-start: 20px; max-inline-size: 30ch; color: var(--kha-color-sarooj); font-size: var(--web-fs-lead); line-height: 1.6; }
+  :global(:lang(ar)) .site-footer__tagline { font-family: var(--web-font-ar-display); font-size: 1.5rem; line-height: 1.6; }
+  .site-footer__cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+  .site-footer__cols h2 { margin-block-end: 14px; }
+  .site-footer__cols ul { list-style: none; padding: 0; display: grid; gap: 4px; }
+  .site-footer__cols a { display: inline-block; padding-block: 6px; color: var(--kha-color-sarooj); text-decoration: none; }
+  .site-footer__cols a:hover { color: var(--kha-color-ufuq); text-decoration: underline; }
+  .site-footer :global(.site-footer__draft) { margin-block-start: 40px; }
+  .site-footer__contact { margin-block-start: 40px; padding-block: 20px; border-block: 1px solid var(--kha-ambient-rule-on-basalt); }
+  .site-footer__legal { margin-block-start: 20px; color: var(--kha-color-stone); }
+  @media (max-width: 760px) { .site-footer__top { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,40 @@
+---
+/** Candid trust section — replaces testimonials (none exist / none approved). Source: KHA_C90_RL_PER_076, RL_PER_047. */
+import { sayNo } from '@/copy/shared';
+import type { Locale } from '@/i18n/routes';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const c = sayNo[lang];
+---
+<section class="sayno section" data-tone="deep" aria-labelledby="sayno-title">
+  <div class="wrap sayno__grid">
+    <div data-reveal>
+      <p class="eyebrow"><span class="t-meta">{c.eyebrow}</span></p>
+      <h2 class="t-h2 sayno__title" id="sayno-title">{c.title}</h2>
+    </div>
+    <ol class="sayno__list">
+      {c.items.map((item, i) => (
+        <li data-reveal style={`--i:${i}`}><span class="num">{String(i + 1).padStart(2, '0')}</span><p>{item}</p></li>
+      ))}
+    </ol>
+    <figure class="sayno__quote" data-reveal>
+      <blockquote><p>{c.quote}</p></blockquote>
+      <figcaption class="t-muted">{c.close}</figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .sayno { background: linear-gradient(180deg, var(--kha-ambient-deep-2) 0%, var(--kha-color-bahr) 30%, var(--kha-ambient-deep-0) 100%); }
+  .sayno__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+  .sayno__title { margin-block-start: 18px; }
+  .sayno__list { list-style: none; padding: 0; display: grid; gap: 0; border-block-start: 1px solid var(--tone-rule); }
+  .sayno__list li { display: flex; gap: 20px; align-items: baseline; padding-block: 22px; border-block-end: 1px solid var(--tone-rule); font-size: var(--web-fs-lead); }
+  .sayno__list .num { color: var(--kha-color-ufuq); font-size: 0.85rem; font-weight: 600; flex: none; }
+  .sayno__quote { grid-column: 1 / -1; margin-block-start: 16px; display: grid; gap: 14px; max-inline-size: 52rem; }
+  .sayno__quote blockquote p { font-size: var(--web-fs-h2); line-height: 1.25; color: var(--kha-color-sarooj); }
+  :global(:lang(ar)) .sayno__quote blockquote p { font-family: var(--web-font-ar-display); line-height: 1.5; }
+  .sayno__quote blockquote p::before { content: ''; display: block; inline-size: 48px; block-size: 2px; background: var(--kha-color-luban); margin-block-end: 22px; }
+  @media (max-width: 900px) { .sayno__grid { grid-template-columns: 1fr; } }
+</style>

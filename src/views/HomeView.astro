@@ -1,0 +1,190 @@
+---
+import Base from '@/layouts/Base.astro';
+import Signature from '@/components/brand/Signature.astro';
+import Portrait from '@/components/brand/Portrait.astro';
+import Icon from '@/components/ui/Icon.astro';
+import SectionHead from '@/components/ui/SectionHead.astro';
+import InsightCard from '@/components/ui/InsightCard.astro';
+import IntentChooser from '@/components/sections/IntentChooser.astro';
+import SevenQuestions from '@/components/sections/SevenQuestions.astro';
+import SayNo from '@/components/sections/SayNo.astro';
+import ConsultSteps from '@/components/sections/ConsultSteps.astro';
+import AnchorCTA from '@/components/sections/AnchorCTA.astro';
+import { home } from '@/copy/home';
+import { t } from '@/i18n/ui';
+import { href, type Locale } from '@/i18n/routes';
+import { getInsights } from '@/lib/content';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const c = home[lang];
+const u = t(lang);
+const latest = (await getInsights(lang)).slice(0, 3);
+---
+<Base lang={lang} title={c.meta.title} description={c.meta.description} page="home">
+  <!-- HERO — "At eye level": the horizon passes behind Khalil at the height of his eyes. -->
+  <section class="hero ambient-day grain" data-tone="day" aria-labelledby="hero-title">
+    <div class="wrap hero__stage">
+      <div class="hero__sky">
+        <h1 id="hero-title" class="hero__name">
+          <Signature variant="primary" surface="light" lang={lang} loading="eager" class="hero__signature" />
+        </h1>
+      </div>
+
+      <div class="hero__figure">
+        <span class="hero__glow" aria-hidden="true"></span>
+        <div class="hero__horizon horizon" aria-hidden="true"></div>
+        <Portrait id="khalil-cut-0439" alt={c.hero.portraitAlt} sizes="(max-width: 900px) 92vw, 46vw" priority class="hero__portrait" />
+      </div>
+
+      <div class="hero__ground">
+        <p class="eyebrow hero__descriptor"><span class="t-meta">{c.hero.descriptor}</span></p>
+        <p class="t-display hero__statement">
+          <span>{c.hero.statement[0]}</span>
+          <span>{c.hero.statement[1]}</span>
+        </p>
+        <p class="t-lead t-muted hero__lead">{c.hero.lead}</p>
+        <div class="btn-row">
+          <a class="btn" href={href(lang, 'interest')}>{u.cta.ask}<Icon name="arrow" class="arrow" /></a>
+          <a class="btn btn--ghost" href={href(lang, 'about')}>{u.cta.meet}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BESIDE YOU — the empty chair is for the client. -->
+  <section class="beside section" data-tone="paper" aria-labelledby="beside-title">
+    <div class="wrap beside__grid">
+      <figure class="beside__figure">
+        <div class="beside__frame">
+          <Portrait id="khalil-cut-0430" alt={c.beside.portraitAlt} sizes="(max-width: 900px) 80vw, 520px" class="beside__portrait" />
+        </div>
+        <figcaption class="t-meta">{c.beside.caption}</figcaption>
+      </figure>
+      <div class="beside__text" data-reveal>
+        <p class="eyebrow"><span class="t-meta">{c.beside.eyebrow}</span></p>
+        <h2 class="t-h1 beside__title" id="beside-title">{c.beside.title}</h2>
+        {c.beside.body.map((p) => <p class="t-lead">{p}</p>)}
+        <a class="link-arrow" href={href(lang, 'about')}>{c.beside.link}<Icon name="arrow" /></a>
+      </div>
+    </div>
+  </section>
+
+  <IntentChooser lang={lang} />
+  <SevenQuestions lang={lang} />
+  <SayNo lang={lang} />
+
+  <section class="latest section" data-tone="paper" aria-labelledby="latest-title">
+    <div class="wrap">
+      <div class="latest__head">
+        <SectionHead eyebrow={c.insights.eyebrow} title={c.insights.title} lead={c.insights.lead} id="latest-title" />
+        <a class="link-arrow" href={href(lang, 'insights')}>{u.cta.readAll}<Icon name="arrow" /></a>
+      </div>
+      {latest.length > 0 ? (
+        <ul class="latest__grid">
+          {latest.map((e, i) => <li data-reveal style={`--i:${i}`}><InsightCard entry={e} lang={lang} variant={i} /></li>)}
+        </ul>
+      ) : (
+        <p class="t-muted latest__empty">{lang === 'ar' ? 'المواد المعرفية قيد المراجعة التحريرية، وتُنشر هنا بعد اعتمادها.' : 'Insights are in editorial review and will appear here once approved.'}</p>
+      )}
+    </div>
+  </section>
+
+  <ConsultSteps lang={lang} />
+  <AnchorCTA lang={lang} />
+</Base>
+
+<style>
+  /* ── Hero geometry ─────────────────────────────────────────────
+     --fig-h   rendered height of the full-length cut-out
+     --fig-top distance from the stage top to the top of the kumma (head room)
+     --eye     eye line as a fraction of the cut-out height (measured on the master: 0.135 for IMG_0439)
+     The horizon row boundary = fig-top + eye × fig-h, so the line meets his eyes exactly. */
+  .hero {
+    --eye: 0.135;
+    --fig-h: clamp(820px, 126svh, 1480px);
+    --fig-top: clamp(116px, 22svh, 250px);
+    --horizon: calc(var(--fig-top) + var(--eye) * var(--fig-h));
+    --glow-x: 72%; --glow-y: 32%;
+    position: relative; overflow: clip; --grain: 0.06;
+  }
+  :global([dir='rtl']) .hero { --glow-x: 28%; }
+  .hero__stage {
+    display: grid;
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+    grid-template-rows: var(--horizon) auto;
+    block-size: clamp(660px, calc(100svh - var(--web-header-h)), 980px);
+    column-gap: clamp(24px, 4vw, 72px);
+  }
+  .hero__sky { grid-column: 1; grid-row: 1; align-self: end; padding-block-end: 4px; }
+  .hero__name { margin: 0; line-height: 0; }
+  .hero :global(.hero__signature) { inline-size: min(100%, 600px); margin-inline-start: -2.4%; }
+  .hero__ground { grid-column: 1; grid-row: 2; display: grid; align-content: start; gap: 18px; padding-block: 22px 48px; }
+  .hero__descriptor { color: var(--kha-color-mawj); margin-block-end: 4px; }
+  .hero__statement { display: grid; color: var(--kha-color-bahr); font-size: clamp(2.3rem, 1.4rem + 3.1vw, 4.4rem); }
+  .hero__statement span:last-child { color: var(--kha-color-ink); }
+  :global(:lang(en)) .hero__statement { font-size: clamp(2rem, 1.25rem + 2.3vw, 3.4rem); line-height: 1.06; gap: 0.15em; }
+  .hero__lead { max-inline-size: 34rem; }
+
+  .hero__figure { grid-column: 2; grid-row: 1 / span 2; position: relative; min-inline-size: 0; }
+  .hero :global(.hero__portrait) {
+    position: absolute; inset-block-start: var(--fig-top); inset-inline-start: 50%;
+    block-size: var(--fig-h); inline-size: auto; aspect-ratio: 1219 / 2603; translate: -50% 0; z-index: 2;
+    -webkit-mask-image: linear-gradient(180deg, #000 0, #000 52%, transparent 66%);
+            mask-image: linear-gradient(180deg, #000 0, #000 52%, transparent 66%);
+  }
+  :global([dir='rtl']) .hero :global(.hero__portrait) { translate: 50% 0; }
+  .hero :global(.hero__portrait img) { block-size: 100%; inline-size: auto; }
+  .hero__glow {
+    position: absolute; z-index: 0; inset-inline: -30%; inset-block-start: calc(var(--fig-top) - 12%);
+    block-size: 72%;
+    background: radial-gradient(closest-side, #fff 0%, color-mix(in srgb, var(--kha-ambient-light-glow) 75%, transparent) 45%, transparent 100%);
+  }
+  .hero__horizon { inset-block-start: var(--horizon); inset-inline: auto; inline-size: 300vw; inset-inline-start: 50%; translate: -50% 0; z-index: 1; }
+  :global([dir='rtl']) .hero__horizon { translate: 50% 0; }
+
+  @media (max-width: 900px) {
+    .hero {
+      --fig-box: clamp(300px, 46svh, 460px);
+      --fig-h: calc(var(--fig-box) * 1.32);
+      --fig-top: calc(var(--fig-box) * 0.05);
+      --glow-x: 50%; --glow-y: 30%;
+    }
+    .hero__stage { grid-template-columns: 1fr; grid-template-rows: auto var(--fig-box) auto; block-size: auto; }
+    .hero__sky { grid-row: 1; padding-block: 12px 0; justify-self: center; text-align: center; }
+    .hero :global(.hero__signature) { inline-size: min(62vw, 340px); margin-inline: auto; }
+    .hero__figure { grid-column: 1; grid-row: 2; }
+    .hero__ground { grid-row: 3; padding-block: 0 56px; gap: 14px; }
+    .hero__statement { font-size: clamp(1.9rem, 1.2rem + 3.6vw, 2.6rem); }
+    .hero :global(.hero__portrait) {
+      -webkit-mask-image: linear-gradient(180deg, #000 0, #000 54%, transparent 66%);
+              mask-image: linear-gradient(180deg, #000 0, #000 60%, transparent 75%);
+    }
+  }
+
+  /* ── Beside you ───────────────────────────────────────────── */
+  .beside__grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(32px, 6vw, 104px); align-items: center; }
+  .beside__figure { display: grid; gap: 16px; }
+  .beside__frame {
+    position: relative; border-radius: var(--kha-radius-frame); overflow: hidden; aspect-ratio: 4 / 4.6;
+    background: radial-gradient(70% 60% at 50% 30%, #fff, var(--kha-color-zabad) 60%, var(--kha-ambient-light-2));
+    display: grid; align-items: end; justify-items: center; padding-block-start: 8%;
+  }
+  .beside :global(.beside__portrait) { inline-size: 92%; block-size: 100%; }
+  .beside :global(.beside__portrait img) { object-position: 50% 0; }
+  .beside__text { display: grid; gap: 20px; }
+  .beside__title { font-size: var(--web-fs-h2); }
+  :global(:lang(ar)) .beside__title { font-size: clamp(1.9rem, 1.3rem + 2.2vw, 3.1rem); }
+  .beside__text .link-arrow { justify-self: start; margin-block-start: 8px; }
+  @media (max-width: 900px) {
+    .beside__grid { grid-template-columns: 1fr; }
+    .beside__figure { max-inline-size: 460px; }
+  }
+
+  /* ── Latest insights ──────────────────────────────────────── */
+  .latest__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 24px; }
+  .latest__grid { list-style: none; padding: 0; margin-block-start: 48px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 2.4vw, 36px); }
+  .latest__empty { margin-block-start: 32px; }
+  @media (max-width: 900px) { .latest__grid { grid-template-columns: 1fr; } }
+  @media (min-width: 600px) and (max-width: 900px) { .latest__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>

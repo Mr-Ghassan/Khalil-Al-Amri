@@ -1,0 +1,350 @@
+---
+/**
+ * Register interest — NON-SUBMITTING PROTOTYPE (LEAD_MODE = 'prototype').
+ * Validation runs in the browser with the same rules a server must apply (src/lib/leads/schema.ts),
+ * but nothing is transmitted, stored or logged. The success state says so explicitly.
+ * Going live requires OPEN-05/06/07/09 and the contract in docs/contracts/lead-intake.openapi.yaml.
+ */
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/sections/PageHero.astro';
+import Icon from '@/components/ui/Icon.astro';
+import OmaniRial from '@/components/brand/OmaniRial.astro';
+import ContactRow from '@/components/brand/ContactRow.astro';
+import { t } from '@/i18n/ui';
+import { href, type Locale } from '@/i18n/routes';
+import { contact } from '@/config/site';
+import { CONSENT_VERSION } from '@/lib/leads/schema';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const u = t(lang);
+const ar = lang === 'ar';
+const c = ar ? {
+  title: 'سجّل اهتمامك', heading: 'خلنا نبدأ من هدفك.',
+  lead: 'أربعة أسئلة أساسية، والباقي اختياري. نستخدم بياناتك للرد على طلبك فقط.',
+  description: 'سجّل اهتمامك أو اطلب استشارة عقارية من خليل العامري — بدون التزام.',
+  proto: 'نموذج تجريبي: هذا النموذج لا يرسل ولا يحفظ أي بيانات حتى يُعتمد مسار الاستقبال والخصوصية. للتواصل الآن استخدم القنوات المباشرة.',
+  required: 'مطلوب', optional: 'اختياري',
+  name: 'اسمك', phone: 'رقم الهاتف', phoneHint: 'للأرقام العُمانية 8 أرقام. لغيرها ابدأ برمز الدولة.',
+  intent: 'وش أقرب شيء لهدفك؟',
+  intents: { home: 'سكن لي ولعائلتي', investment: 'استثمار أو دخل', compare: 'أقارن بين خيارات', general: 'سؤال أو استشارة عامة' },
+  more: 'تفاصيل تساعدنا نجهّز (اختياري)',
+  channel: 'كيف تفضّل نتواصل معك؟', channels: { call: 'اتصال', email: 'بريد إلكتروني' },
+  email: 'البريد الإلكتروني',
+  budget: 'الميزانية التقريبية', budgets: { lt40: ['أقل من', '40,000'], '40-80': ['', '40,000 – 80,000'], '80-150': ['', '80,000 – 150,000'], gt150: ['أكثر من', '150,000'], discuss: ['أفضّل أناقشها في الاستشارة', ''] },
+  timeframe: 'متى تبي تتحرك؟', timeframes: { '3m': 'خلال 3 أشهر', '3-12m': 'من 3 إلى 12 شهرًا', gt12m: 'بعد أكثر من سنة', exploring: 'ما زلت أستكشف' },
+  details: 'أي تفاصيل تحب نعرفها', detailsHint: 'مثل المنطقة، نوع العقار، أو سؤالك. لا تكتب أرقام هوية أو بيانات بنكية.',
+  consent: 'أوافق على استخدام بياناتي للتواصل معي بشأن طلبي وفق', privacy: 'سياسة الخصوصية',
+  marketing: 'أرغب في تلقي مواد ورسائل عن المحتوى والفرص المناسبة.',
+  submit: 'راجع طلبي', errorsTitle: 'في شيء يحتاج تعديل:',
+  doneTitle: 'طلبك سليم — لكنه لم يُرسل.',
+  doneBody: 'هذا نموذج تجريبي، فما خرجت بياناتك من جهازك. لما يُفعّل الاستقبال الرسمي ستصلك رسالة تأكيد حقيقية برقم مرجعي.',
+  doneNow: 'تبي تتواصل الحين؟',
+  edit: 'عدّل الطلب',
+} : {
+  title: 'Register interest', heading: 'Let’s start from your goal.',
+  lead: 'Four essential questions; everything else is optional. Your details are used only to reply to your request.',
+  description: 'Register your interest or request a property consultation with Khalil Al Amri — no commitment.',
+  proto: 'Prototype form: it does not send or store any data until the intake process and privacy terms are approved. To get in touch now, use the direct channels.',
+  required: 'required', optional: 'optional',
+  name: 'Your name', phone: 'Phone number', phoneHint: 'Omani numbers: 8 digits. Others: start with the country code.',
+  intent: 'What’s closest to your goal?',
+  intents: { home: 'A home for me and my family', investment: 'Investment or income', compare: 'Comparing options', general: 'A question or general advice' },
+  more: 'Details that help us prepare (optional)',
+  channel: 'How would you like us to reach you?', channels: { call: 'Phone call', email: 'Email' },
+  email: 'Email address',
+  budget: 'Approximate budget', budgets: { lt40: ['Under', '40,000'], '40-80': ['', '40,000 – 80,000'], '80-150': ['', '80,000 – 150,000'], gt150: ['Over', '150,000'], discuss: ['I’d rather discuss it', ''] },
+  timeframe: 'When would you like to move?', timeframes: { '3m': 'Within 3 months', '3-12m': 'In 3–12 months', gt12m: 'In more than a year', exploring: 'Still exploring' },
+  details: 'Anything you’d like us to know', detailsHint: 'For example the area, property type, or your question. Please don’t include ID or bank details.',
+  consent: 'I agree to my details being used to contact me about my request, under the', privacy: 'privacy policy',
+  marketing: 'I’d like to receive content and relevant opportunities.',
+  submit: 'Review my request', errorsTitle: 'A few things need attention:',
+  doneTitle: 'Your request is valid — but it was not sent.',
+  doneBody: 'This is a prototype, so your details never left your device. Once official intake is switched on, you’ll get a real confirmation with a reference number.',
+  doneNow: 'Want to get in touch now?',
+  edit: 'Edit request',
+};
+---
+<Base lang={lang} title={c.title} description={c.description} page="interest">
+  <PageHero eyebrow={c.title} title={c.heading} lead={c.lead}
+    crumbs={[{ label: u.nav.home, href: href(lang, 'home') }, { label: c.title }]} crumbLabel={u.breadcrumb} />
+
+  <section class="lead section" data-tone="paper">
+    <div class="wrap lead__grid">
+      <div class="lead__main">
+        <p class="lead__proto" role="note"><Icon name="info" />{c.proto}</p>
+
+        <form class="lform" id="form" novalidate data-lead-form data-lang={lang} data-consent-version={CONSENT_VERSION}>
+          <div class="lform__summary" tabindex="-1" hidden data-summary role="alert">
+            <p><strong>{c.errorsTitle}</strong></p>
+            <ul data-summary-list></ul>
+          </div>
+
+          <div class="field" data-field="name">
+            <label for="f-name">{c.name} <span class="req">({c.required})</span></label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required maxlength="80" aria-describedby="e-name" />
+            <p class="field__error" id="e-name" data-error></p>
+          </div>
+
+          <div class="field" data-field="phone">
+            <label for="f-phone">{c.phone} <span class="req">({c.required})</span></label>
+            <div class="field__phone" dir="ltr">
+              <span class="field__cc" aria-hidden="true">+968</span>
+              <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="20" aria-describedby="h-phone e-phone" />
+            </div>
+            <p class="field__hint" id="h-phone">{c.phoneHint}</p>
+            <p class="field__error" id="e-phone" data-error></p>
+          </div>
+
+          <fieldset class="field" data-field="intent" aria-describedby="e-intent">
+            <legend>{c.intent} <span class="req">({c.required})</span></legend>
+            <div class="choices">
+              {Object.entries(c.intents).map(([v, l]) => (
+                <label class="choice"><input type="radio" name="intent" value={v} required /><span>{l}</span></label>
+              ))}
+            </div>
+            <p class="field__error" id="e-intent" data-error></p>
+          </fieldset>
+
+          <details class="lform__more" data-more>
+            <summary>{c.more}</summary>
+            <div class="lform__more-body">
+              <fieldset class="field" data-field="channel">
+                <legend>{c.channel} <span class="opt">({c.optional})</span></legend>
+                <div class="choices choices--inline">
+                  {Object.entries(c.channels).map(([v, l]) => (
+                    <label class="choice"><input type="radio" name="channel" value={v} /><span>{l}</span></label>
+                  ))}
+                </div>
+              </fieldset>
+              <div class="field" data-field="email">
+                <label for="f-email">{c.email} <span class="opt">({c.optional})</span></label>
+                <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="120" dir="ltr" aria-describedby="e-email" />
+                <p class="field__error" id="e-email" data-error></p>
+              </div>
+              <fieldset class="field" data-field="budget">
+                <legend>{c.budget} <span class="opt">({c.optional})</span></legend>
+                <div class="choices choices--inline">
+                  {Object.entries(c.budgets).map(([v, [pre, amount]]) => (
+                    <label class="choice"><input type="radio" name="budget" value={v} /><span>
+                      {pre}{pre && amount ? ' ' : ''}{amount && <bdi class="money" dir="ltr"><OmaniRial label={ar ? 'ريال عماني' : 'Omani rial'} /> <span class="num">{amount}</span></bdi>}
+                    </span></label>
+                  ))}
+                </div>
+              </fieldset>
+              <fieldset class="field" data-field="timeframe">
+                <legend>{c.timeframe} <span class="opt">({c.optional})</span></legend>
+                <div class="choices choices--inline">
+                  {Object.entries(c.timeframes).map(([v, l]) => (
+                    <label class="choice"><input type="radio" name="timeframe" value={v} /><span>{l}</span></label>
+                  ))}
+                </div>
+              </fieldset>
+              <div class="field" data-field="details">
+                <label for="f-details">{c.details} <span class="opt">({c.optional})</span></label>
+                <textarea id="f-details" name="details" rows="4" maxlength="1200" aria-describedby="h-details e-details"></textarea>
+                <p class="field__hint" id="h-details">{c.detailsHint}</p>
+                <p class="field__error" id="e-details" data-error></p>
+              </div>
+            </div>
+          </details>
+
+          <div class="lform__hp" aria-hidden="true">
+            <label for="f-website">Website</label>
+            <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="field field--consent" data-field="consentContact">
+            <label class="check">
+              <input type="checkbox" name="consentContact" required aria-describedby="e-consentContact" />
+              <span>{c.consent} <a href={href(lang, 'privacy')}>{c.privacy}</a>. <span class="req">({c.required})</span></span>
+            </label>
+            <p class="field__error" id="e-consentContact" data-error></p>
+          </div>
+          <div class="field field--consent">
+            <label class="check">
+              <input type="checkbox" name="consentMarketing" />
+              <span>{c.marketing} <span class="opt">({c.optional})</span></span>
+            </label>
+          </div>
+
+          <button class="btn lform__submit" type="submit">{c.submit}<Icon name="arrow" class="arrow" /></button>
+        </form>
+
+        <div class="lform__done" hidden tabindex="-1" data-done role="status">
+          <Icon name="info" />
+          <h2 class="t-h3">{c.doneTitle}</h2>
+          <p>{c.doneBody}</p>
+          <p><strong>{c.doneNow}</strong></p>
+          <ContactRow lang={lang} />
+          <button type="button" class="btn btn--ghost" data-edit>{c.edit}</button>
+        </div>
+      </div>
+
+      <aside class="lead__side" aria-label={u.nav.contact}>
+        <h2 class="t-h3">{ar ? 'تفضّل التواصل المباشر؟' : 'Prefer to talk directly?'}</h2>
+        <ul class="lead__channels">
+          <li><a href={`tel:${contact.phone.e164}`}><Icon name="phone" /><span class="ltr num">{contact.phone.display}</span></a></li>
+          <li><a href={`mailto:${contact.email.address}`}><Icon name="mail" /><span class="ltr">{contact.email.address}</span></a></li>
+          <li><a href={contact.instagram.url} rel="me noopener" target="_blank"><Icon name="instagram" /><span class="ltr">{contact.instagram.handle}</span></a></li>
+        </ul>
+        <p class="t-small t-muted"><Icon name="shield" />{ar ? 'ما نطلب صورة هوية ولا بيانات بنكية، ولا نشارك بياناتك لأغراض تسويقية بدون موافقتك.' : 'We never ask for ID documents or bank details, and never share your details for marketing without your consent.'}</p>
+      </aside>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .lead__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, 340px); gap: clamp(32px, 6vw, 96px); align-items: start; }
+  .lead__main { display: grid; gap: 24px; max-inline-size: 44rem; }
+  .lead__proto { display: flex; gap: 12px; align-items: flex-start; padding: 16px 18px; border-radius: var(--kha-radius-subtle);
+    background: color-mix(in srgb, var(--kha-color-luban) 14%, transparent); border: 1px dashed var(--kha-color-luban); font-size: var(--web-fs-small); }
+  .lead__proto :global(.icon) { inline-size: 20px; block-size: 20px; flex: none; color: var(--kha-color-bahr); margin-block-start: 3px; }
+  .lform { display: grid; gap: 26px; }
+  .field { display: grid; gap: 8px; border: 0; padding: 0; min-inline-size: 0; }
+  .field label, .field legend { font-weight: 500; color: var(--kha-color-ink); }
+  .field legend { margin-block-end: 10px; padding: 0; }
+  .req, .opt { font-weight: 400; color: var(--kha-color-slate); font-size: 0.875em; }
+  .field input[type='text'], .field input[type='tel'], .field input[type='email'], .field textarea {
+    inline-size: 100%; min-block-size: 52px; padding: 12px 16px; border-radius: var(--kha-radius-subtle);
+    border: 1px solid var(--kha-color-stone); background: white; color: var(--kha-color-ink);
+  }
+  .field textarea { min-block-size: 120px; resize: vertical; }
+  .field input:focus-visible, .field textarea:focus-visible { outline: 3px solid var(--kha-color-mawj); outline-offset: 1px; border-color: var(--kha-color-mawj); }
+  .field__phone { display: flex; align-items: stretch; }
+  .field__cc { display: grid; place-items: center; padding-inline: 14px; border: 1px solid var(--kha-color-stone); border-inline-end: 0;
+    border-radius: var(--kha-radius-subtle) 0 0 var(--kha-radius-subtle); background: var(--kha-color-sarooj); font-family: var(--web-font-lat); color: var(--kha-color-slate); }
+  .field__phone input { border-start-start-radius: 0 !important; border-end-start-radius: 0 !important; font-family: var(--web-font-lat); }
+  .field__hint { font-size: var(--web-fs-small); color: var(--kha-color-slate); }
+  .field__error { font-size: var(--web-fs-small); color: #9B2C1F; font-weight: 500; }
+  .field__error:empty { display: none; }
+  .field[data-invalid] input, .field[data-invalid] textarea { border-color: #9B2C1F; }
+  .choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .choices--inline { display: flex; flex-wrap: wrap; }
+  .choice { position: relative; display: block; }
+  .choice input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .choice span {
+    display: flex; align-items: center; gap: 6px; min-block-size: 50px; padding: 10px 16px; border-radius: var(--kha-radius-subtle);
+    border: 1px solid var(--kha-color-limestone); background: white; font-weight: 400; line-height: 1.4;
+  }
+  .choice input:checked + span { border-color: var(--kha-color-bahr); background: var(--kha-color-zabad); box-shadow: inset 0 0 0 1px var(--kha-color-bahr); }
+  .choice input:focus-visible + span { outline: 3px solid var(--kha-color-mawj); outline-offset: 2px; }
+  .money { display: inline-flex; align-items: baseline; gap: 0.3em; font-family: var(--web-font-lat); }
+  .lform__more { border: 1px solid var(--kha-color-limestone); border-radius: var(--kha-radius-subtle); padding: 0 18px; background: white; }
+  .lform__more summary { cursor: pointer; padding-block: 16px; font-weight: 500; color: var(--kha-color-bahr); min-block-size: 44px; }
+  .lform__more-body { display: grid; gap: 24px; padding-block: 4px 20px; }
+  .lform__hp { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
+  .check { display: flex; gap: 12px; align-items: flex-start; font-weight: 400 !important; line-height: 1.6; }
+  .check input { inline-size: 22px; block-size: 22px; flex: none; margin-block-start: 3px; accent-color: var(--kha-color-bahr); }
+  .check a { color: var(--kha-color-mawj); }
+  .lform__submit { justify-self: start; }
+  .lform__summary { padding: 16px 18px; border-radius: var(--kha-radius-subtle); border: 1px solid #9B2C1F; background: #FBF1EF; }
+  .lform__summary ul { margin-block-start: 8px; padding-inline-start: 1.2em; }
+  .lform__summary a { color: #9B2C1F; }
+  .lform__done { display: grid; gap: 14px; padding: clamp(22px, 3vw, 32px); border-radius: var(--kha-radius-subtle); background: var(--kha-color-zabad); }
+  .lform__done[hidden] { display: none; }
+  .lform__done > :global(.icon) { inline-size: 28px; block-size: 28px; color: var(--kha-color-bahr); }
+  .lform__done .btn { justify-self: start; }
+  .lead__side { position: sticky; inset-block-start: calc(var(--web-header-h) + 24px); display: grid; gap: 16px; padding: 24px; border-radius: var(--kha-radius-subtle); background: var(--kha-color-sarooj); }
+  .lead__channels { list-style: none; padding: 0; display: grid; gap: 4px; }
+  .lead__channels a { display: flex; gap: 10px; align-items: center; min-block-size: 44px; text-decoration: none; color: var(--kha-color-bahr); }
+  .lead__channels a:hover span { text-decoration: underline; }
+  .lead__side :global(.icon) { inline-size: 20px; block-size: 20px; flex: none; }
+  .lead__side p { display: flex; gap: 10px; align-items: flex-start; }
+  @media (max-width: 900px) {
+    .lead__grid { grid-template-columns: 1fr; }
+    .lead__side { position: static; }
+  }
+  @media (max-width: 480px) { .choices { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  import { validateLead, errorText, type FieldName, type LeadInput } from '@/lib/leads/schema';
+
+  const form = document.querySelector<HTMLFormElement>('[data-lead-form]');
+  if (form) {
+    const lang = (form.dataset.lang === 'en' ? 'en' : 'ar') as 'ar' | 'en';
+    const started = performance.now();
+    const summary = form.querySelector<HTMLElement>('[data-summary]');
+    const list = form.querySelector<HTMLElement>('[data-summary-list]');
+    const done = document.querySelector<HTMLElement>('[data-done]');
+    const touched = new Set<string>();
+
+    // Pre-select the goal when arriving from an intent link (?intent=home|investment|compare|general).
+    const pre = new URLSearchParams(location.search).get('intent');
+    const preInput = pre ? form.querySelector<HTMLInputElement>(`input[name="intent"][value="${CSS.escape(pre)}"]`) : null;
+    if (preInput) preInput.checked = true;
+
+    const read = (): LeadInput => {
+      const fd = new FormData(form);
+      const s = (k: string) => (fd.get(k) as string | null) ?? undefined;
+      return {
+        name: s('name'), phone: s('phone'), intent: s('intent'), channel: s('channel'), email: s('email'),
+        budget: s('budget'), timeframe: s('timeframe'), details: s('details'), website: s('website'),
+        consentContact: fd.get('consentContact') === 'on', consentMarketing: fd.get('consentMarketing') === 'on',
+        elapsedMs: performance.now() - started,
+      };
+    };
+
+    const show = (errors: Partial<Record<FieldName, string>>, only?: Set<string>) => {
+      form.querySelectorAll<HTMLElement>('[data-field]').forEach((f) => {
+        const name = f.dataset.field as FieldName;
+        if (only && !only.has(name)) return;
+        const code = errors[name];
+        const slot = f.querySelector<HTMLElement>('[data-error]');
+        const input = f.querySelector<HTMLInputElement>('input, textarea');
+        if (slot) slot.textContent = code ? errorText[lang][code as keyof (typeof errorText)['ar']] : '';
+        if (code) { f.setAttribute('data-invalid', ''); input?.setAttribute('aria-invalid', 'true'); }
+        else { f.removeAttribute('data-invalid'); input?.removeAttribute('aria-invalid'); }
+      });
+    };
+
+    // Blur-first validation; errors clear as soon as the field becomes valid.
+    form.addEventListener('focusout', (e) => {
+      const field = (e.target as HTMLElement).closest<HTMLElement>('[data-field]');
+      if (!field?.dataset.field) return;
+      touched.add(field.dataset.field);
+      const r = validateLead({ ...read(), elapsedMs: 1e9 });
+      show(r.ok ? {} : r.errors, touched);
+    });
+    form.addEventListener('input', (e) => {
+      const field = (e.target as HTMLElement).closest<HTMLElement>('[data-field]');
+      if (!field?.hasAttribute('data-invalid')) return;
+      const r = validateLead({ ...read(), elapsedMs: 1e9 });
+      show(r.ok ? {} : r.errors, new Set([field.dataset.field ?? '']));
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const r = validateLead(read());
+      if (!r.ok) {
+        show(r.errors);
+        if (summary && list) {
+          list.innerHTML = '';
+          for (const [k, code] of Object.entries(r.errors)) {
+            const li = document.createElement('li');
+            const target = form.querySelector<HTMLElement>(`[data-field="${k}"] input, [data-field="${k}"] textarea`);
+            const text = errorText[lang][code as keyof (typeof errorText)['ar']];
+            if (target?.id) { const a = document.createElement('a'); a.href = `#${target.id}`; a.textContent = text; li.append(a); }
+            else li.textContent = text;
+            list.append(li);
+          }
+          summary.hidden = false;
+          summary.focus();
+        }
+        if (r.errors.email || r.errors.details) form.querySelector<HTMLDetailsElement>('[data-more]')?.setAttribute('open', '');
+        return;
+      }
+      // PROTOTYPE: nothing is sent. The validated payload is discarded immediately.
+      if (summary) summary.hidden = true;
+      form.hidden = true;
+      if (done) { done.hidden = false; done.focus(); }
+    });
+
+    document.querySelector('[data-edit]')?.addEventListener('click', () => {
+      form.hidden = false;
+      if (done) done.hidden = true;
+      form.querySelector<HTMLInputElement>('#f-name')?.focus();
+    });
+  }
+</script>

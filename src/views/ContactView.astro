@@ -1,0 +1,78 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/sections/PageHero.astro';
+import Icon from '@/components/ui/Icon.astro';
+import DraftNote from '@/components/ui/DraftNote.astro';
+import { contact } from '@/config/site';
+import { t } from '@/i18n/ui';
+import { href, type Locale } from '@/i18n/routes';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const u = t(lang);
+const ar = lang === 'ar';
+const c = ar ? {
+  title: 'تواصل', heading: 'تواصل مع خليل.', lead: 'اختر الطريقة اللي تريحك. وإذا عندك سؤال قبل قرار، ابدأ به كما هو.',
+  description: 'قنوات التواصل الرسمية مع خليل العامري: الهاتف، البريد، وإنستغرام.', portraitAlt: 'خليل العامري يتحدث في الهاتف',
+  phone: 'اتصال', phoneText: 'للحديث المباشر.', email: 'البريد', emailText: 'للاستفسارات المفصّلة والتعاون الإعلامي.',
+  ig: 'إنستغرام', igText: 'محتوى أسبوعي يشرح الأرقام والقرارات.',
+  wa: 'واتساب', waText: 'يُضاف بعد التأكد من تفعيل واتساب للأعمال على الرقم الرسمي (OPEN-04).',
+  formTitle: 'تبي نرجع لك؟', formText: 'سجّل اهتمامك بأربعة أسئلة، ونجهّز للرد على هدفك.',
+} : {
+  title: 'Contact', heading: 'Get in touch with Khalil.', lead: 'Choose whatever suits you. If you have a question before a decision, start with it as it is.',
+  description: 'Official contact channels for Khalil Al Amri: phone, email and Instagram.', portraitAlt: 'Khalil Al Amri on a phone call',
+  phone: 'Call', phoneText: 'For a direct conversation.', email: 'Email', emailText: 'For detailed questions and media enquiries.',
+  ig: 'Instagram', igText: 'Weekly content that explains the numbers behind decisions.',
+  wa: 'WhatsApp', waText: 'Added once WhatsApp Business is confirmed on the official number (OPEN-04).',
+  formTitle: 'Would you like us to get back to you?', formText: 'Register your interest in four questions, and we’ll prepare a reply around your goal.',
+};
+---
+<Base lang={lang} title={c.title} description={c.description} page="contact">
+  <PageHero eyebrow={c.title} title={c.heading} lead={c.lead}
+    portrait={{ id: 'khalil-cut-0420', alt: c.portraitAlt, eye: 0.116, aspect: 1443 / 2489 }}
+    crumbs={[{ label: u.nav.home, href: href(lang, 'home') }, { label: c.title }]} crumbLabel={u.breadcrumb} />
+
+  <section class="ch section" data-tone="paper" aria-label={c.title}>
+    <div class="wrap">
+      <ul class="ch__grid">
+        <li class="ch__card">
+          <Icon name="phone" />
+          <h2 class="t-h3">{c.phone}</h2>
+          <p class="t-muted">{c.phoneText}</p>
+          <a class="ch__value" href={`tel:${contact.phone.e164}`}><span class="ltr num">{contact.phone.display}</span></a>
+        </li>
+        <li class="ch__card">
+          <Icon name="mail" />
+          <h2 class="t-h3">{c.email}</h2>
+          <p class="t-muted">{c.emailText}</p>
+          <a class="ch__value" href={`mailto:${contact.email.address}`}><span class="ltr">{contact.email.address}</span></a>
+        </li>
+        <li class="ch__card">
+          <Icon name="instagram" />
+          <h2 class="t-h3">{c.ig}</h2>
+          <p class="t-muted">{c.igText}</p>
+          <a class="ch__value" href={contact.instagram.url} rel="me noopener" target="_blank"><span class="ltr">{contact.instagram.handle}</span></a>
+        </li>
+      </ul>
+      <DraftNote lang={lang} title={c.wa}>{c.waText}</DraftNote>
+      <div class="ch__form">
+        <div>
+          <h2 class="t-h2">{c.formTitle}</h2>
+          <p class="t-lead t-muted">{c.formText}</p>
+        </div>
+        <a class="btn" href={href(lang, 'interest')}>{u.cta.register}<Icon name="arrow" class="arrow" /></a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .ch__grid { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-block-end: 24px; }
+  .ch__card { display: grid; gap: 10px; align-content: start; padding: 28px; border-radius: var(--kha-radius-subtle); background: white; box-shadow: var(--kha-shadow-paper); border: 1px solid var(--kha-color-limestone); }
+  .ch__card > :global(.icon) { inline-size: 28px; block-size: 28px; color: var(--kha-color-mawj); }
+  .ch__value { margin-block-start: 8px; font-size: 1.2rem; font-weight: 500; color: var(--kha-color-bahr); text-decoration: none; min-block-size: 44px; display: inline-flex; align-items: center; }
+  .ch__value:hover { text-decoration: underline; }
+  .ch__form { margin-block-start: clamp(40px, 6vw, 72px); display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between; padding-block-start: 32px; border-block-start: 1px solid var(--tone-rule); }
+  .ch__form > div { display: grid; gap: 10px; max-inline-size: 40rem; }
+  @media (max-width: 900px) { .ch__grid { grid-template-columns: 1fr; } }
+</style>

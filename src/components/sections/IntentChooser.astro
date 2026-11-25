@@ -1,0 +1,123 @@
+---
+/**
+ * "What do you want from property?" — four goals → what we look at together.
+ * Progressive enhancement: without JS every goal is listed in full; with JS it becomes an
+ * accessible tablist (WAI-ARIA tabs, arrow keys respect reading direction).
+ */
+import SectionHead from '@/components/ui/SectionHead.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { intents } from '@/copy/shared';
+import { t } from '@/i18n/ui';
+import { href, type Locale } from '@/i18n/routes';
+
+interface Props { lang: Locale; headingLevel?: 'h2' | 'h1' }
+const { lang } = Astro.props;
+const c = intents[lang];
+const u = t(lang);
+---
+<section class="intent section" data-tone="foam" aria-labelledby="intent-title">
+  <div class="wrap">
+    <div class="intent__grid">
+      <SectionHead eyebrow={c.eyebrow} title={c.title} lead={c.lead} id="intent-title" />
+      <div class="intent__chooser" data-intents>
+        <div class="intent__tabs" role="tablist" aria-labelledby="intent-title" hidden data-tablist>
+          {c.items.map((it, i) => (
+            <button
+              type="button" role="tab" id={`intent-tab-${it.id}`} aria-controls={`intent-panel-${it.id}`}
+              aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}
+            >
+              <span class="num intent__n">{String(i + 1).padStart(2, '0')}</span>
+              <span>{it.label}</span>
+            </button>
+          ))}
+        </div>
+        <div class="intent__panels">
+          {c.items.map((it, i) => (
+            <article class="intent__panel" id={`intent-panel-${it.id}`} role="tabpanel" aria-labelledby={`intent-tab-${it.id}`} data-panel>
+              <h3 class="t-h3 intent__label"><span class="num intent__n">{String(i + 1).padStart(2, '0')}</span> {it.label}</h3>
+              <p class="t-lead">{it.summary}</p>
+              <h4 class="t-meta intent__checks-title">{lang === 'ar' ? 'وش نشوف مع بعض' : 'What we look at together'}</h4>
+              <ul class="intent__checks">
+                {it.checks.map((ch) => <li><Icon name="check" />{ch}</li>)}
+              </ul>
+              <a class="btn" href={`${href(lang, 'interest')}?intent=${it.formIntent}`}>
+                {u.cta.startWith}<Icon name="arrow" class="arrow" />
+              </a>
+            </article>
+          ))}
+        </div>
+        <p class="intent__footnote">{c.footnote}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .intent { background:
+    linear-gradient(180deg, var(--kha-color-zabad), color-mix(in srgb, var(--kha-color-zabad) 70%, var(--kha-ambient-light-2))); }
+  .intent__grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+  .intent__tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-block-end: 18px; }
+  .intent__tabs[hidden] { display: none; }
+  .intent__tabs button {
+    display: flex; align-items: center; gap: 12px; text-align: start; min-block-size: 60px;
+    padding: 12px 18px; border-radius: var(--kha-radius-subtle); border: 1px solid var(--kha-ambient-rule-on-zabad);
+    background: color-mix(in srgb, white 55%, transparent); color: var(--kha-color-ink); font-weight: 500; line-height: 1.35;
+    transition: background-color var(--kha-motion-duration-fast) var(--kha-motion-ease-human), border-color var(--kha-motion-duration-fast);
+  }
+  .intent__tabs button:hover { border-color: var(--kha-color-mawj); }
+  .intent__tabs button[aria-selected='true'] { background: var(--kha-color-bahr); color: var(--kha-color-sarooj); border-color: var(--kha-color-bahr); }
+  .intent__tabs button[aria-selected='true'] .intent__n { color: var(--kha-color-ufuq); }
+  .intent__n { font-size: 0.8rem; color: var(--kha-color-mawj); font-weight: 600; }
+  .intent__panels { display: grid; gap: 16px; }
+  .intent__panel {
+    display: grid; gap: 16px; padding: clamp(22px, 3vw, 36px); border-radius: var(--kha-radius-subtle);
+    background: var(--kha-color-paper); box-shadow: var(--kha-shadow-lift);
+  }
+  .intent__panel[hidden] { display: none; }
+  .js .intent__panel .intent__label { display: none; }
+  .intent__label { display: flex; gap: 10px; align-items: baseline; }
+  .intent__checks-title { margin-block-start: 6px; }
+  .intent__checks { list-style: none; padding: 0; display: grid; gap: 10px; }
+  .intent__checks li { display: flex; gap: 10px; align-items: flex-start; }
+  .intent__checks :global(.icon) { inline-size: 20px; block-size: 20px; flex: none; color: var(--kha-color-mawj); margin-block-start: 0.25em; }
+  .intent__panel .btn { justify-self: start; margin-block-start: 6px; }
+  .intent__footnote {
+    margin-block-start: 22px; padding-inline-start: 16px; border-inline-start: 2px solid var(--kha-color-luban);
+    color: var(--kha-color-bahr); font-size: var(--web-fs-lead);
+  }
+  :global(:lang(ar)) .intent__footnote { font-family: var(--web-font-ar-display); font-size: 1.45rem; line-height: 1.6; }
+  @media (max-width: 900px) { .intent__grid { grid-template-columns: 1fr; } }
+  @media (max-width: 420px) { .intent__tabs { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-intents]').forEach((root) => {
+    const list = root.querySelector<HTMLElement>('[data-tablist]');
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const panels = [...root.querySelectorAll<HTMLElement>('[data-panel]')];
+    if (!list || !tabs.length) return;
+    list.hidden = false;
+    const select = (i: number, focus = false) => {
+      tabs.forEach((t, j) => {
+        t.setAttribute('aria-selected', String(i === j));
+        t.tabIndex = i === j ? 0 : -1;
+        const p = panels[j];
+        if (p) p.hidden = i !== j;
+      });
+      if (focus) tabs[i]?.focus();
+    };
+    select(0);
+    const rtl = getComputedStyle(root).direction === 'rtl';
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => select(i));
+      tab.addEventListener('keydown', (e) => {
+        const next = rtl ? 'ArrowLeft' : 'ArrowRight';
+        const prev = rtl ? 'ArrowRight' : 'ArrowLeft';
+        if (e.key === next || e.key === 'ArrowDown') { e.preventDefault(); select((i + 1) % tabs.length, true); }
+        if (e.key === prev || e.key === 'ArrowUp') { e.preventDefault(); select((i - 1 + tabs.length) % tabs.length, true); }
+        if (e.key === 'Home') { e.preventDefault(); select(0, true); }
+        if (e.key === 'End') { e.preventDefault(); select(tabs.length - 1, true); }
+      });
+    });
+  });
+</script>

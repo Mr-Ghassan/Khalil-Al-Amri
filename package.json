@@ -1,0 +1,38 @@
+{
+  "name": "khalil-al-amri-website",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Official personal website of Khalil Al Amri — خليل العامري (Arabic-first, AR/EN).",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "node scripts/tokens.mjs && astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "tokens": "node scripts/tokens.mjs",
+    "media": "node scripts/build-media.mjs",
+    "test": "vitest run",
+    "qa:screens": "node scripts/qa/screens.mjs",
+    "qa:a11y": "node scripts/qa/a11y.mjs",
+    "qa:links": "node scripts/qa/links.mjs",
+    "launch-gate": "node scripts/launch-gate.mjs",
+    "verify": "npm run check && npm run test && npm run build && npm run qa:links && npm run qa:a11y && npm run launch-gate"
+  },
+  "dependencies": {
+    "@fontsource/ibm-plex-sans-arabic": "^5.3.0",
+    "@fontsource/markazi-text": "^5.3.0",
+    "@fontsource/schibsted-grotesk": "^5.3.0",
+    "astro": "^5.18.2"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@types/node": "^22.19.1",
+    "axe-core": "^4.14.0",
+    "sharp": "^0.35.5",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.7"
+  }
+}

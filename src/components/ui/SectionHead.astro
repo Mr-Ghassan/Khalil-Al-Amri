@@ -1,0 +1,15 @@
+---
+interface Props { eyebrow?: string; title: string; lead?: string; level?: 'h1' | 'h2'; size?: 'h1' | 'h2'; class?: string; id?: string }
+const { eyebrow, title, lead, level = 'h2', size = 'h2', class: cls, id } = Astro.props;
+const H = level;
+---
+<div class:list={['section-head', cls]} data-reveal>
+  {eyebrow && <p class="eyebrow"><span class="t-meta">{eyebrow}</span></p>}
+  <H class={`t-${size}`} id={id}>{title}</H>
+  {lead && <p class="t-lead t-muted section-head__lead">{lead}</p>}
+  <slot />
+</div>
+<style>
+  .section-head { display: grid; gap: 18px; max-inline-size: 46rem; }
+  .section-head__lead { max-inline-size: 40rem; }
+</style>

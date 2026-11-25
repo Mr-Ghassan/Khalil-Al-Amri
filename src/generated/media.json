@@ -1,0 +1,166 @@
+{
+  "generated": "2026-10-28",
+  "cutouts": {
+    "khalil-cut-0420": {
+      "width": 1443,
+      "height": 2489,
+      "widths": [
+        400,
+        640,
+        960,
+        1280
+      ],
+      "source": "IMG_0420.png"
+    },
+    "khalil-cut-0424": {
+      "width": 1054,
+      "height": 2641,
+      "widths": [
+        400,
+        640,
+        960
+      ],
+      "source": "IMG_0424.png"
+    },
+    "khalil-cut-0425": {
+      "width": 1294,
+      "height": 2556,
+      "widths": [
+        400,
+        640,
+        960,
+        1280
+      ],
+      "source": "IMG_0425.png"
+    },
+    "khalil-cut-0430": {
+      "width": 1648,
+      "height": 2688,
+      "widths": [
+        400,
+        640,
+        960,
+        1280
+      ],
+      "source": "IMG_0430.png"
+    },
+    "khalil-cut-0431": {
+      "width": 1599,
+      "height": 2514,
+      "widths": [
+        400,
+        640,
+        960,
+        1280
+      ],
+      "source": "IMG_0431.png"
+    },
+    "khalil-cut-0439": {
+      "width": 1219,
+      "height": 2603,
+      "widths": [
+        400,
+        640,
+        960
+      ],
+      "source": "IMG_0439.png"
+    },
+    "khalil-cut-0441": {
+      "width": 1319,
+      "height": 2579,
+      "widths": [
+        400,
+        640,
+        960,
+        1280
+      ],
+      "source": "IMG_0441.png"
+    }
+  },
+  "photos": {
+    "khalil-photo-0421": {
+      "width": 4000,
+      "height": 6000,
+      "widths": [
+        480,
+        800,
+        1200,
+        1600
+      ],
+      "source": "IMG_0421.JPG"
+    },
+    "khalil-photo-0422": {
+      "width": 4000,
+      "height": 6000,
+      "widths": [
+        480,
+        800,
+        1200,
+        1600
+      ],
+      "source": "IMG_0422.JPG"
+    },
+    "khalil-photo-0426": {
+      "width": 4000,
+      "height": 6000,
+      "widths": [
+        480,
+        800,
+        1200,
+        1600
+      ],
+      "source": "IMG_0426.JPG"
+    },
+    "khalil-photo-0427": {
+      "width": 4000,
+      "height": 6000,
+      "widths": [
+        480,
+        800,
+        1200,
+        1600
+      ],
+      "source": "IMG_0427.JPG"
+    },
+    "khalil-photo-0430": {
+      "width": 4000,
+      "height": 6000,
+      "widths": [
+        480,
+        800,
+        1200,
+        1600
+      ],
+      "source": "IMG_0430.JPG"
+    },
+    "khalil-photo-0436": {
+      "width": 4000,
+      "height": 6000,
+      "widths": [
+        480,
+        800,
+        1200,
+        1600
+      ],
+      "source": "IMG_0436.JPG"
+    },
+    "khalil-photo-0438": {
+      "width": 4000,
+      "height": 6000,
+      "widths": [
+        480,
+        800,
+        1200,
+        1600
+      ],
+      "source": "IMG_0438.JPG"
+    }
+  },
+  "brand": [
+    "KHA_Signature_Compact_AR_OnDark.min.svg",
+    "KHA_Signature_Compact_AR_PrimaryColor.min.svg",
+    "KHA_Signature_Mark_AR_OnDarkMono.min.svg",
+    "KHA_Signature_Primary_AR_OnDark.min.svg",
+    "KHA_Signature_Primary_AR_PrimaryColor.min.svg"
+  ]
+}

@@ -1,0 +1,67 @@
+---
+/**
+ * Five consultation steps on a horizon: the same eye-level line becomes the timeline axis.
+ * Sources: KHA_C90_CR_CNV_098 (steps), KHA_C90_RL_CNV_094, KHA_C90_ST_CNV_101 (prepare three things).
+ */
+import SectionHead from '@/components/ui/SectionHead.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { consultSteps } from '@/copy/shared';
+import type { Locale } from '@/i18n/routes';
+
+interface Props { lang: Locale; tone?: 'paper' | 'sarooj' | 'foam' }
+const { lang, tone = 'sarooj' } = Astro.props;
+const c = consultSteps[lang];
+---
+<section class="steps section" data-tone={tone} aria-labelledby="steps-title">
+  <div class="wrap">
+    <SectionHead eyebrow={c.eyebrow} title={c.title} lead={c.lead} id="steps-title" />
+    <ol class="steps__list">
+      {c.steps.map((s, i) => (
+        <li data-reveal style={`--i:${i}`}>
+          <span class="steps__dot" aria-hidden="true"></span>
+          <span class="steps__n num">{s.n}</span>
+          <h3 class="t-h3">{s.title}</h3>
+          <p class="t-muted">{s.text}</p>
+        </li>
+      ))}
+    </ol>
+    <div class="steps__foot">
+      <p class="steps__prep">
+        <strong>{c.prepTitle}</strong>
+        {' '}
+        {c.prep.map((p) => (<span class="steps__chip">{p}</span>))}
+      </p>
+      <p class="steps__consent"><Icon name="shield" />{c.consent}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .steps__list {
+    list-style: none; padding: 0; margin-block-start: clamp(40px, 6vw, 72px);
+    display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px; position: relative;
+  }
+  .steps__list::before {
+    content: ''; position: absolute; inset-inline: 0; inset-block-start: 7px; block-size: 1px;
+    background: linear-gradient(90deg, transparent, var(--tone-horizon) 6%, var(--tone-horizon) 94%, transparent);
+  }
+  .steps__list li { position: relative; display: grid; gap: 8px; align-content: start; padding-block-start: 32px; }
+  .steps__dot {
+    position: absolute; inset-block-start: 0; inset-inline-start: 0; inline-size: 15px; block-size: 15px; border-radius: 50%;
+    background: var(--tone-bg); border: 1.5px solid var(--kha-color-mawj);
+  }
+  .steps__list li:first-child .steps__dot { background: var(--kha-color-mawj); }
+  .steps__n { font-size: 0.8rem; font-weight: 600; color: var(--tone-accent); }
+  .steps__foot { margin-block-start: 48px; display: flex; flex-wrap: wrap; gap: 16px 40px; align-items: center; justify-content: space-between; border-block-start: 1px solid var(--tone-rule); padding-block-start: 24px; }
+  .steps__prep { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .steps__prep strong { font-weight: 600; color: var(--kha-color-bahr); margin-inline-end: 6px; }
+  .steps__chip { padding: 4px 14px; border-radius: var(--kha-radius-pill); border: 1px solid var(--tone-rule); background: var(--kha-color-paper); }
+  .steps__consent { display: inline-flex; gap: 8px; align-items: center; color: var(--kha-color-slate); }
+  .steps__consent :global(.icon) { inline-size: 20px; block-size: 20px; color: var(--kha-color-mawj); }
+  @media (max-width: 900px) {
+    .steps__list { grid-template-columns: 1fr; gap: 0; }
+    .steps__list::before { inset-inline-start: 7px; inset-inline-end: auto; inset-block: 8px 8px; inline-size: 1px; block-size: auto;
+      background: linear-gradient(180deg, var(--tone-horizon), var(--tone-horizon) 90%, transparent); }
+    .steps__list li { padding-block: 0 28px; padding-inline-start: 40px; }
+  }
+</style>

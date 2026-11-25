@@ -1,0 +1,56 @@
+---
+/**
+ * Khalil's real portrait — official library only (90 — الصور الشخصية المرجعية).
+ * Rules (KHA-006, DS v1.1 portrait layer model): never altered, head + kumma always fully in frame,
+ * glows/gradients sit behind this layer, nothing is placed over him.
+ */
+import media from '@/generated/media.json';
+
+interface Props {
+  id: string; // e.g. "khalil-cut-0439" or "khalil-photo-0426"
+  alt: string;
+  sizes: string;
+  class?: string;
+  priority?: boolean;
+  /** For rectangular photos: CSS object-position (keep the head in frame). */
+  position?: string;
+}
+const { id, alt, sizes, class: cls, priority = false, position } = Astro.props;
+type Entry = { width: number; height: number; widths: number[] };
+const all = { ...(media.cutouts as Record<string, Entry>), ...(media.photos as Record<string, Entry>) };
+const entry = all[id];
+const isCut = id.startsWith('khalil-cut-');
+const srcset = (ext: string) => entry?.widths.map((w) => `/media/${id}-${w}.${ext} ${w}w`).join(', ');
+const fallbackW = entry ? entry.widths[Math.min(1, entry.widths.length - 1)] : 0;
+---
+{entry ? (
+  <picture class:list={['portrait', isCut ? 'portrait--cut' : 'portrait--photo', cls]}>
+    <source type="image/avif" srcset={srcset('avif')} sizes={sizes} />
+    <source type="image/webp" srcset={srcset('webp')} sizes={sizes} />
+    <img
+      src={`/media/${id}-${fallbackW}.${isCut ? 'webp' : 'jpg'}`}
+      alt={alt}
+      width={entry.width}
+      height={entry.height}
+      loading={priority ? 'eager' : 'lazy'}
+      fetchpriority={priority ? 'high' : 'auto'}
+      decoding={priority ? 'sync' : 'async'}
+      style={position ? `object-position:${position}` : undefined}
+    />
+  </picture>
+) : (
+  <div class:list={['portrait portrait--missing', cls]} role="img" aria-label={alt}>
+    <span>Portrait asset not bundled in this checkout — see docs/HANDOFF.md</span>
+  </div>
+)}
+
+<style>
+  .portrait { display: block; }
+  .portrait img { inline-size: 100%; block-size: 100%; }
+  .portrait--cut img { object-fit: contain; object-position: 50% 0; }
+  .portrait--photo img { object-fit: cover; object-position: 50% 12%; }
+  .portrait--missing {
+    display: grid; place-items: center; min-block-size: 320px; padding: 24px; text-align: center;
+    border: 1px dashed var(--kha-color-luban); color: var(--tone-muted); font-size: 0.8rem;
+  }
+</style>

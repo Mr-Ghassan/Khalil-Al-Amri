@@ -1,0 +1,48 @@
+---
+/**
+ * The approved v7d signature — official vector masters from 05_SVG/Web, served byte-for-byte.
+ * Never redrawn, re-coloured, stretched or typeset. Clear space (4N) is already inside the viewBox.
+ */
+import media from '@/generated/media.json';
+import type { Locale } from '@/i18n/routes';
+import { person } from '@/config/site';
+
+interface Props {
+  variant?: 'primary' | 'compact';
+  surface?: 'light' | 'dark';
+  lang: Locale;
+  class?: string;
+  /** Rendered width in CSS (any length). Height follows the master's aspect ratio. */
+  width?: string;
+  loading?: 'eager' | 'lazy';
+}
+const { variant = 'primary', surface = 'light', lang, class: cls, width, loading = 'lazy' } = Astro.props;
+const file = `KHA_Signature_${variant === 'primary' ? 'Primary' : 'Compact'}_AR_${surface === 'light' ? 'PrimaryColor' : 'OnDark'}.min.svg`;
+const box = variant === 'primary' ? { w: 1659.82, h: 706.66 } : { w: 1659.82, h: 653.85 };
+const available = (media.brand as string[]).includes(file);
+const alt = lang === 'ar' ? `${person.nameAr} — ${person.descriptorAr}` : `${person.nameEn} — ${person.nameAr}`;
+---
+{available ? (
+  <img
+    class:list={['signature', cls]}
+    src={`/brand/${file}`}
+    alt={alt}
+    width={Math.round(box.w / 2)}
+    height={Math.round(box.h / 2)}
+    style={`aspect-ratio:${box.w} / ${box.h};${width ? `inline-size:${width}` : ''}`}
+    loading={loading}
+    decoding="async"
+  />
+) : (
+  <span class:list={['signature signature--missing', cls]} role="img" aria-label={alt} style={width ? `inline-size:${width}` : undefined}>
+    {person.nameAr}
+  </span>
+)}
+
+<style>
+  .signature { block-size: auto; }
+  .signature--missing {
+    display: grid; place-items: center; aspect-ratio: 2.35; border: 1px dashed var(--kha-color-luban);
+    font-family: var(--web-font-ar-display); font-size: 2rem; color: var(--tone-head);
+  }
+</style>

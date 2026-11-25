@@ -1,0 +1,54 @@
+---
+/** The seven-question framework (KHA_C90_CR_INV_052) — a calm, typographic list on deep water. */
+import SectionHead from '@/components/ui/SectionHead.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { sevenQuestions } from '@/copy/shared';
+import { href, type Locale } from '@/i18n/routes';
+
+interface Props { lang: Locale; cta?: boolean }
+const { lang, cta = true } = Astro.props;
+const c = sevenQuestions[lang];
+---
+<section class="seven section ambient-deep grain" data-tone="deep" style="--glow-x: 85%; --glow-y: 10%; --grain: 0.07" aria-labelledby="seven-title">
+  <div class="wrap">
+    <div class="seven__head">
+      <SectionHead eyebrow={c.eyebrow} title={c.title} lead={c.lead} id="seven-title" />
+    </div>
+    <ol class="seven__list">
+      {c.items.map((q, i) => (
+        <li data-reveal style={`--i:${i % 4}`}>
+          <span class="seven__n num">{q.n}</span>
+          <h3 class="seven__title">{q.title}</h3>
+          <p class="seven__test">{q.test}</p>
+        </li>
+      ))}
+    </ol>
+    <div class="seven__foot">
+      <p class="t-muted seven__note">{c.note}</p>
+      {cta && (
+        <a class="btn" href={`${href(lang, 'interest')}?intent=compare`}>
+          {lang === 'ar' ? 'قارن وحدتين معي' : 'Compare two units with me'}<Icon name="arrow" class="arrow" />
+        </a>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .seven__list {
+    list-style: none; padding: 0; margin-block-start: clamp(40px, 6vw, 72px);
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+    border-block-start: 1px solid var(--tone-rule);
+  }
+  .seven__list li {
+    display: grid; gap: 8px; align-content: start; padding: 28px 24px 32px 0;
+    border-block-end: 1px solid var(--tone-rule);
+  }
+  :global([dir='rtl']) .seven__list li { padding: 28px 0 32px 24px; }
+  .seven__n { font-size: 0.85rem; font-weight: 600; color: var(--kha-color-ufuq); }
+  .seven__title { font-size: var(--web-fs-h3); line-height: 1.3; color: var(--kha-color-sarooj); }
+  :global(:lang(ar)) .seven__title { font-family: var(--web-font-ar-display); font-size: 1.85rem; line-height: 1.4; }
+  .seven__test { color: color-mix(in srgb, var(--kha-color-sarooj) 86%, var(--kha-color-ufuq)); }
+  .seven__foot { margin-block-start: 40px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between; }
+  .seven__note { max-inline-size: 52ch; }
+</style>

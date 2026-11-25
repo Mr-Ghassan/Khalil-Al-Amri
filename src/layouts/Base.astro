@@ -1,0 +1,96 @@
+---
+import '@/styles/fonts.css';
+import '@/styles/tokens.generated.css';
+import '@/styles/base.css';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import { t } from '@/i18n/ui';
+import { dir, alternatePath, type Locale, type PageKey } from '@/i18n/routes';
+import { IS_PREVIEW, LICENSED_FONTS, person, contact } from '@/config/site';
+
+interface Props {
+  lang: Locale;
+  title: string;
+  description: string;
+  page?: PageKey;
+  /** Set when a page has no equivalent in the other locale (should not happen in v1). */
+  noAlternate?: boolean;
+  ogType?: 'website' | 'article' | 'profile';
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+const { lang, title, description, page, noAlternate = false, ogType = 'website', jsonLd } = Astro.props;
+const u = t(lang);
+const site = Astro.site ?? new URL('https://www.khalilprop.com');
+const path = Astro.url.pathname;
+const canonical = new URL(path, site).href;
+const arUrl = new URL(alternatePath(path, 'ar'), site).href;
+const enUrl = new URL(alternatePath(path, 'en'), site).href;
+const fullTitle = page === 'home' ? title : `${title} · ${lang === 'ar' ? person.nameAr : person.nameEn}`;
+const ogImage = new URL('/media/og-default.jpg', site).href;
+
+const personLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: person.nameEn,
+  alternateName: person.nameAr,
+  jobTitle: lang === 'ar' ? person.descriptorAr : person.descriptorEn,
+  url: site.href,
+  sameAs: [contact.instagram.url],
+};
+const ld = [personLd, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [])];
+---
+<!doctype html>
+<html lang={lang} dir={dir(lang)} class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <script is:inline>document.documentElement.classList.replace('no-js', 'js');</script>
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {!noAlternate && (
+      <>
+        <link rel="alternate" hreflang="ar" href={arUrl} />
+        <link rel="alternate" hreflang="en" href={enUrl} />
+        <link rel="alternate" hreflang="x-default" href={arUrl} />
+      </>
+    )}
+    {IS_PREVIEW && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="theme-color" content="#F4F8FB" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={lang === 'ar' ? 'ar_OM' : 'en_GB'} />
+    <meta property="og:locale:alternate" content={lang === 'ar' ? 'en_GB' : 'ar_OM'} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    {LICENSED_FONTS && <link rel="stylesheet" href="/fonts/licensed/fonts.css" />}
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{u.skip}</a>
+    {IS_PREVIEW && (
+      <div class="preview-bar" role="note"><b>{u.draft.badge}</b> · {u.draft.banner}</div>
+    )}
+    <Header lang={lang} current={page} />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+    <script>
+      import '@/scripts/reveal';
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  body { background: var(--kha-ambient-light-0); }
+  main:focus { outline: none; }
+</style>

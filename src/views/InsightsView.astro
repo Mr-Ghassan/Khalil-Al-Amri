@@ -1,0 +1,147 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/sections/PageHero.astro';
+import InsightCard from '@/components/ui/InsightCard.astro';
+import Icon from '@/components/ui/Icon.astro';
+import AnchorCTA from '@/components/sections/AnchorCTA.astro';
+import { getInsights, categoryLabel } from '@/lib/content';
+import { CATEGORIES } from '@/content.config';
+import { t } from '@/i18n/ui';
+import { href, type Locale } from '@/i18n/routes';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const u = t(lang);
+const entries = await getInsights(lang);
+const ar = lang === 'ar';
+const c = {
+  title: ar ? 'المعرفة العقارية' : 'Insights',
+  heading: ar ? 'افهم قبل ما تقرر.' : 'Understand first. Decide after.',
+  lead: ar ? 'مواد قصيرة تشرح الأرقام والأسئلة اللي تهمك قبل أي قرار عقاري. كل مادة لها مرجع وتاريخ مراجعة.' : 'Short pieces on the numbers and questions that matter before any property decision. Each one carries its source reference and a review date.',
+  description: ar ? 'مواد معرفية عقارية من خليل العامري: احسبها، قبل أن تشتري، سكن واستثمار، وصح أم يعتمد.' : 'Property insights from Khalil Al Amri: run the numbers, before you buy, home & investment, and true-or-it-depends.',
+  search: ar ? 'ابحث في المعرفة' : 'Search insights',
+  searchHint: ar ? 'مثال: الصافي، الموقع، الانتظار' : 'e.g. net yield, location, waiting',
+  all: ar ? 'الكل' : 'All',
+  filterLabel: ar ? 'تصفية حسب الموضوع' : 'Filter by topic',
+  count: ar ? 'مادة' : 'pieces',
+  noResults: ar ? 'ما لقينا مادة تطابق بحثك.' : 'No insight matches your search.',
+  noResultsHint: ar ? 'جرّب كلمة أبسط، أو اسألني مباشرة — يمكن سؤالك يصير المادة الجاية.' : 'Try a simpler word, or ask me directly — your question might become the next piece.',
+  reset: ar ? 'امسح البحث' : 'Clear search',
+  empty: ar ? 'المواد المعرفية قيد المراجعة التحريرية، وتُنشر هنا بعد اعتمادها.' : 'Insights are in editorial review and will appear here once approved.',
+};
+const counts = Object.fromEntries(CATEGORIES.map((k) => [k, entries.filter((e) => e.data.category === k).length]));
+---
+<Base lang={lang} title={c.title} description={c.description} page="insights">
+  <PageHero eyebrow={c.title} title={c.heading} lead={c.lead}
+    crumbs={[{ label: u.nav.home, href: href(lang, 'home') }, { label: c.title }]} crumbLabel={u.breadcrumb} />
+
+  <section class="lib section" data-tone="paper" aria-label={c.title}>
+    <div class="wrap">
+      {entries.length === 0 ? (
+        <div class="lib__state" role="status">
+          <Icon name="clock" />
+          <p class="t-lead">{c.empty}</p>
+          <a class="btn" href={href(lang, 'interest')}>{u.cta.ask}<Icon name="arrow" class="arrow" /></a>
+        </div>
+      ) : (
+        <div data-library>
+          <div class="lib__tools" hidden data-tools>
+            <div class="lib__search">
+              <label for="lib-q" class="visually-hidden">{c.search}</label>
+              <Icon name="search" />
+              <input id="lib-q" type="search" placeholder={c.searchHint} autocomplete="off" data-q />
+            </div>
+            <div class="lib__filters" role="group" aria-label={c.filterLabel}>
+              <button type="button" aria-pressed="true" data-cat="">{c.all}</button>
+              {CATEGORIES.filter((k) => counts[k]).map((k) => (
+                <button type="button" aria-pressed="false" data-cat={k}>{categoryLabel[lang][k]}</button>
+              ))}
+            </div>
+          </div>
+          <p class="lib__count t-meta" aria-live="polite" data-count><span class="num" data-n>{entries.length}</span> {c.count}</p>
+          <ul class="lib__grid">
+            {entries.map((e, i) => <li data-item><InsightCard entry={e} lang={lang} variant={i} headingLevel="h2" /></li>)}
+          </ul>
+          <div class="lib__state lib__state--none" hidden data-none role="status">
+            <Icon name="search" />
+            <p class="t-lead">{c.noResults}</p>
+            <p class="t-muted">{c.noResultsHint}</p>
+            <div class="btn-row">
+              <button type="button" class="btn btn--ghost" data-reset>{c.reset}</button>
+              <a class="btn" href={href(lang, 'interest')}>{u.cta.ask}<Icon name="arrow" class="arrow" /></a>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <AnchorCTA lang={lang} />
+</Base>
+
+<style>
+  .lib__tools { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; margin-block-end: 20px; }
+  .lib__tools[hidden] { display: none; }
+  .lib__search { position: relative; flex: 1 1 280px; max-inline-size: 420px; }
+  .lib__search :global(.icon) { position: absolute; inset-inline-start: 16px; inset-block-start: 50%; translate: 0 -50%; inline-size: 20px; block-size: 20px; color: var(--kha-color-slate); pointer-events: none; }
+  .lib__search input {
+    inline-size: 100%; min-block-size: 50px; padding-inline: 46px 16px; border-radius: var(--kha-radius-pill);
+    border: 1px solid var(--kha-color-limestone); background: white;
+  }
+  .lib__search input:focus-visible { outline: 3px solid var(--kha-color-mawj); outline-offset: 2px; }
+  .lib__filters { display: flex; flex-wrap: wrap; gap: 8px; }
+  .lib__filters button {
+    min-block-size: 44px; padding: 8px 16px; border-radius: var(--kha-radius-pill); border: 1px solid var(--kha-color-limestone);
+    background: transparent; color: var(--kha-color-ink); font-size: 0.95rem;
+  }
+  .lib__filters button[aria-pressed='true'] { background: var(--kha-color-bahr); color: var(--kha-color-sarooj); border-color: var(--kha-color-bahr); }
+  .lib__count { margin-block-end: 24px; }
+  .lib__grid { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(28px, 3vw, 44px) clamp(20px, 2.4vw, 36px); }
+  .lib__grid li[hidden] { display: none; }
+  .lib__state { display: grid; justify-items: start; gap: 14px; padding: clamp(28px, 4vw, 48px); border-radius: var(--kha-radius-subtle); background: var(--kha-color-sarooj); max-inline-size: 44rem; }
+  .lib__state[hidden] { display: none; }
+  .lib__state > :global(.icon) { inline-size: 28px; block-size: 28px; color: var(--kha-color-mawj); }
+  @media (max-width: 1000px) { .lib__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .lib__grid { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-library]');
+  if (root) {
+    const tools = root.querySelector<HTMLElement>('[data-tools]');
+    const q = root.querySelector<HTMLInputElement>('[data-q]');
+    const btns = [...root.querySelectorAll<HTMLButtonElement>('[data-cat]')];
+    const items = [...root.querySelectorAll<HTMLElement>('[data-item]')];
+    const none = root.querySelector<HTMLElement>('[data-none]');
+    const n = root.querySelector<HTMLElement>('[data-n]');
+    let cat = '';
+    if (tools) tools.hidden = false;
+    const norm = (s: string) => s.toLowerCase().normalize('NFKD').replace(/[ً-ْـ]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي');
+    const apply = () => {
+      const term = norm(q?.value.trim() ?? '');
+      let shown = 0;
+      for (const li of items) {
+        const card = li.querySelector<HTMLElement>('[data-category]');
+        const okCat = !cat || card?.dataset.category === cat;
+        const okQ = !term || norm(card?.dataset.search ?? '').includes(term);
+        li.hidden = !(okCat && okQ);
+        if (!li.hidden) shown++;
+      }
+      if (n) n.textContent = String(shown);
+      if (none) none.hidden = shown > 0;
+    };
+    q?.addEventListener('input', apply);
+    btns.forEach((b) => b.addEventListener('click', () => {
+      cat = b.dataset.cat ?? '';
+      btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      apply();
+    }));
+    root.querySelector('[data-reset]')?.addEventListener('click', () => {
+      if (q) q.value = '';
+      cat = '';
+      btns.forEach((x, i) => x.setAttribute('aria-pressed', String(i === 0)));
+      apply();
+      q?.focus();
+    });
+  }
+</script>

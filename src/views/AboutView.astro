@@ -1,0 +1,137 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/sections/PageHero.astro';
+import Portrait from '@/components/brand/Portrait.astro';
+import DraftNote from '@/components/ui/DraftNote.astro';
+import Icon from '@/components/ui/Icon.astro';
+import AnchorCTA from '@/components/sections/AnchorCTA.astro';
+import { about } from '@/copy/about';
+import { contact, IS_PREVIEW } from '@/config/site';
+import { t } from '@/i18n/ui';
+import { href, type Locale } from '@/i18n/routes';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const c = about[lang];
+const u = t(lang);
+const profileLd = { '@context': 'https://schema.org', '@type': 'ProfilePage', name: c.meta.title, inLanguage: lang };
+---
+<Base lang={lang} title={c.meta.title} description={c.meta.description} page="about" ogType="profile" jsonLd={profileLd}>
+  <PageHero
+    eyebrow={c.hero.eyebrow}
+    title={c.hero.title}
+    lead={c.hero.lead}
+    portrait={{ id: 'khalil-cut-0424', alt: c.hero.portraitAlt, eye: 0.097, aspect: 1054 / 2641 }}
+    crumbs={[{ label: u.nav.home, href: href(lang, 'home') }, { label: u.nav.about }]}
+    crumbLabel={u.breadcrumb}
+  >
+    <div class="btn-row">
+      <a class="btn" href={href(lang, 'interest')}>{u.cta.ask}<Icon name="arrow" class="arrow" /></a>
+      <a class="btn btn--ghost" href={href(lang, 'advisory')}>{u.cta.howIHelp}</a>
+    </div>
+  </PageHero>
+
+  <section class="why section" data-tone="paper" aria-labelledby="why-title">
+    <div class="wrap why__grid">
+      <p class="eyebrow" id="why-title"><span class="t-meta">{c.why.eyebrow}</span></p>
+      <blockquote class="why__quote" data-reveal>
+        {c.why.quote.map((line, i) => <p class={i === 0 ? 'why__q' : ''}>{line}</p>)}
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="principles section" data-tone="foam" aria-labelledby="principles-title">
+    <div class="wrap">
+      <p class="eyebrow"><span class="t-meta">{c.principles.eyebrow}</span></p>
+      <h2 class="t-h2 principles__title" id="principles-title">{c.principles.title}</h2>
+      <ol class="principles__list">
+        {c.principles.items.map((p, i) => (
+          <li data-reveal style={`--i:${i}`}>
+            <span class="num principles__n">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="t-h3">{p.title}</h3>
+            <p>{p.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="prep section" data-tone="paper" aria-labelledby="prep-title">
+    <div class="wrap prep__grid">
+      <div class="prep__photo">
+        <Portrait id="khalil-photo-0426" alt={c.prepare.photoAlt} sizes="(max-width: 900px) 90vw, 520px" class="prep__img" position="50% 18%" />
+      </div>
+      <div class="prep__text" data-reveal>
+        <p class="eyebrow"><span class="t-meta">{c.prepare.eyebrow}</span></p>
+        <h2 class="t-h2" id="prep-title">{c.prepare.title}</h2>
+        <p class="t-lead">{c.prepare.text}</p>
+        <p class="prep__quote">{c.prepare.quote}</p>
+      </div>
+    </div>
+  </section>
+
+  {IS_PREVIEW && (
+    <section class="bio section section--tight" data-tone="sarooj" aria-labelledby="bio-title">
+      <div class="wrap">
+        <h2 class="t-h3" id="bio-title">{c.bio.title}</h2>
+        <DraftNote lang={lang} title={c.bio.title} class="bio__note">{c.bio.note}</DraftNote>
+        <ul class="bio__fields">
+          {c.bio.fields.map((f) => <li><span class="draft-tag">{u.draft.pending}</span> {f}</li>)}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <section class="gallery" data-tone="paper" aria-label={lang === 'ar' ? 'صور خليل' : 'Photographs of Khalil'}>
+    <div class="wrap gallery__grid">
+      <Portrait id="khalil-photo-0438" alt={c.gallery.alt[0]} sizes="(max-width: 700px) 90vw, 33vw" class="gallery__img" position="50% 14%" />
+      <Portrait id="khalil-photo-0436" alt={c.gallery.alt[1]} sizes="(max-width: 700px) 90vw, 33vw" class="gallery__img" position="50% 14%" />
+      <Portrait id="khalil-photo-0427" alt={c.gallery.alt[2]} sizes="(max-width: 700px) 90vw, 33vw" class="gallery__img" position="50% 22%" />
+    </div>
+  </section>
+
+  <section class="media section section--tight" data-tone="paper" aria-labelledby="media-title">
+    <div class="wrap media__box">
+      <div>
+        <p class="eyebrow"><span class="t-meta">{c.media.eyebrow}</span></p>
+        <h2 class="t-h3" id="media-title">{c.media.title}</h2>
+        <p class="t-muted">{c.media.text}</p>
+      </div>
+      <a class="btn btn--ghost" href={`mailto:${contact.email.address}`}><Icon name="mail" class="arrow" /><span class="ltr">{contact.email.address}</span></a>
+    </div>
+  </section>
+
+  <AnchorCTA lang={lang} />
+</Base>
+
+<style>
+  .why__grid { display: grid; grid-template-columns: minmax(0, 0.35fr) minmax(0, 1fr); gap: 32px; align-items: start; }
+  .why__quote { display: grid; gap: 18px; border-inline-start: 2px solid var(--kha-color-luban); padding-inline-start: clamp(20px, 3vw, 40px); }
+  .why__quote p { font-size: var(--web-fs-lead); color: var(--kha-color-ink); }
+  .why__quote .why__q { font-size: var(--web-fs-h2); line-height: 1.25; color: var(--kha-color-bahr); }
+  :global(:lang(ar)) .why__quote .why__q { font-family: var(--web-font-ar-display); line-height: 1.5; }
+  .principles__title { margin-block: 18px 48px; max-inline-size: 30ch; }
+  .principles__list { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .principles__list li { display: grid; gap: 12px; align-content: start; padding: 28px; border-radius: var(--kha-radius-subtle); background: var(--kha-color-paper); box-shadow: var(--kha-shadow-paper); }
+  .principles__n { color: var(--kha-color-mawj); font-weight: 600; font-size: 0.85rem; }
+  .prep__grid { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+  .prep :global(.prep__img) { aspect-ratio: 4 / 5; border-radius: var(--kha-radius-frame); overflow: hidden; }
+  .prep__text { display: grid; gap: 18px; }
+  .prep__quote { margin-block-start: 8px; padding-block-start: 18px; border-block-start: 1px solid var(--tone-rule); font-size: var(--web-fs-lead); color: var(--kha-color-bahr); }
+  :global(:lang(ar)) .prep__quote { font-family: var(--web-font-ar-display); font-size: 1.6rem; line-height: 1.6; }
+  .bio :global(.bio__note) { margin-block: 16px 20px; }
+  .bio__fields { list-style: none; padding: 0; display: grid; gap: 10px; }
+  .gallery__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; padding-block-start: clamp(24px, 4vw, 56px); }
+  .gallery :global(.gallery__img) { aspect-ratio: 3 / 4; border-radius: var(--kha-radius-subtle); overflow: hidden; }
+  .media__box { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between; padding-block: 32px; border-block: 1px solid var(--tone-rule); }
+  .media__box > div { display: grid; gap: 10px; max-inline-size: 40rem; }
+  @media (max-width: 900px) {
+    .why__grid, .prep__grid { grid-template-columns: 1fr; }
+    .principles__list { grid-template-columns: 1fr; }
+    .prep__photo { max-inline-size: 460px; }
+  }
+  @media (max-width: 700px) {
+    .gallery__grid { grid-template-columns: 1fr 1fr; }
+    .gallery :global(.gallery__img:last-child) { display: none; }
+  }
+</style>

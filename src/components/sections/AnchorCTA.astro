@@ -1,0 +1,58 @@
+---
+/**
+ * The anchor — the deepest point of every page. Night ambient with an Ufuq glow placed BEHIND Khalil
+ * (the reference-board lighting idea, re-expressed in the sea palette). Nothing overlaps him.
+ */
+import Portrait from '@/components/brand/Portrait.astro';
+import ContactRow from '@/components/brand/ContactRow.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { home } from '@/copy/home';
+import { t } from '@/i18n/ui';
+import { href, type Locale } from '@/i18n/routes';
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const c = home[lang].anchor;
+const u = t(lang);
+---
+<section class="anchor ambient-night grain" data-tone="night" aria-labelledby="anchor-title" style="--grain:0.07">
+  <div class="wrap anchor__grid">
+    <div class="anchor__figure" aria-hidden="false">
+      <span class="anchor__glow" aria-hidden="true"></span>
+      <Portrait id="khalil-cut-0425" alt={c.portraitAlt} sizes="(max-width: 900px) 70vw, 420px" class="anchor__portrait" />
+    </div>
+    <div class="anchor__text" data-reveal>
+      <p class="eyebrow"><span class="t-meta">{c.eyebrow}</span></p>
+      <h2 class="t-display anchor__title" id="anchor-title">{c.title}</h2>
+      <p class="t-lead">{c.lead}</p>
+      <div class="btn-row">
+        <a class="btn" href={href(lang, 'interest')}>{u.cta.register}<Icon name="arrow" class="arrow" /></a>
+        <a class="btn btn--ghost" href={href(lang, 'contact')}>{u.nav.contact}</a>
+      </div>
+      <div class="anchor__contact">
+        <ContactRow lang={lang} />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .anchor { padding-block: clamp(72px, 9vw, 128px) 0; overflow: clip; --glow-x: 26%; --glow-y: 46%; }
+  :global([dir='rtl']) .anchor { --glow-x: 74%; }
+  .anchor__grid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(24px, 5vw, 80px); align-items: end; }
+  .anchor__figure { position: relative; align-self: end; display: grid; justify-items: center; }
+  .anchor__glow {
+    position: absolute; inset-block-start: -6%; inset-inline: -20%; block-size: 70%; z-index: 0;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--kha-color-ufuq) 50%, transparent), transparent);
+    filter: blur(8px);
+  }
+  .anchor :global(.anchor__portrait) { position: relative; z-index: 1; inline-size: min(100%, 400px); }
+  .anchor__text { display: grid; gap: 22px; padding-block-end: clamp(56px, 8vw, 112px); }
+  .anchor__title { color: var(--kha-color-sarooj); }
+  .anchor__contact { margin-block-start: 18px; padding-block-start: 18px; border-block-start: 1px solid var(--tone-rule); max-inline-size: 36rem; }
+  @media (max-width: 900px) {
+    .anchor__grid { grid-template-columns: 1fr; }
+    .anchor__text { order: -1; padding-block-end: 8px; }
+    .anchor :global(.anchor__portrait) { inline-size: min(78%, 340px); }
+  }
+</style>

@@ -1,0 +1,61 @@
+---
+/**
+ * Insight card with a typographic cover (no stock imagery): keyword + Mawj lines.
+ * The Mawj motif follows DS ranges (3–14 lines, 1.5–2.5 px stroke, band ≤ 1/3 of the canvas).
+ */
+import type { Insight } from '@/lib/content';
+import { categoryLabel, formatLabel } from '@/lib/content';
+import { insightHref, type Locale } from '@/i18n/routes';
+import { t } from '@/i18n/ui';
+import { IS_PREVIEW } from '@/config/site';
+
+interface Props { entry: Insight; lang: Locale; variant?: number; headingLevel?: 'h2' | 'h3' }
+const { entry, lang, variant = 0, headingLevel = 'h3' } = Astro.props;
+const d = entry.data;
+const H = headingLevel;
+const tone = ['deep', 'foam', 'sarooj'][variant % 3];
+const wave = (y: number, amp: number) => `M-20 ${y} C 80 ${y - amp}, 180 ${y + amp}, 280 ${y} S 480 ${y - amp}, 580 ${y}`;
+---
+<article class="icard" data-category={d.category} data-search={`${d.title} ${d.excerpt} ${d.keyword}`.toLowerCase()}>
+  <a class="icard__link" href={insightHref(lang, d.slug)}>
+    <div class={`icard__cover icard__cover--${tone}`} aria-hidden="true">
+      <span class="icard__cat">{categoryLabel[lang][d.category]}</span>
+      <span class="icard__kw">{d.keyword}</span>
+      <svg class="icard__mawj" viewBox="0 0 560 120" preserveAspectRatio="none">
+        {[0, 1, 2, 3, 4].map((i) => <path d={wave(30 + i * 16, 10 + i * 2)} />)}
+      </svg>
+    </div>
+    <div class="icard__body">
+      <p class="t-meta icard__meta">
+        {formatLabel[lang][d.format]}
+        {IS_PREVIEW && d.publishState !== 'published' && <span class="draft-tag">{t(lang).draft.pending}</span>}
+      </p>
+      <H class="icard__title">{d.title}</H>
+      <p class="icard__excerpt t-muted">{d.excerpt}</p>
+    </div>
+  </a>
+</article>
+
+<style>
+  .icard { block-size: 100%; }
+  .icard__link { display: grid; grid-template-rows: auto 1fr; block-size: 100%; text-decoration: none; color: inherit; border-radius: var(--kha-radius-subtle); }
+  .icard__cover {
+    position: relative; overflow: hidden; aspect-ratio: 16 / 10; border-radius: var(--kha-radius-subtle);
+    display: grid; align-content: space-between; padding: 20px 22px;
+    transition: transform var(--kha-motion-duration-standard) var(--kha-motion-ease-ocean);
+  }
+  .icard__cover--deep { background: linear-gradient(150deg, var(--kha-ambient-deep-0), var(--kha-color-bahr)); color: var(--kha-color-sarooj); --wave: var(--kha-color-ufuq); }
+  .icard__cover--foam { background: linear-gradient(150deg, var(--kha-ambient-light-0), var(--kha-color-zabad)); color: var(--kha-color-bahr); --wave: var(--kha-color-mawj); }
+  .icard__cover--sarooj { background: linear-gradient(150deg, var(--kha-color-paper), var(--kha-color-sarooj)); color: var(--kha-color-ink); --wave: var(--kha-color-luban); }
+  .icard__cat { font-size: 0.8rem; font-weight: 500; opacity: 0.9; position: relative; z-index: 1; }
+  .icard__kw { font-size: clamp(2rem, 1.5rem + 2vw, 3rem); line-height: 1.1; font-weight: 600; position: relative; z-index: 1; }
+  :global(:lang(ar)) .icard__kw { font-family: var(--web-font-ar-display); line-height: 1.35; }
+  .icard__mawj { position: absolute; inset-inline: 0; inset-block-end: 0; inline-size: 100%; block-size: 34%; fill: none; stroke: var(--wave); stroke-width: 1.6; opacity: 0.55; }
+  .icard__body { display: grid; gap: 8px; align-content: start; padding-block: 18px 6px; }
+  .icard__meta { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .icard__title { font-size: 1.3rem; line-height: 1.35; color: var(--tone-head, var(--kha-color-bahr)); font-weight: 600; }
+  :global(:lang(ar)) .icard__title { font-size: 1.35rem; line-height: 1.55; }
+  .icard__excerpt { font-size: var(--web-fs-small); line-height: 1.7; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .icard__link:hover .icard__cover { transform: translateY(-4px); }
+  .icard__link:hover .icard__title { text-decoration: underline; text-decoration-thickness: 1px; }
+</style>

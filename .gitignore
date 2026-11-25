@@ -1,0 +1,18 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+# Portraits and brand masters are NOT committed (public repository) — neither originals nor web
+# derivatives. The deploy build downloads the web media bundle from the Drive delivery folder
+# (MEDIA_BUNDLE_URL build variable). See docs/HANDOFF.md.
+assets-private/
+public/media/
+public/brand/
+public/favicon.svg
+media-bundle/
+build-meta/
+# Licensed fonts are never committed (OPEN-12 / OPEN-15).
+public/fonts/licensed/
+qa-output/

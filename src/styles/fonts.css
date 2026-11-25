@@ -1,0 +1,22 @@
+/*
+  Web fonts — TEMPORARY COMPLIANT FALLBACKS (see docs/adr/ADR-003-typography-licensing.md).
+
+  Approved brand typography (Brand Package v1.2 / DS v1.1):
+    Arabic text      → KHA Jazeera / Al Jazeera   (web licence not yet established — OPEN-12)
+    Arabic display   → Thmanyah Serif Display     (web self-hosting restricted by owner — OPEN-15/17)
+    Latin            → Schibsted Grotesk          (SIL OFL — self-hosted here, approved family)
+
+  Until licensed web delivery is documented, the Arabic families below stand in for previews.
+  They are open-source (SIL OFL 1.1) and bundled from npm, so no third-party font request is made.
+  The approved family names stay first in every stack, so a licensed install wins automatically.
+*/
+@import '@fontsource/schibsted-grotesk/latin-400.css';
+@import '@fontsource/schibsted-grotesk/latin-500.css';
+@import '@fontsource/schibsted-grotesk/latin-600.css';
+@import '@fontsource/schibsted-grotesk/latin-700.css';
+@import '@fontsource/ibm-plex-sans-arabic/arabic-400.css';
+@import '@fontsource/ibm-plex-sans-arabic/arabic-500.css';
+@import '@fontsource/ibm-plex-sans-arabic/arabic-600.css';
+@import '@fontsource/markazi-text/arabic-500.css';
+@import '@fontsource/markazi-text/arabic-600.css';
+@import '@fontsource/markazi-text/arabic-700.css';
