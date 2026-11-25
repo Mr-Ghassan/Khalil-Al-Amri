@@ -27,9 +27,12 @@ Fixed during the loop:
 
 Checked and acceptable: Arabic line breaks (no orphans in hero, headings balanced), numbers and phone in LTR isolates inside RTL, kumma never cropped on any page or width, nothing overlaps Khalil, contact row on one baseline (stacks under 540 px), focus rings visible on dark and light tones, intent tabs keyboard-operable (arrows follow reading direction), form errors announced and linked.
 
+## Live check (https://khalil.76.13.219.20.sslip.io, 25 Nov 2026)
+13 routes + media + robots + health → expected status codes (404 for unknown paths); CSP, HSTS, X-Frame-Options present; `noindex` meta and `Disallow: /` in preview; Chromium at 1440 and 390 px: no console or CSP errors, no broken images.
+
 ## Not run / limits (be aware)
 - **No Lighthouse/CWV field data.** LCP candidate is the hero cut-out (`fetchpriority=high`, AVIF ≈ 40–60 KB at 640–960 w). Measure on the real domain after DNS.
 - **Safari/WebKit and Firefox not tested** (only Chromium is installed here). RTL + `mask-image` + `color-mix()` need a check on iOS Safari ≥ 16.4.
 - **No screen-reader session** (VoiceOver/TalkBack); only automated semantics.
-- **Docker image not built locally** (no Docker in this container); the Coolify build log is the first real build.
+- Docker image built on Coolify (2nd attempt; the 1st failed because `public/` is absent in a clean clone — fixed). nginx config was also validated locally with `nginx -t` and served the built site.
 - Fonts are OFL stand-ins (ADR-003) — final Arabic typography must be re-reviewed with licensed files.
